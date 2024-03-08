@@ -1,0 +1,238 @@
+{% extends 'base/base.html' %}
+
+{% block bs %}
+<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+{% endblock bs %}
+{% load static %}
+{% block content %}
+<style>
+    .cc.col.row.m-1.bg-gradient-lighter.rounded.p-1.pb-2 {
+        border: 1px solid lightgray !important;
+    }
+    .card-counter{
+        box-shadow: 2px 2px 10px #DADADA;
+        margin: 5px;
+        padding: 20px 10px;
+        background-color: #fff;
+        height: 100px;
+        border-radius: 5px;
+        transition: .3s linear all;
+      }
+    
+      .card-counter:hover{
+        box-shadow: 4px 4px 20px #DADADA;
+        transition: .3s linear all;
+      }
+    
+      .card-counter.primary{
+        background-color: #007bff;
+        color: #FFF;
+      }
+    
+      .card-counter.danger{
+        background-color: #ef5350;
+        color: #FFF;
+      }  
+    
+      .card-counter.success{
+        background-color: #66bb6a;
+        color: #FFF;
+      }  
+    
+      .card-counter.info{
+        background-color: #26c6da;
+        color: #FFF;
+      }  
+    
+      .card-counter i{
+        font-size: 4em;
+        opacity: 0.2;
+      }
+    
+      .card-counter .count-numbers{
+        position: absolute;
+        margin-left: 29px;
+        font-size: 32px;
+      }
+    
+      .card-counter .count-name{
+        position: absolute;
+        margin-left: 74px !important;
+        margin-top: -12px;
+        font-style: italic;
+        text-transform: capitalize;
+        opacity: 0.5;
+        font-size: 16px;
+      }
+</style>
+{% if request.user.is_staff %}
+<div class="card">
+    <div class="card-header my-0 py-1 d-flex">
+        <p class="card-title mx-3">OverView</p> 
+        {% comment %} <input type="date" id="idOverViewDate" name="OverViewDate" class="border-0"> {% endcomment %}
+    </div>
+    <div class="card-body cus_form row">
+        
+        <div class="col row m-1 bg-gradient-lighter rounded p-1 pb-2">
+        
+            {% comment %} <span class="text-primary col text-center align-self-center text-lg p-1"> <i class="fas fa-user"></i></span> {% endcomment %}
+            <div class="col p-1">
+                <div class="card-counter info">
+                    <i class="fa fa-users"></i>
+                    <span class="count-numbers">{{total_user}}</span><br/>
+                    <span class="count-name">Total Users</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col row m-1 bg-gradient-lighter rounded p-1 pb-2">
+            {% comment %} <span class="text-success col text-center align-self-center text-lg p-1"><i class="fas fa-calendar"></i> </span> {% endcomment %}
+
+            <div class="col p-1">
+                <div class="card-counter danger">
+                    <i class="fas fa-network-wired"></i>
+                    <span class="count-numbers">{{total_categories}}</span><br/>
+                    <span class="count-name">Total Categories</span>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="col row m-1 bg-gradient-lighter rounded p-1 pb-2">
+
+            {% comment %} <span class="text-danger fa-coins fa col text-center align-self-center text-lg p-1"></span> {% endcomment %}
+            <div class="col p-1">
+                <div class="card-counter success">
+                    <i class="fas fa-images"></i>
+                    <span class="count-numbers">{{total_products}}</span><br/>
+                    <span class="count-name">Total Products</span>
+                </div>
+            
+            </div>
+        </div>
+
+    
+        <div class="col row m-1 bg-gradient-lighter rounded p-1 pb-2">
+            {% comment %} <span class="text-danger fa fa-money-check-alt text-primary col text-center align-self-center text-lg p-1"></span> {% endcomment %}
+
+            <div class="col p-1">
+                <div class="card-counter primary">
+                    <i class="fas fa-list"></i>
+
+                    <span class="count-numbers">{{total_orders}}</span><br/>
+                    <span class="count-name">Total Orders</span>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card">
+    <!-- Card header -->
+    <div class="card-header border-0">
+        <h6 class="mb-0"> Pending Orders </h6>
+    </div>
+    <!-- Light table -->
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover" id="example1">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col" class="sort">SN</th>
+                        <th scope="col" class="sort">Order-ID</th>
+                        <th scope="col" class="sort">User</th>
+                        <th scope="col" class="sort">Amount</th>
+                        <th scope="col" class="sort">Status</th>
+                        <th scope="col" class="sort">Date</th>
+                        <th scope="col" class="sort">Address</th>
+                        <th scope="col" class="sort">ZIP Code</th>
+                        <th scope="col" class="sort">Items</th>
+                    </tr>
+                </thead>
+                <tbody class="list">
+                    {% for order in orders %}
+                    <tr>
+                        <td class="budget">
+                            {{forloop.counter}}
+                        </td>
+                        <td>
+                            {{order.order_id}}
+                        </td>
+                        <td>
+                            <div class="media-body">
+                                <span class="name mb-0 text-sm">{{order.user.name}} </span>
+                                {% if order.user.email %}
+                                <p class="name mb-0 text-xs">{{order.user.email}} </p>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            {{order.total_price|floatformat:2}}
+                        </td>
+                        <td>
+                            <select class="border-0 orderStatus" data-order-id="{{ order.id }}">
+                                <option value="PENDING" {% if order.status == "PENDING" %}selected{% endif %}>PENDING</option>
+                                <option value="ORDERED" {% if order.status == "ORDERED" %}selected{% endif %}>ORDERED</option>
+                                <option value="IN-PROGRESS" {% if order.status == "IN-PROGRESS" %}selected{% endif %}>IN-PROGRESS</option>
+                                <option value="DELIVERED" {% if order.status == "DELIVERED" %}selected{% endif %}>DELIVERED</option>
+                                <option value="FAILED" {% if order.status == "FAILED" %}selected{% endif %}>FAILED</option>
+                            </select>
+                        </td>
+                        <td>
+                            {{order.created_at}}
+                        </td>
+                        <td>
+                            {% if order.delivery_address %}{{order.delivery_address}}{% endif %}
+                        </td>
+                        <td>
+                            {% if order.delivery_zip_code %}{{order.delivery_zip_code}} {% endif %}
+                        </td>
+                        <td>
+                            <i class="fa fa-eye" type="button" data-bs-toggle="modal" href="#seeOrderItemsModal{{order.id}}" style="background:transparent;"></i>
+                            <!-- Modal -->
+                            <div class="modal fade" id="seeOrderItemsModal{{order.id}}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel{{category.id}}">Order Products</h5>
+
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table">
+                                            <tr>
+                                                <th>SN</th>
+                                                <th>Name</th>
+                                                <th>Qty</th>
+                                                <th>Price</th>
+                                            </tr>
+                                            {% for items in order.order_products.all %}
+                                            <tr>
+                                                <td>{{forloop.counter}}</td>
+                                                <td>{{items.product.name}}</td>
+                                                <td>{{items.quantity}}</td>
+                                                <td>{{items.price|floatformat:2}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <!-- end Model -->
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>  
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,88 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+                <h3 class="mb-0">{{title}} </h3>
+                <a href="{% url "add_product" %}" class="bg-success btn float-end">+Add</a>
+            </div>
+            {% csrf_token %}
+            <!-- Light table -->
+            <div class="table-responsive">
+                <table class="table table-hover" id="example1">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col" class="sort" data-sort="name">SN</th>
+                        <th scope="col" class="sort" data-sort="name">Image</th>
+                        <th scope="col" class="sort" data-sort="name">Name</th>
+                        <th scope="col" class="sort" data-sort="name">Category</th>
+                        <th scope="col" class="sort" data-sort="budget">Description</th>
+                        <th scope="col" class="sort" data-sort="budget">Price</th>
+                        <th scope="col" class="sort" data-sort="budget">Stock</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="list">
+                    {% for product in products %}
+                    <tr>
+                        <td class="budget">
+                            {{forloop.counter}}
+                        </td>
+                        <td>
+                            <img src="{{product.image1.url}}" class="image-sm">
+                        </td>
+                        <td>
+                            {{product.name}}
+                        </td>
+                        <td>
+                            {{product.category.name}}
+                        </td>
+                        <td>
+                            {{product.description}}
+                        </td>
+                        <td>
+                            {{product.price}} <span class="text-muted text-decoration-line-through"> {{product.list_price}} </span>
+                        </td>
+                        <td>
+                            {{product.stock}}
+                        </td>
+                        <td>
+                            <a href="{% url 'list_productreviews' product.id %}" class="btn bg-gray-300 p-1 mx-2">Reviews </a>
+                            <a href="{% url 'update_product' product.id %}"><i class="fa fa-edit" title="Update" ></i></a>
+                            <i class="fa fa-trash-alt" type="button" data-bs-toggle="modal" href="#deleteProductModal{{product.id}}" style="background:transparent;"></i>
+                        </td>
+                    </tr>
+                     <!-- Modal -->
+                    
+                    <div class="modal fade" id="deleteProductModal{{product.id}}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalLabel{{product.id}}">Delete product</h5>
+
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure want to delete ?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a class="btn btn-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <!-- end Model -->
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>  
+    </div>
+</div>
+{% endblock content %}
+

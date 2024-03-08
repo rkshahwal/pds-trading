@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Primary Meta Tags -->
+
+<title>
+    AstroStone {% block title %}{% endblock %}
+</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="wooshelf">
+<meta name="description" content="AstroStone Dimond Rings buy.">
+<meta name="keywords" content="AstroStone Dimond Rings buy" />
+{% comment %} <link rel="canonical" href="https://appseed.us/admin-dashboards/django-dashboard-volt"> {% endcomment %}
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/static/assets/img/favicon/favicon.png">
+<link rel="manifest" href="/static/assets/img/favicon/site.webmanifest">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+
+<link type="text/css" href="/static/assets/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+
+<link type="text/css" href="/static/assets/vendor/notyf/notyf.min.css" rel="stylesheet">
+<link type="text/css" href="/static/assets/css/volt.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+<!-- Specific Page JS goes HERE  -->    
+{% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+<body>
+
+    {% include 'includes/sidebar.html' %}
+    
+    <main class="content">
+
+      {% include 'includes/navigation.html' %}
+
+      {% comment %} Django messages {% endcomment %}
+      {% if messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {% for message in messages %}
+              {{ message|capfirst }}
+          {% endfor %}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endif %}
+
+      {% block content %}{% endblock content %} 
+
+      <!--  {% include 'includes/settings-box.html' %}-->
+
+      {% include 'includes/footer.html' %}
+
+    </main>
+
+  {% include 'includes/scripts.html' %}
+    
+  <!-- Specific Page JS goes HERE  -->
+  {% block javascripts %}{% endblock javascripts %}  
+      
+</body>
+</html>

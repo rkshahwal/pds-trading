@@ -1,0 +1,102 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+{% csrf_token %}
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+                <h3 class="mb-0">{{title}} </h3>
+                {% if request.resolver_match.view_name == 'user-tnxs' %}
+                <button onclick="history.back()" class="bg-gray-300 btn float-end mx-2">Back</button>
+                {% endif %}
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+                <table class="table table-hover" id="example1">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="sort">SN</th>
+                            <th scope="col" class="sort">Order-ID</th>
+                            <th scope="col" class="sort">User</th>
+                            <th scope="col" class="sort">Bank Track/UTR ID</th>
+                            <th scope="col" class="sort">Mode</th>
+                            <th scope="col" class="sort">Amount</th>
+                            <th scope="col" class="sort">Status</th>
+                            <th scope="col" class="sort">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        {% for tnx in transactions %}
+                        <tr>
+                            <td class="budget">
+                                {{forloop.counter}}
+                            </td>
+                            <td>
+                                {{tnx.order.order_id}}
+                            </td>
+                            <td>
+                                <div class="media-body">
+                                    <span class="name mb-0 text-sm">{{tnx.user.name}} </span>
+                                    {% if tnx.user.email %}
+                                    <p class="name mb-0 text-xs">{{tnx.user.email}} </p>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>
+                                {{tnx.tracking_id}}
+                            </td>
+                            <td>
+                                {{tnx.mode}}
+                            </td>
+                            <td>
+                                {{tnx.amount|floatformat:2}}
+                            </td>
+                            <td>
+                                <select class="border-0 tnxStatus" data-tnx-id="{{ tnx.id }}">
+                                    <option value="PENDING" {% if tnx.status == "PENDING" %}selected{% endif %}>PENDING</option>
+                                    <option value="SUCCESS" {% if tnx.status == "SUCCESS" %}selected{% endif %}>SUCCESS</option>
+                                    <option value="FAILED" {% if tnx.status == "FAILED" %}selected{% endif %}>FAILED</option>
+                                </select>
+                            </td>
+                            <td>
+                                {{tnx.created_at}}
+                            </td>
+                        </tr>
+                        
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>  
+    </div>
+</div>
+{% endblock content %}
+{% block javascripts %}
+    <script>
+        $(document).on('change', '.tnxStatus', function(e) {
+            var order_id = $(this).data('tnx-id');
+            var new_status = $(this).val();
+            var url = "{% url 'update-tnx-status-ajax' %}";
+            
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: {
+                    'tnx_id': tnx_id,
+                    'new_status': new_status,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.success) {
+                        console.log('Transaction status updated successfully');
+                    } else {
+                        console.error('Error updating transaction status:', data.error);
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock javascripts %}

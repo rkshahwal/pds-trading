@@ -1,0 +1,87 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+                <h3 class="mb-0">{{title}} </h3>
+                <a href="{% url "add_productfaq" %}" class="bg-success btn float-end">+Add</a>
+            </div>
+            {% csrf_token %}
+            <!-- Light table -->
+            <div class="table-responsive">
+                <table class="table table-hover" id="example1">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col" class="sort" data-sort="name">SN</th>
+                        <th scope="col" class="sort" data-sort="name">Product</th>
+                        <th scope="col" class="sort" data-sort="name">Category & Price</th>
+                        <th scope="col" class="sort" data-sort="budget">FAQs</th>
+                    </tr>
+                </thead>
+                <tbody class="list">
+                    {% for product in products %}
+                    <tr>
+                        <td class="budget">
+                            {{forloop.counter}}
+                        </td>
+                        <td>
+                            <img src="{{product.image1.url}}" class="image-sm"> 
+                            <span> {{product.name}} </span>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{product.category.name}}</p>
+                            {{product.price}} <span class="text-muted text-decoration-line-through"> {{product.list_price}} </span>
+                        </td>
+                        <td>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>Question</th>
+                                    <th>Answer</th>
+                                    <th>Action</th>
+                                </tr>
+                                {% for faq in product.faqs.all %}
+                                <tr>
+                                    <td>{{faq.question|linebreaksbr}}</td>
+                                    <td>{{faq.answer|linebreaksbr}}</td>
+                                    <td>
+                                        <a href="{% url "update_productfaq" faq.id %}"><i class="fa fa-edit" title="Update" ></i></a>
+                                        <i class="fa fa-trash-alt text-danger" type="button" data-bs-toggle="modal" href="#deletefaqModal{{faq.id}}" style="background:transparent;"></i>
+                                    </td>
+
+                                    <!-- Delete FAQ Modal -->
+                                    <div class="modal fade" id="deletefaqModal{{faq.id}}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel{{faq.id}}">Delete FAQ</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure want to delete ? 
+                                                {{faq.question}}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <a class="btn btn-danger" href="{% url 'delete_productfaq' faq.id %}">Delete</a>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <!-- end Model -->
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>  
+    </div>
+</div>
+{% endblock content %}
