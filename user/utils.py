@@ -45,3 +45,6 @@ def decode_uid(pk):
 
 def render_index_page(request):
     return redirect('index')
+
+def render_user_home_page(request):
+    return redirect('home')

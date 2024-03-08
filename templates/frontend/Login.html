@@ -14,17 +14,19 @@
           <div class="col  d-flex justify-content-center  "  >
          <form class="Login-Form " method="post" id="form-1">
           {% csrf_token %}
-          {% if messages %}
-          <div class="row  top-inside  error " >
-            <div class="col-sm-10" >
-              <ul class="messages">
-                {% for message in messages %}
-                <p {% if message.tags %} class="{{ message.tags }} alert alert-primary alert alert-danger alert-dismissible fade show p-2"{% endif %} role="alert"  style="height:40px; ">{{ message }}</p>
-                {% endfor %}
-              </ul>
+
+            {% if messages %}
+            <div class="row  top-inside  error " >
+              <div class="col-sm-10" >
+                <ul class="messages">
+                  {% for message in messages %}
+                  <p {% if message.tags %} class="{{ message.tags }} alert alert-primary alert alert-danger alert-dismissible fade show p-2"{% endif %} role="alert"  style="height:40px; ">{{ message }}</p>
+                  {% endfor %}
+                </ul>
+              </div>
             </div>
-          </div>
-          {% endif %}
+            {% endif %}
+
             <div class="row mb-5 Margin-Login "  >
              
               <div class="col-sm-10  d-flex justify-content-center ">
@@ -33,18 +35,10 @@
               </div>
             </div>
             
-            <div class="row  top-inside  error ">
-              <div class="col-sm-10">
-                <div class="alert alert-primary alert alert-danger alert-dismissible fade show p-2" role="alert" style="height:40px; ">
-                   Phone Number Empty <button type="button" class="btn-close  " data-bs-dismiss="alert" aria-label="Close" style="height:1px; "></button>
-                </div>
-              </div>
-            </div>
-
             <div class="row mb-4 Margin-Login "  >
              
               <div class="col-sm-10">
-                <input class="form-control " type="text" name='username' placeholder="Please enter the phone" aria-label="default input example"  id="phone-L">
+                <input class="form-control " type="number" name='username' placeholder="Please enter the phone" aria-label="default input example"  id="phone-L">
               </div>
             </div>
             <div class="row  Margin-Login error " >

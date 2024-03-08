@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from user.utils import render_index_page
+from django.conf import settings
+from django.conf.urls.static import static
+from user.utils import render_index_page, render_user_home_page
 
 
 admin.site.site_header = "ADM Treding Administration"
@@ -27,4 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('backend/user/', include('user.urls')),
     path('', include('frontend.urls')),
-]
+    # path('', render_user_home_page),
+] 
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

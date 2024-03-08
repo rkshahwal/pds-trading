@@ -8,7 +8,7 @@ class UserAdmin(admin.ModelAdmin):
         'name', 'email', 'mobile_number', 'referral_code',
         'date_joined', 'is_active'
     )
-    # readonly_fields = ("password",)
+    readonly_fields = ("referral_code",)
     list_editable = ('is_active',)
     list_filter = ('date_joined', 'is_active')
     search_fields = ('name', 'email', 'mobile_number')
@@ -16,7 +16,7 @@ class UserAdmin(admin.ModelAdmin):
     fieldsets = (
         ("Profile", {
             "classes": ("wide",),  # A custom CSS class that will be applied to the fieldset.
-            "fields": ("name", "email", "mobile_number", "referral_code")
+            "fields": ("name", "email", "mobile_number", "referral_code", "image")
         }),
         ("Password and Authorization", {
             "classes": ("collapse",),  # A custom CSS class that will be applied to the fieldset, and makes it collaps

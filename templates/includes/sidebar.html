@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
   <a class="navbar-brand me-lg-5" href="/">
-      <img class="navbar-brand-dark" src="/static/assets/img/logo.png" alt="Food Delivery logo" /> <img class="navbar-brand-light" src="/static/assets/img/logo.png" alt="Food Delivery logo" />
+      <img class="navbar-brand-dark" src="/static/assets/img/logo.png" alt="ADM logo" /> <img class="navbar-brand-light" src="/static/frontend/img/login-img.png" alt="ADM logo" />
   </a>
   <div class="d-flex align-items-center">
       <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,7 +12,7 @@
 <nav id="sidebarMenu" class="sidebar d-lg-block bg-gray-800 text-white collapse" data-simplebar>
   <div class="sidebar-inner px-4 pt-3">
     <div>
-      <img src="/static/assets/img/stone-logo.jpg" class="image-md">
+      <img src="/static/frontend/img/login-img.png" class="image-md">
     </div>
     
     <ul class="nav flex-column pt-3 pt-md-0">
@@ -36,9 +36,9 @@
       </li>
       
       <li class="nav-item"><!-- Separator with title --><hr class="navbar-divider"></li>
-      <li class="nav-item mb-4">
+      {% comment %} <li class="nav-item mb-4">
         <div class="text-italic nav-title text-muted">E-Commerce</div>
-      </li>
+      </li> {% endcomment %}
 
       {% comment %} <li class="nav-item {% if request.resolver_match.view_name == 'orders' %} active {% endif %}">
         <a href="{% url 'orders' %}" class="nav-link">

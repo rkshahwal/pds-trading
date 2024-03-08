@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'adm.middleware.RoutePermissions',
+    # 'adm.middleware.RoutePermissions',
 ]
 
 ROOT_URLCONF = 'adm.urls'
@@ -91,7 +91,7 @@ DATABASES = {
 
 AUTH_USER_MODEL = 'user.CustomUser'
 
-LOGIN_URL = "/user/login/"
+LOGIN_URL = "/login/"
 
 
 # Password validation

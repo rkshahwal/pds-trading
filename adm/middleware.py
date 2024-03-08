@@ -26,23 +26,23 @@ class RoutePermissions(object):
             not request.path.startswith('/media/')):
             return redirect('user_login')
 
+        # Permissions for superuser
+        elif (
+            (request.user.is_authenticated and request.user.is_superuser) \
+            and not request.path.startswith('') and \
+            not request.path.startswith('/') and \
+            not request.path.startswith('/logout/')) :
+                
+            raise PermissionDenied
+        
         
         # Permissions for Autherised users
         elif (
-            request.user.is_authenticated and request.user.is_active) \
-            and not request.path.startswith('') and \
-            not request.path.startswith('/') and \
-            not request.path.startswith('/logout/') :
+            (request.user.is_authenticated and request.user.is_active) and \
+            not request.path.startswith('') and \
+            not request.path.startswith('/logout/')) :
             raise PermissionDenied
         
-        # Permissions for superuser
-        elif (
-            request.user.is_authenticated and request.user.is_superuser) \
-            and not request.path.startswith('') and \
-            not request.path.startswith('/') and \
-            not request.path.startswith('/logout/') :
-                
-            raise PermissionDenied
                     
 
         # else:

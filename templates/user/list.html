@@ -46,7 +46,7 @@
                             </div>
                         </th>
                         <td>
-                            {{user.mobile}}
+                            {{user.mobile_number}}
                         </td>
                         <td>
                         {% if user.is_active %}
@@ -73,26 +73,6 @@
                                 <a class="dropdown-item d-flex align-items-center" href="{% url 'edit-user' user.id %}">
                                     <i class="fas fa-pen me-2" style="font-size:20px"></i>
                                     Edit
-                                </a>
-                                <div role="separator" class="dropdown-divider my-1"></div>
-                                <a class="dropdown-item d-flex align-items-center" href="{% url 'user-orders' user.id %}">
-                                    <i class="fas fa-list text-purple me-2" style="font-size:20px"></i>
-                                    Orders
-                                </a>
-                                <div role="separator" class="dropdown-divider my-1"></div>
-                                <a class="dropdown-item d-flex align-items-center" href="{% url 'user-tnxs' user.id %}">
-                                    <i class="fas fa-list text-info me-2" style="font-size:20px"></i>
-                                    Transactions
-                                </a>
-                                <div role="separator" class="dropdown-divider my-1"></div>
-                                <a class="dropdown-item d-flex align-items-center" type="button" data-bs-toggle="modal" href="#addressUserModal{{user.id}}">
-                                    <i class="fas fa-location-arrow text-info me-2" style="font-size:20px"></i>
-                                    Addresses
-                                </a>
-                                <div role="separator" class="dropdown-divider my-1"></div>
-                                <a class="dropdown-item d-flex align-items-center" href="{% url 'list_user_cart' user.id %}">
-                                    <i class="fas fa-cart-arrow-down me-2" style="font-size:20px"></i>
-                                    Cart Items
                                 </a>
                                 <div role="separator" class="dropdown-divider my-1"></div>
                                 <a class="dropdown-item d-flex align-items-center" type="button" data-bs-toggle="modal" href="#deleteUserModal{{user.id}}">
