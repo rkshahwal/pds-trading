@@ -65,7 +65,7 @@ def user_login(request):
                     return redirect(next)
                 return redirect('home')
             messages.warning(request, "Invailid Password.")
-    return render(request, 'frontend/login.html')
+    return render(request, 'frontend/user-login.html')
 
 
 @login_required
