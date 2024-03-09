@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static "frontend/css/styles.css" %}">
+  </head>
+  <body>
+    <div class="container-fluid  ">
+        <div class="row  py-3  ">
+          <div class="col">
+          <a href="#"  onclick="history.back()">  <i class="fa-solid fa-arrow-left text-dark"></i></a>
+          </div>
+         
+        </div>
+        <div class="row  my-2 ">
+          <div class="col-3">
+              <h1 class="w-head ms-3 ">INR</h1>
+           
+          </div>
+        
+        </div>
+        <div class="row  my-2 ">
+          <div class="col-6 ">
+             <p class="w-para ms-3">Available</p>
+             <p class="w-bal ms-3">100</p>
+          </div>
+          <div class="col-3">
+            <p class="w-para ms-3">Total revenue</p>
+            <p class="w-bal ms-3">0.00</p> 
+          </div>
+        
+        </div>
+        <div class="row  ">
+            <div class="col-6 ">
+               <p class="w-para ms-3">Today's earnings</p>
+               <p class="w-bal ms-3">0.00</p>
+            </div>
+           
+          
+          </div>
+         
+          <div class="row  my-2 ">
+            <div class="col-10 ">
+                <h1 class="w-head-1 ms-3 ">Financial records</h1>
+             
+            </div>
+            <div class="col-2 ">
+                <i class="fa-solid fa-angle-right   text-secondary  icon-margin" ></i>
+             
+            </div>
+          
+          </div>
+          <div class="row  my-2 ">
+            <div class="col-12  ">
+               <p class="ms-3 w-para-1">Commission</p>
+               <p class="w-bal ms-3">100</p>
+            </div>
+            
+          
+          </div>
+          <div class="row  ">
+              <div class="col-8 col-lg-10 col-md-9 ">
+                 <p class="w-para-1 text-secondary ms-3">Quantity</p>
+                 <p class="w-bal-1 ms-3">+100.00</p>
+              </div>
+              <div class="col-4 col-lg-2  col-md-3 ">
+                 <p class="w-para-1 text-secondary ">Time</p>
+                 <p class="w-bal-1  ">2024-02-24 14:54:56</p>
+              </div>
+             
+            
+            </div>
+      </div>
+
+      
+    <div class="container-fluid position-fixed bottom-0 p-2">
+        <div class="row">
+            <div class=" col-6 d-grid ">
+                <a href="#" class="btn text-white" tabindex="-1" role="button" aria-disabled="true">Recharge</a>
+                
+              </div>
+              <div class="col-6 d-grid"><a href="#" class="btn text-white" tabindex="-1" role="button" aria-disabled="true">Withdrawal</a></div>
+        </div>
+    </div>
+      
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>

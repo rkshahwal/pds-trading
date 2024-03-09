@@ -99,6 +99,207 @@ input[type="text"]::placeholder{
 .Margin-Login{
  margin-left: 80px;   
 }
+.fa-solid{
+    color: var(--dark-red);
+    font-size: 25px;
+}
+.fa-regular{
+    color: var(--dark-red);
+    
+}
+.link-size{
+    color: var(--dark-red);
+    font-size: 12px;
+}
+.footer{
+    background: #fff;
+    /* border-radius: 15px; */
+   
+}
+
+.c-item{
+height: 575px;
+}
+.c-img{
+height: 100%;
+object-fit: cover;
+filter: brightness(0.4);
+}
+
+.up-link{
+    color: var(--dark-red);
+    font-size: 16px;
+    
+}
+.up-icon{
+    color: var(--dark-red);
+    font-size: 25px;
+}
+.h-head{
+    font-size: 14px;
+    color: #000;
+    font-weight: 600;
+}
+.p-head{
+    color: #2ebd85;
+    font-size: 22px;
+    font-weight: bold; 
+}
+.p-head-g{
+    color: #2ebd85;
+
+    font-size: 16px;
+
+    font-weight: bold;
+}
+.badge{
+    background: #ecfff8;
+    color: #3db485;
+    border-radius: 5px;
+    width: 70px;
+    height: 35px;
+    line-height: 25px;
+    text-align: center;
+  font-size: 14px;
+    font-weight: bold;
+}
+.LOSS{
+    background: #ffdfe3;
+    color: #f5465c;
+    border-radius: 5px;
+    width: 70px;
+    height: 35px;
+    line-height: 25px;
+    text-align: center;
+  font-size: 14px;
+    font-weight: bold;
+}
+.t-head{
+    font-size: 14px;
+   font-weight: 400;
+  
+}
+.w-head{
+  
+    
+    font-size: 26px;
+    font-weight: bold;
+}
+.w-head-1{
+  
+    color: black;
+    font-size: 20px;
+    font-weight: 500;
+    
+}
+.w-para{
+    color: var(--light-color);
+    font-size: 12px;
+}
+.w-para-1{
+    color:black;
+    font-size: 14px;
+}
+.w-bal
+{
+    font-size: 14px;   
+}
+.w-bal-1
+{
+    font-weight: 500;
+    font-size: 14px;   
+}
+.icon-margin{
+    margin-left: 215px; font-size: 19px;
+}
+.user-data{
+    background-color: var(--dark-red);
+    /* height: 167px; */
+}
+.u-number{
+    font-size: 20px;
+   margin-top: 8px;
+   margin-bottom: 4px;
+    color: white;
+}
+.u-join{
+    font-size: 12px;
+    margin-bottom: 2px;
+    color: white;
+}
+.u-code{
+    font-size: 12px;
+    
+    color: white;  
+}
+.copy-icon{
+    font-size: 17px;
+}
+
+.u-name{
+    font-size: 20px;
+}
+.mine-img{
+    width: 90px;
+                height: 90px;
+}
+.u-icon{
+    font-size: 20px;
+    color: #707a8a;
+}
+.recharge-head{
+    font-size: 18px;
+    font-weight: 400;
+}
+.recharge-Currency{
+    font-size: 14px;
+}
+.Recharge-left-icon{
+    font-size: 16px;
+    color: #707a8a;
+ 
+}
+.recharge-INR{
+    font-size: 15px;
+}
+.Pay-type{
+    font-size: 14px;
+  border: none;
+    background-color: transparent;
+    color:black;
+    cursor: pointer;
+    
+}
+ .Pay-type-active{
+    font-size: 14px;
+    background-color: var(--dark-red);
+    color: white;
+    cursor: pointer;
+    
+}
+
+.Recharge-Amt{
+    font-size: 14px;
+    color: black;
+}
+.Amt{
+    font-size: 16px;
+    color: black;
+    cursor: pointer;
+}
+
+
+.highlight {
+    background-color: var(--dark-red);
+    color: white;
+}
+.Withdraw-Head{
+    font-size: 14px;
+}
+.Withdraw-2{
+    font-size: 18px;
+    font-weight: 400;
+}
 @media screen and (min-width:321px) and (max-width:480px)
 {
     .top-inside{
@@ -126,7 +327,65 @@ input[type="text"]::placeholder{
         margin-left: 0px;  
         margin-right: 0px; 
        }
+       .c-item{
+        height: fit-content;
+        border-radius: 75px;
+        }
+        .c-img{
+        height: 60%;
+        object-fit: cover;
+        filter: brightness(0.4);
+        }
+        .up-link{
+            color: var(--dark-red);
+            font-size: 12px;
+            
+        }
+        .up-icon{
+            color: var(--dark-red);
+            font-size: 25px;
+   
+   
+        }
 
+        .icon-margin{
+            margin-left: 20px; font-size: 15px;
+  
+  
+        }
+        .w-bal
+        {
+            font-size: 10px;   
+        }
+        .w-bal-1
+        {
+            font-weight: 500;
+            font-size: 10px;   
+        }
+.u-name{
+    font-size: 16px;
+}
+
+.u-number{
+    font-size: 14px;
+   margin-top: 20px;
+   margin-bottom: 0px;
+    color: white;
+}
+.u-join{
+    font-size: 10px;
+    margin-bottom: 0px;
+    color: white;
+}
+.u-code{
+    font-size: 10px;
+    
+    color: white;  
+}
+.u-icon{
+    font-size: 18px;
+    color: #707a8a;
+}
 }
 
 
@@ -156,8 +415,24 @@ input[type="text"]::placeholder{
         margin-left: 0px;  
         margin-right: 0px; 
        }
+       .up-link{
+        color: var(--dark-red);
+        font-size: 12px;
+        
+    }
+    .up-icon{
+        color: var(--dark-red);
+        font-size: 25px;
+    }
+    .icon-margin{
+        margin-left: 30px; font-size: 19px;
+    }
 
-   
+    
+    .u-icon{
+        font-size: 18px;
+        color: #707a8a;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1024px){
@@ -182,8 +457,32 @@ input[type="text"]::placeholder{
         width:100%;  
     }
    
+    .c-item{
+        height: fit-content;
+        border-radius: 75px;
+        }
+        .c-img{
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.4);
+        }
+        .up-link{
+            color: var(--dark-red);
+            font-size: 12px;
+            
+        }
+        .up-icon{
+            color: var(--dark-red);
+            font-size: 25px;
+        }
 
-
+        .icon-margin{
+            margin-left: 100px; font-size: 19px;
+        }
+        .u-icon{
+            font-size: 20px;
+            color: #707a8a;
+        }
 }
 
 @media (min-width: 1025px) and (max-width: 1280px){
@@ -207,7 +506,20 @@ input[type="text"]::placeholder{
     .Login-Form{
         width:100%;  
     }
-    
-
-  
+    .up-link{
+        color: var(--dark-red);
+        font-size: 12px;
+        
+    }
+    .up-icon{
+        color: var(--dark-red);
+        font-size: 25px;
+    }
+    .icon-margin{
+        margin-left: 100px; font-size: 19px;
+    }
+    .u-icon{
+        font-size: 20px;
+        color: #707a8a;
+    }
 }

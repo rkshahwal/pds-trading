@@ -9,8 +9,8 @@ from user.models import (
 
 
 @login_required
-def index(request):
-    return render(request, 'frontend/index.html')
+def home(request):
+    return render(request, 'frontend/home.html')
 
 
 def user_register(request):
@@ -72,3 +72,18 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('user_login')
+
+
+@login_required
+def mine(request):
+    return render(request, 'frontend/mine.html')
+
+
+@login_required
+def recharge(request):
+    return render(request, 'frontend/recharge.html')
+
+
+@login_required
+def wallet(request):
+    return render(request, 'frontend/wallet.html')
