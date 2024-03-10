@@ -87,3 +87,13 @@ def recharge(request):
 @login_required
 def wallet(request):
     return render(request, 'frontend/wallet.html')
+
+
+@login_required
+def withdrowal(request):
+    return render(request, 'frontend/withdrwal.html')
+
+
+@login_required
+def call_put(request):
+    return render(request, 'frontend/call-put.html')

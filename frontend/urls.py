@@ -11,4 +11,6 @@ urlpatterns = [
     path('mine/', mine, name='user_mine'),
     path('recharge/', recharge, name='user_recharge'),
     path('wallet/', wallet, name='user_wallet'),
+    path('withdrowal/', withdrowal, name='user_withdrowal'),
+    path('call-put/', call_put, name='user_call_put'),
 ]
