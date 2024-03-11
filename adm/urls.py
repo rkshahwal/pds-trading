@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from user.utils import render_index_page, render_user_home_page
+from .constance_config_view import update_confi_setting
 
 
 admin.site.site_header = "ADM Treding Administration"
@@ -30,6 +31,7 @@ urlpatterns = [
     path('backend/user/', include('user.urls')),
     path('', include('frontend.urls')),
     # path('', render_user_home_page),
+    path('backend/setting/', update_confi_setting, name="update-setting"),
 ] 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

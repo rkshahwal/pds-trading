@@ -1,6 +1,7 @@
 <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
   <a class="navbar-brand me-lg-5" href="/">
-      <img class="navbar-brand-dark" src="/static/assets/img/logo.png" alt="ADM logo" /> <img class="navbar-brand-light" src="/static/frontend/img/login-img.png" alt="ADM logo" />
+      <img class="navbar-brand-dark" src="/static/frontend/img/login-img.png" alt="ADM logo" />
+      <img class="navbar-brand-light" src="/static/frontend/img/login-img.png" alt="ADM logo" />
   </a>
   <div class="d-flex align-items-center">
       <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,21 +36,21 @@
         </a>
       </li>
       
-      <li class="nav-item"><!-- Separator with title --><hr class="navbar-divider"></li>
-      {% comment %} <li class="nav-item mb-4">
+      {% comment %} <li class="nav-item"><!-- Separator with title --><hr class="navbar-divider"></li>
+      <li class="nav-item mb-4">
         <div class="text-italic nav-title text-muted">E-Commerce</div>
       </li> {% endcomment %}
 
-      {% comment %} <li class="nav-item {% if request.resolver_match.view_name == 'orders' %} active {% endif %}">
-        <a href="{% url 'orders' %}" class="nav-link">
+      <li class="nav-item {% if request.resolver_match.view_name == 'update-setting' %} active {% endif %}">
+        <a href="{% url 'update-setting' %}" class="nav-link">
           <span class="sidebar-icon">
-            <i class="fas fa-list"></i>
+            <i class="fas fa-cog"></i>
           </span>
-          <span class="sidebar-text">Orders</span>
+          <span class="sidebar-text">Setting</span>
         </a>
       </li>
 
-      <li class="nav-item {% if request.resolver_match.view_name == 'transactions' %} active {% endif %}">
+      {% comment %} <li class="nav-item {% if request.resolver_match.view_name == 'transactions' %} active {% endif %}">
         <a href="{% url 'transactions' %}" class="nav-link">
           <span class="sidebar-icon">
             <i class="fas fa-list"></i>

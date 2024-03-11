@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from constance import config
 from user.models import (
     CustomUser as User,
     Wallet, Referral,
@@ -10,7 +11,12 @@ from user.models import (
 
 @login_required
 def home(request):
-    return render(request, 'frontend/home.html')
+    print(config.GROUP_SIGNAL_LINK)
+    context = {
+        "service": config.SERVICE,
+        "group_signal": config.GROUP_SIGNAL_LINK,
+    }
+    return render(request, 'frontend/home.html', context)
 
 
 def user_register(request):
@@ -91,7 +97,10 @@ def wallet(request):
 
 @login_required
 def withdrowal(request):
-    return render(request, 'frontend/withdrwal.html')
+    context = {
+        "tax": config.WITHDRAWAL_FEES_PERCENTAGE
+    }
+    return render(request, 'frontend/withdrwal.html', context)
 
 
 @login_required

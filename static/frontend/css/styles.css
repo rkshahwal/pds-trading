@@ -237,7 +237,7 @@ filter: brightness(0.4);
     color: white;  
 }
 .copy-icon{
-    font-size: 17px;
+    font-size: 12px;
 }
 
 .u-name{
@@ -447,7 +447,12 @@ object-fit: cover;
     .call-head{
         font-size: 16px;
     }
-    
+    input[type="number"]::placeholder{
+        font-weight: 200;
+        font-size: 14px;
+        color: var(--light-color);
+       
+    }  
 }
 
 

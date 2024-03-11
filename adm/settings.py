@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user',
+    'frontend',
+    'constance',
 ]
 
 MIDDLEWARE = [
@@ -92,6 +95,28 @@ DATABASES = {
 AUTH_USER_MODEL = 'user.CustomUser'
 
 LOGIN_URL = "/login/"
+
+
+# Django Constance  Configuration
+# https://django-constance.readthedocs.io/en/latest/
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+CONSTANCE_CONFIG = {
+    'GROUP_SIGNAL_LINK': ('https://t.me/adm', _('Group Signal Link like Telegram/Whatsapp')),
+    'WITHDRAWAL_FEES_PERCENTAGE': (20, _('Withdrawal Fees in Percentage (Number only)'), int),
+    'SERVICE': ('9988776655', _('Service Number'))
+}
+
+CONSTANCE_CONFIG_FIELDSETS = {
+    ('General Options'): {
+        'GROUP_SIGNAL_LINK', 
+        'WITHDRAWAL_FEES_PERCENTAGE'
+    },
+    ('Help & Service Setting'): {
+        'SERVICE'
+    }
+}
 
 
 # Password validation

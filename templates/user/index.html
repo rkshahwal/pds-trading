@@ -130,109 +130,15 @@
 </div>
 
 
-<div class="card">
+{% comment %} <div class="card">
     <!-- Card header -->
     <div class="card-header border-0">
         <h6 class="mb-0"> Pending Orders </h6>
     </div>
     <!-- Light table -->
     <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-hover" id="example1">
-                <thead class="thead-light">
-                    <tr>
-                        <th scope="col" class="sort">SN</th>
-                        <th scope="col" class="sort">Order-ID</th>
-                        <th scope="col" class="sort">User</th>
-                        <th scope="col" class="sort">Amount</th>
-                        <th scope="col" class="sort">Status</th>
-                        <th scope="col" class="sort">Date</th>
-                        <th scope="col" class="sort">Address</th>
-                        <th scope="col" class="sort">ZIP Code</th>
-                        <th scope="col" class="sort">Items</th>
-                    </tr>
-                </thead>
-                <tbody class="list">
-                    {% for order in orders %}
-                    <tr>
-                        <td class="budget">
-                            {{forloop.counter}}
-                        </td>
-                        <td>
-                            {{order.order_id}}
-                        </td>
-                        <td>
-                            <div class="media-body">
-                                <span class="name mb-0 text-sm">{{order.user.name}} </span>
-                                {% if order.user.email %}
-                                <p class="name mb-0 text-xs">{{order.user.email}} </p>
-                                {% endif %}
-                            </div>
-                        </td>
-                        <td>
-                            {{order.total_price|floatformat:2}}
-                        </td>
-                        <td>
-                            <select class="border-0 orderStatus" data-order-id="{{ order.id }}">
-                                <option value="PENDING" {% if order.status == "PENDING" %}selected{% endif %}>PENDING</option>
-                                <option value="ORDERED" {% if order.status == "ORDERED" %}selected{% endif %}>ORDERED</option>
-                                <option value="IN-PROGRESS" {% if order.status == "IN-PROGRESS" %}selected{% endif %}>IN-PROGRESS</option>
-                                <option value="DELIVERED" {% if order.status == "DELIVERED" %}selected{% endif %}>DELIVERED</option>
-                                <option value="FAILED" {% if order.status == "FAILED" %}selected{% endif %}>FAILED</option>
-                            </select>
-                        </td>
-                        <td>
-                            {{order.created_at}}
-                        </td>
-                        <td>
-                            {% if order.delivery_address %}{{order.delivery_address}}{% endif %}
-                        </td>
-                        <td>
-                            {% if order.delivery_zip_code %}{{order.delivery_zip_code}} {% endif %}
-                        </td>
-                        <td>
-                            <i class="fa fa-eye" type="button" data-bs-toggle="modal" href="#seeOrderItemsModal{{order.id}}" style="background:transparent;"></i>
-                            <!-- Modal -->
-                            <div class="modal fade" id="seeOrderItemsModal{{order.id}}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteModalLabel{{category.id}}">Order Products</h5>
-
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <table class="table">
-                                            <tr>
-                                                <th>SN</th>
-                                                <th>Name</th>
-                                                <th>Qty</th>
-                                                <th>Price</th>
-                                            </tr>
-                                            {% for items in order.order_products.all %}
-                                            <tr>
-                                                <td>{{forloop.counter}}</td>
-                                                <td>{{items.product.name}}</td>
-                                                <td>{{items.quantity}}</td>
-                                                <td>{{items.price|floatformat:2}}</td>
-                                            </tr>
-                                            {% endfor %}
-                                        </table>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            <!-- end Model -->
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+        
     </div>
-</div>  
+</div>   {% endcomment %}
 {% endif %}
 {% endblock content %}

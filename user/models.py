@@ -160,9 +160,8 @@ class Wallet(BaseModel):
 
 
 class Referral(BaseModel):
-    referral_to = models.ForeignKey(
+    referral_to = models.OneToOneField(
         CustomUser, on_delete=models.CASCADE, related_name='referral',
-        unique = True,
         verbose_name = "Referral To")
     referred_by = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name='referred_by_me',
