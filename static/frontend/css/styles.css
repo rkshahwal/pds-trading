@@ -200,7 +200,7 @@ filter: brightness(0.4);
 }
 .w-para{
     color: var(--light-color);
-    font-size: 12px;
+    font-size: 11px;
 }
 .w-para-1{
     color:black;
@@ -503,7 +503,12 @@ object-fit: cover;
         object-fit: cover;
         /* filter: brightness(0.4); */
         }
-    
+    input[type="number"]::placeholder{
+        font-weight: 200;
+        font-size: 14px;
+        color: var(--light-color);
+        
+    } 
         
 }
 
@@ -553,7 +558,11 @@ object-fit: cover;
             font-size: 20px;
             color: #707a8a;
         }
-
+        input[type="number"]::placeholder{
+            font-weight: 200;
+            font-size: 14px;
+            color: var(--light-color);
+        } 
       
 }
 

@@ -27,6 +27,7 @@
           <span class="sidebar-text">Dashboard</span>
         </a>
       </li>
+      
       <li class="nav-item {% if request.resolver_match.view_name == 'users' %} active {% endif %}">
         <a href="{% url 'users' %}" class="nav-link">
           <span class="sidebar-icon">
@@ -41,6 +42,16 @@
         <div class="text-italic nav-title text-muted">E-Commerce</div>
       </li> {% endcomment %}
 
+
+      <li class="nav-item {% if request.resolver_match.view_name == 'banners' %} active {% endif %}">
+        <a href="{% url 'banners' %}" class="nav-link">
+          <span class="sidebar-icon">
+            <i class="fas fa-images"></i>
+          </span>
+          <span class="sidebar-text">Banners</span>
+        </a>
+      </li>
+
       <li class="nav-item {% if request.resolver_match.view_name == 'update-setting' %} active {% endif %}">
         <a href="{% url 'update-setting' %}" class="nav-link">
           <span class="sidebar-icon">
@@ -49,15 +60,6 @@
           <span class="sidebar-text">Setting</span>
         </a>
       </li>
-
-      {% comment %} <li class="nav-item {% if request.resolver_match.view_name == 'transactions' %} active {% endif %}">
-        <a href="{% url 'transactions' %}" class="nav-link">
-          <span class="sidebar-icon">
-            <i class="fas fa-list"></i>
-          </span>
-          <span class="sidebar-text">Transactions</span>
-        </a>
-      </li> {% endcomment %}
 
       {% endif %}
     </ul>

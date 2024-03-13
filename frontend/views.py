@@ -7,14 +7,17 @@ from user.models import (
     CustomUser as User,
     Wallet, Referral,
 )
+from .models import (
+    Banner,
+)
 
 
 @login_required
 def home(request):
-    print(config.GROUP_SIGNAL_LINK)
     context = {
         "service": config.SERVICE,
         "group_signal": config.GROUP_SIGNAL_LINK,
+        "banners": Banner.objects.all(),
     }
     return render(request, 'frontend/home.html', context)
 

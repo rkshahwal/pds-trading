@@ -1,5 +1,9 @@
 # adm-treding
 
+# Coded by
+# Auther: Rajendra
+# Email: rajinfotech.devoloper@gmail.com
+
 Game ADM Treding
 
 1. clone the project using 

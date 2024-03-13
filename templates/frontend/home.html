@@ -35,15 +35,11 @@
 
         <div id="carouselExampleSlidesOnly" class="carousel slide p-2" data-bs-ride="carousel">
           <div class="carousel-inner">
-            <div class="carousel-item active c-item">
-              <img src="https://img.freepik.com/free-vector/rupee-symbol-digital-technology-background_1017-36810.jpg?t=st=1709474280~exp=1709477880~hmac=4f0033d09bbd84f0eb8d7858225eb6cbe14f33896b13fb243a0e19edcbba590f&w=996" class="d-block  w-100 c-img rounded-3" alt="...">
+            {% for banner in banners %}
+            <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %} c-item">
+              <img src="{{banner.image.url}}" class="d-block  w-100 c-img rounded-3" alt="{{banner.alt}}">
             </div>
-            <div class="carousel-item c-item">
-              <img src="https://img.freepik.com/free-vector/green-bitcoin-growth-arrow-background_1017-37517.jpg?t=st=1709474264~exp=1709477864~hmac=25b0f3eca9930e60d4fecd02b4b90f1f0567c9ad885c22b4f6a67471e5e24edc&w=996" class="d-block  w-100 c-img rounded-3" alt="...">
-            </div>
-            <div class="carousel-item c-item">
-              <img src="https://img.freepik.com/free-vector/digital-indian-rupee-inr-currency-symbol-golden-coin_1017-42530.jpg?t=st=1709474448~exp=1709478048~hmac=b656c40e8e89e8e767a23cd578a0354e56553f996d1c63d52574ead56361b7eb&w=996" class="d-block  w-100 c-img rounded-3" alt="...">
-            </div>
+            {% endfor %}
           </div>
         </div>
         <div class="container-fluid mt-4  ">
@@ -55,7 +51,7 @@
                 class="fa-solid fa-upload d-block up-icon"></i>Withdraw</a>
             <a class="link-offset-2 up-link  text-center link-underline link-underline-opacity-0" href="{{group_signal}}" target="_blank"><i
                 class="fa-solid fa-circle-info d-block up-icon"></i>Group signal</a>
-            <a class="link-offset-2 up-link  text-center link-underline link-underline-opacity-0" href="#"><i
+            <a class="link-offset-2 up-link  text-center link-underline link-underline-opacity-0" href="#" onclick="copyShareLink()"><i
                 class="fa-solid fa-share-nodes d-block up-icon"></i>Share</a>
             <a class="link-offset-2 up-link  text-center link-underline link-underline-opacity-0" href="tel:{{service}}" target="_blank"><i
                 class="fa-solid fa-headphones d-block up-icon"></i>Services</a>
@@ -99,7 +95,7 @@
                 <tbody>
                   <tr style="font-size: 14px; font-weight: bold;">
                     
-                    <td><img src="{%static "frontend/img/btc.png" %}" alt="" width="20px" ><a href="{% url "user_call_put" %}" class="link-offset-2 link-underline link-underline-opacity-0 text-dark" > <span>BTC/USDT</span></a></td>
+                    <td><img src="{%static "frontend/img/btc.png" %}" alt="" width="20px" ><a href="{% url "call_put" %}" class="link-offset-2 link-underline link-underline-opacity-0 text-dark" > <span>BTC/USDT</span></a></td>
                     <td>64924.22</td>
                     <td ><span class="badge ">+4.38%</span></td>
                   </tr>
@@ -208,5 +204,17 @@
       touch: false
     })
   </script>
+  <script>
+    function copyShareLink() {
+      var copyText = "{{request.META.HTTP_HOST}}{% url 'user_register' %}?code={{request.user.referral_code}}"
+      navigator.clipboard.writeText(copyText);
+      alert(copyText + "\nCopied to clipboard!");
+    }
+    
+    function outFunc() {
+      var tooltip = document.getElementById("myTooltip");
+      tooltip.innerHTML = "Copy to clipboard";
+    }
+    </script>
 </body>
 </html>

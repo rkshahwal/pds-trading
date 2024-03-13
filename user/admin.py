@@ -33,9 +33,9 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Wallet)
 class CountryCodeAdmin(admin.ModelAdmin):
-    list_display = ('user', 'amount', 'status', 'pay_method', 'utr', 'created_at')
+    list_display = ('user', 'amount', 'status', 'pay_type', 'pay_method', 'utr', 'created_at')
     search_fields = ('user__name', 'user__email', 'utr')
-    list_filter = ('status', 'created_at')
+    list_filter = ('status', 'pay_type', 'created_at')
 
 
 @admin.register(Referral)

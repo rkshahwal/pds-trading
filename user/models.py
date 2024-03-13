@@ -1,6 +1,6 @@
 import random
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, AbstractUser
+from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.hashers import make_password
 from django.utils.translation import gettext_lazy as _
 from datetime import datetime, timedelta
@@ -15,7 +15,7 @@ def generate_unique_6digit_code():
     """
     while True:
         code = random.randint(12346, 987987)
-        if len(str(code)) == 6 and code not in CustomUser.objects.all().values_list('referral_code', flat=True):
+        if str(code) not in CustomUser.objects.all().values_list('referral_code', flat=True):
             return code  # Return the unique 6-digit number
 
 
@@ -59,7 +59,8 @@ class CustomUser(AbstractUser):
         _("Password"), max_length=128, validators=[password_validator]
     )
     name = models.CharField(
-        _("Full Name"), max_length=100, validators=[name_validator]
+        _("Full Name"), max_length=100, validators=[name_validator],
+        null=True, blank=True
     )
     referral_code = models.CharField(
         _("User Referral Code"),
@@ -116,6 +117,7 @@ class CustomUser(AbstractUser):
 
 
 
+""" Wallet Transactions Model. """
 class Wallet(BaseModel):
     user = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE,
@@ -124,13 +126,24 @@ class Wallet(BaseModel):
     amount = models.FloatField(
         help_text="Use positive number for Add Money and negative number for Withdrawal"
     )
+    pay_type = models.CharField(
+        _("Payment Type/Purpose"),
+        choices=[
+            ("Add Money", "Add Money"), # Positive Amount
+            ("Lose", "Lose"), # Negative Amount
+            ("Winning", "Winning"), # Positive Amount
+            ("Loss", "Loss"), # Negative Amount
+            ("Widrawal", "Widrawal"), # Negative Amount
+        ],
+        max_length=20
+    )
     status = models.CharField(
         _("Wallet Status"),
         choices=[
-            ("Add Money Request", "Add Money Request"), # Requested amount to add
-            ("Success", "Success"), # Transaction Success for play page
-            ("Hold", "Hold"),   # Amount in Hold in any reson by admin
-            ("Widrowal Request", "Widrowal Request"), # Requested amount to withdraw
+            ("Pending", "Pending"),
+            ("Success", "Success"),
+            ("Hold", "Hold"),
+            ("Rejected", "Rejected"),
         ],
         max_length=20
     )
@@ -142,11 +155,11 @@ class Wallet(BaseModel):
     )
     utr = models.CharField(
         _("UTR Number"),
-        max_length = 50,
+        max_length = 100,
         null = True, blank = True
     )
     remark = models.CharField(
-        max_length=50,
+        max_length=250,
         null=True, blank=True,
         default= " "
     )
@@ -156,17 +169,20 @@ class Wallet(BaseModel):
 
     class Meta:
         ordering = ('-created_at',)
+        verbose_name = _("Wallet Transaction")
+        verbose_name_plural = _("Wallet Transactions")
 
 
 
 class Referral(BaseModel):
     referral_to = models.OneToOneField(
         CustomUser, on_delete=models.CASCADE, related_name='referral',
-        verbose_name = "Referral To")
+        verbose_name = "Referral To", 
+        help_text = "User that has created by referrals")
     referred_by = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name='referred_by_me',
         verbose_name = "Referral By")
     level = models.PositiveIntegerField(default=1)
 
     def __str__(self):
-        return f'{self.referral_by} referred {self.referred_by}'
+        return f'{self.referral_to} referred by {self.referred_by}'

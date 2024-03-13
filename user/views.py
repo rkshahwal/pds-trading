@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from permission_decorators import for_admin
 from .models import CustomUser as User
+from frontend.models import Banner
+from frontend.forms import BannerForm
 
 from .forms import (
     UserUpdateForm,
@@ -82,3 +84,58 @@ def user_delete(request, id):
     user = get_object_or_404(User, id=id)
     user.delete()
     return redirect('users')
+
+
+@for_admin
+def banner_list(request):
+    """  Banners listing page. """
+    banners = Banner.objects.all()
+    context = {
+        "title": "Banners",
+        "banners": banners
+    }
+    return  render(request, 'frontend/admin/banner-list.html', context)
+
+
+@for_admin
+def banner_add(request):
+    """  Add new banner to the site. """
+    form = BannerForm(request.POST or None, request.FILES or None)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect(banner_list)
+    else:
+        form = BannerForm()
+    context = {
+        "title": "Add New Banner",
+        "form": form
+    }
+    return render(request, 'forms/form.html', context)
+
+
+
+@for_admin
+def banner_edit(request, id):
+    """ Edit existing banner on the site. """
+    banner = get_object_or_404(Banner, id=id)
+    form = BannerForm(data=request.POST or None, files=request.FILES or None,  instance=banner)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect(banner_list)
+    else:
+        form = BannerForm(instance=banner)
+    context = {
+        "title": "Edit Banner",
+        "form": form
+    }
+    return render(request, 'forms/form.html', context)
+
+
+@for_admin
+def banner_delete(request, id):
+    """ Delete existing banner on the site. """
+    banner = get_object_or_404(Banner, id=id)
+    banner.delete()
+    return redirect(banner_list)

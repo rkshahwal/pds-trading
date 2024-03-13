@@ -15,10 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
-from user.utils import render_index_page, render_user_home_page
+from user.utils import page_not_found
 from .constance_config_view import update_confi_setting
 
 
@@ -26,12 +26,11 @@ admin.site.site_header = "ADM Treding Administration"
 admin.site.site_title = "ADM"
 
 urlpatterns = [
-    path('backend/', render_index_page),
-    path('admin/', admin.site.urls),
-    path('backend/user/', include('user.urls')),
     path('', include('frontend.urls')),
-    # path('', render_user_home_page),
-    path('backend/setting/', update_confi_setting, name="update-setting"),
+    path('admin/setting/', update_confi_setting, name="update-setting"),
+    path('admin/', include('user.urls')),
+    path('super-admin/', admin.site.urls),
 ] 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += [re_path(r'^.*$', page_not_found, name="page_not_found"),]
