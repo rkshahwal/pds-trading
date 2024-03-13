@@ -13,118 +13,116 @@
   </head>
   <body>
     <div class="container-fluid">
-      <form action="" method="post" class="w-100">    
+      <div class="w-100">  
         <div class="row py-2 py-sm-3 py-md-3 py-lg-3 py-xl-3 py-xl-3 py-xxl-3 ">
           <div class="col-12 ">
             <a href="javascript:void(0);" onclick="history.back()">  <i class="fa-solid fa-arrow-left text-dark"></i></a>
           </div>
           
         </div>
-        <div class="row  mb-2  mb-md-3 mb-sm-3 mb-lg-3 ">
-            <div class="col-12  ">
-            <p class="recharge-head mt-2  mt-md-0 mt-sm-0 mt-lg-0"> Recharge</p>
+        <form action="" method="post">  
+          {% csrf_token %}
+            <div class="row  mb-2  mb-md-3 mb-sm-3 mb-lg-3 ">
+              <div class="col-12  ">
+                <p class="recharge-head mt-2  mt-md-0 mt-sm-0 mt-lg-0"> Recharge</p>
+              </div>
+              
             </div>
+            <div class="row   ">
+              <div class="col-9     col-md-10 col-sm-9 col-lg-11">
+              <p class="recharge-Currency "> Currency</p>
+              </div>
+              <div class="col-3   col-md-2 col-sm-3 col-lg-1 ">
+                  <p class="recharge-INR float-end ">INR <i class="fa-solid fa-arrow-right Recharge-left-icon  ms-2  "></i>
+                  </p>
+                  </div>
+            </div>
+
+
+            <div class="row   mt-2 mt-sm-3 mt-md-3 mt-lg-3  ">
+              <div class="col-9 col-md-10 col-sm-9 col-lg-11  ">
+              <p class="recharge-Currency "> Payments</p>
+              </div>
+              <div class="col-3  col-md-2 col-sm-3 col-lg-1 ">
+                  <p class="recharge-INR float-end ">INR <i class="fa-solid fa-arrow-right Recharge-left-icon  ms-2  "></i>
+                  </p>
+                  </div>
+            </div>
+                  
+            <div class="row    mt-3   ">
+              <div class="col-12  d-flex justify-content-start   ">
+                <button class="text-center p-2 rounded Pay-type me-md-3 me-sm-3 me-lg-3 Pay-type-active " id="HEXPAY"  type="button">HEXPAY</button>
+                <button class="text-center p-2 rounded Pay-type me-md-3 me-sm-3 me-lg-3 " type="button">SUNPAY</button>
+                <button class="text-center p-2 rounded Pay-type me-md-3 me-sm-3 me-lg-3 " type="button">SUNPAY</button>
+                <button class="text-center p-2 rounded Pay-type me-md-3 me-sm-3 me-lg-3 "type="button">SUNPAY</button>
+                <button class="text-center p-2 rounded Pay-type" type="button">QEEPAY</button>
+            </div>
+              
+            </div>
+            <div class="row    mt-4  mt-md-5 mt-sm-5 mt-lg-5 ">
+              <div class="col-12     ">
+                <p class="Recharge-Amt ms-1">Recharge Amount</p>
             
-          </div>
-          <div class="row   ">
-            <div class="col-9     col-md-10 col-sm-9 col-lg-11">
-            <p class="recharge-Currency "> Currency</p>
-            </div>
-            <div class="col-3   col-md-2 col-sm-3 col-lg-1 ">
-                <p class="recharge-INR float-end ">INR <i class="fa-solid fa-arrow-right Recharge-left-icon  ms-2  "></i>
-                </p>
-                </div>
-          </div>
-
-
-          <div class="row   mt-2 mt-sm-3 mt-md-3 mt-lg-3  ">
-            <div class="col-9 col-md-10 col-sm-9 col-lg-11  ">
-            <p class="recharge-Currency "> Payments</p>
-            </div>
-            <div class="col-3  col-md-2 col-sm-3 col-lg-1 ">
-                <p class="recharge-INR float-end ">INR <i class="fa-solid fa-arrow-right Recharge-left-icon  ms-2  "></i>
-                </p>
-                </div>
-          </div>
-                
-          <div class="row    mt-3   ">
-            <div class="col-12  d-flex justify-content-start   ">
-             <button class="   text-center p-2 rounded Pay-type   me-md-3 me-sm-3 me-lg-3 Pay-type-active " id="HEXPAY"  type="submit">HEXPAY</button>
-           <button class="   text-center p-2 rounded Pay-type   me-md-3 me-sm-3 me-lg-3  " type="submit">SUNPAY</button>
-           <button class="   text-center p-2 rounded Pay-type   me-md-3 me-sm-3 me-lg-3 " type="submit">SUNPAY</button>
-           <button class="   text-center p-2 rounded Pay-type   me-md-3 me-sm-3 me-lg-3 "type="submit">SUNPAY</button>
-           <button class="   text-center p-2 rounded Pay-type ">QEEPAY</button>
-           </div>
+              </div>
+              <div class="col-12    ">
+                <input class="form-control form-control " type="number" placeholder="Please Enter Your Amount" aria-label=".form-control-lg example" id="input" required>
             
-          </div>
-
-
-          <div class="row    mt-4  mt-md-5 mt-sm-5 mt-lg-5 ">
-            <div class="col-12     ">
-        <p class="Recharge-Amt ms-1">Recharge Amount</p>
+              </div>
+              <div class="col-12   mt-3  mt-md-4 mt-sm-4 mt-lg-4">
+            <p class="Recharge-Amt  ">Single recharge limit：1000-1000000</p>
+              </div>
+              <div class="col-12   d-flex    ">
+                <p class="Amt me-3" id="p1">1000</p>
+                <p class="Amt me-3" id="p2">3000</p>
+                <p class="Amt me-3 "id="p3">5000</p>
+                <p class="Amt"id="p4">10000</p>
+              </div>
           
+              
             </div>
-            <div class="col-12    ">
-              <input class="form-control form-control " type="number" placeholder="Please Enter Your Amount" aria-label=".form-control-lg example" id="input" required>
-          
-            </div>
-            <div class="col-12   mt-3  mt-md-4 mt-sm-4 mt-lg-4">
-          <p class="Recharge-Amt  ">Single recharge limit：1000-1000000</p>
-            </div>
-            <div class="col-12   d-flex    ">
-              <p class="Amt me-3" id="p1">1000</p>
-              <p class="Amt me-3" id="p2">3000</p>
-              <p class="Amt me-3 "id="p3">5000</p>
-              <p class="Amt"id="p4">10000</p>
+            <div class="d-grid gap-2 mt-3">
+              <button class="btn btn-primary" type="submit">Submit</button>
+            
             </div>
         
-            
           </div>
-          <div class="d-grid gap-2 mt-3">
-            <button class="btn btn-primary" type="submit">Submit</button>
-          
-          </div>
-       
+        </form>
       </div>
-    </form>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script>
-a=document.querySelector('#input')
-b=document.querySelector('#p1')
-c=document.querySelector('#p2')
-d=document.querySelector('#p3')
-e=document.querySelector('#p4')
+    </div>
 
-// console.log(b.tagName)
+    {% comment %} Scripts {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+      a=document.querySelector('#input')
+      b=document.querySelector('#p1')
+      c=document.querySelector('#p2')
+      d=document.querySelector('#p3')
+      e=document.querySelector('#p4')
 
-b.addEventListener("click",function(){
-a.value=b.innerText
+      // console.log(b.tagName)
 
-})
-c.addEventListener("click",function(){
-a.value=c.innerText
-
-})
-d.addEventListener("click",function(){
-a.value=d.innerText
-
-})
-e.addEventListener("click",function(){
-a.value=e.innerText
-
-})
-var buttons = document.querySelectorAll("button");
- 
- for (button in buttons) {
-    buttons[button].onclick = function() {
-       
-        buttons.forEach(function(btn){
-          btn.classList.remove('highlight');
-          btn.classList.remove('Pay-type-active');
-        })
-        this.classList.add('highlight');
-    }
-}
-</script>
+      b.addEventListener("click",function(){
+        a.value=b.innerText
+      })
+      c.addEventListener("click",function(){
+        a.value=c.innerText
+      })
+      d.addEventListener("click",function(){
+        a.value=d.innerText
+      })
+      e.addEventListener("click",function(){
+        a.value=e.innerText
+      })
+      var buttons = document.querySelectorAll("button");
+      for (button in buttons) {
+          buttons[button].onclick = function() {
+            buttons.forEach(function(btn){
+              btn.classList.remove('highlight');
+              btn.classList.remove('Pay-type-active');
+            })
+            this.classList.add('highlight');
+          }
+      }
+    </script>
   </body>
 </html>

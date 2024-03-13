@@ -65,6 +65,7 @@ def user_login(request):
         try:
             user = User.objects.get(mobile_number=mobile, is_active=True)
         except User.DoesNotExist:
+            user = None
             messages.warning(request, "User does not exist")
         if user:
             if user.check_password(password):
