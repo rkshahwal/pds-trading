@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -91,6 +92,8 @@ def mine(request):
 
 @login_required
 def recharge(request):
+    if request.method == "POST":
+        print(request.POST)
     return render(request, 'frontend/recharge.html')
 
 
@@ -110,3 +113,11 @@ def withdrowal(request):
 @login_required
 def call_put(request):
     return render(request, 'frontend/call-put.html')
+
+
+def tc(request):
+    tc = """
+    Terms and Important Terms:
+    All the information given in this website is correct. This is a training game. It is possible to get used to it. I am investing in this website with all my senses,and I have read all its terms and conditions. If in any way I am not affected by this, then  I myself am responsible for the loss, and I am an 18 year old person.
+    """
+    return HttpResponse(tc)

@@ -60,6 +60,16 @@
           <span class="sidebar-text">Setting</span>
         </a>
       </li>
+      
+
+      <li class="nav-item {% if request.resolver_match.view_name == 'wallets' %} active {% endif %}">
+        <a href="{% url 'wallets' %}" class="nav-link">
+          <span class="sidebar-icon">
+            <i class="fas fa-cog"></i>
+          </span>
+          <span class="sidebar-text">Wallet Transactions</span>
+        </a>
+      </li>
 
       {% endif %}
     </ul>

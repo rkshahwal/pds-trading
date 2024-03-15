@@ -1,0 +1,96 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+{% csrf_token %}
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+                <h3 class="mb-0">{{title}} </h3>
+                {% comment %} {% if request.resolver_match.view_name == 'user-wallets' %}
+                <button onclick="history.back()" class="bg-gray-300 btn float-end mx-2">Back</button>
+                {% endif %} {% endcomment %}
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+                <table class="table table-hover" id="example1">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="sort">SN</th>
+                            <th scope="col" class="sort">ID</th>
+                            <th scope="col" class="sort">User</th>
+                            <th scope="col" class="sort">Amount</th>
+                            <th scope="col" class="sort">Status</th>
+                            <th scope="col" class="sort">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        {% for wallet in wallets %}
+                        <tr>
+                            <td class="budget">
+                                {{forloop.counter}}
+                            </td>
+                            <td>
+                                {{wallet.id}}
+                            </td>
+                            <td>
+                                <div class="media-body">
+                                    <span class="name mb-0 text-sm">{{wallet.user.name}} </span>
+                                    {% if wallet.user.email %}
+                                    <p class="name mb-0 text-xs">{{wallet.user.email}} </p>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>
+                                {{wallet.amount|floatformat:2}}
+                            </td>
+                            <td>
+                                <select class="border-0 walletStatus" data-wallet-id="{{ wallet.id }}">
+                                    <option value="PENDING" {% if wallet.status == "PENDING" %}selected{% endif %}>PENDING</option>
+                                    <option value="walletED" {% if wallet.status == "walletED" %}selected{% endif %}>walletED</option>
+                                    <option value="IN-PROGRESS" {% if wallet.status == "IN-PROGRESS" %}selected{% endif %}>IN-PROGRESS</option>
+                                    <option value="DELIVERED" {% if wallet.status == "DELIVERED" %}selected{% endif %}>DELIVERED</option>
+                                    <option value="FAILED" {% if wallet.status == "FAILED" %}selected{% endif %}>FAILED</option>
+                                </select>
+                            </td>
+                            <td>
+                                {{wallet.created_at}}
+                            </td>
+                        </tr>
+                        
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>  
+    </div>
+</div>
+{% endblock content %}
+{% block javascripts %}
+    <script>
+        $(document).on('change', '.walletStatus', function(e) {
+            var wallet_id = $(this).data('wallet-id');
+            var new_status = $(this).val();
+            {% comment %} var url = "#" // "{% url 'update-wallet-status-ajax' %}"; {% endcomment %}
+            
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: {
+                    'wallet_id': wallet_id,
+                    'new_status': new_status,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.success) {
+                        console.log('wallet status updated successfully');
+                    } else {
+                        console.error('Error updating wallet status:', data.error);
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock javascripts %}

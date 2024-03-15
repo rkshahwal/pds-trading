@@ -20,7 +20,7 @@
           </div>
           
         </div>
-        <form action="" method="post">  
+        <form action="" method="post" class="w-100">  
           {% csrf_token %}
             <div class="row  mb-2  mb-md-3 mb-sm-3 mb-lg-3 ">
               <div class="col-12  ">
@@ -49,27 +49,34 @@
                   </div>
             </div>
                   
-            <div class="row    mt-3   ">
-              <div class="col-12  d-flex justify-content-start   ">
-                <button class="text-center p-2 rounded Pay-type me-md-3 me-sm-3 me-lg-3 Pay-type-active " id="HEXPAY"  type="button">HEXPAY</button>
-                <button class="text-center p-2 rounded Pay-type me-md-3 me-sm-3 me-lg-3 " type="button">SUNPAY</button>
-                <button class="text-center p-2 rounded Pay-type me-md-3 me-sm-3 me-lg-3 " type="button">SUNPAY</button>
-                <button class="text-center p-2 rounded Pay-type me-md-3 me-sm-3 me-lg-3 "type="button">SUNPAY</button>
-                <button class="text-center p-2 rounded Pay-type" type="button">QEEPAY</button>
+            <div class="row mt-3">
+              <div class="col-12  d-flex justify-content-start">
+  
+                <input type="radio" class="btn-check me-md-3 me-sm-3 me-lg-3 " name="options" id="option1" autocomplete="off" value="HEXPAY" checked>
+                <label class="btn btn-danger  btn-none fw-normal" for="option1">HEXPAY</label>
+                
+                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" value="SUNPAY">
+                <label class="btn btn-danger  btn-none fw-normal" for="option2">SUNPAY</label>
+                
+                <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off"  value="SUNPAY">
+                <label class="btn btn-danger  btn-none fw-normal" for="option3">SUNPAY</label>
+                
+                <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" value="QEEPAY">
+                <label class="btn btn-danger btn-none fw-normal " for="option4">QEEPAY</label>
+              </div>
             </div>
-              
-            </div>
+
             <div class="row    mt-4  mt-md-5 mt-sm-5 mt-lg-5 ">
               <div class="col-12     ">
                 <p class="Recharge-Amt ms-1">Recharge Amount</p>
             
               </div>
               <div class="col-12    ">
-                <input class="form-control form-control " type="number" placeholder="Please Enter Your Amount" aria-label=".form-control-lg example" id="input" required>
+                <input class="form-control form-control" name="amount" type="number" placeholder="Please Enter Your Amount" aria-label=".form-control-lg example" id="input" required>
             
               </div>
               <div class="col-12   mt-3  mt-md-4 mt-sm-4 mt-lg-4">
-            <p class="Recharge-Amt  ">Single recharge limit：1000-1000000</p>
+                <p class="Recharge-Amt  ">Single recharge limit：1000-1000000</p>
               </div>
               <div class="col-12   d-flex    ">
                 <p class="Amt me-3" id="p1">1000</p>

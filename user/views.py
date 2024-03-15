@@ -3,12 +3,15 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from permission_decorators import for_admin
-from .models import CustomUser as User
+from .models import (
+    CustomUser as User,
+    Wallet,
+)
 from frontend.models import Banner
 from frontend.forms import BannerForm
 
 from .forms import (
-    UserUpdateForm,
+    UserUpdateForm, WalletForm,
 )
 
 
@@ -139,3 +142,61 @@ def banner_delete(request, id):
     banner = get_object_or_404(Banner, id=id)
     banner.delete()
     return redirect(banner_list)
+
+
+"""
+Wallet Views
+"""
+@for_admin
+def wallet_list(request):
+    """  wallets listing page. """
+    wallets = Wallet.objects.all()
+    context = {
+        "title": "Wallets",
+        "wallets": wallets
+    }
+    return  render(request, 'wallet/list.html', context)
+
+
+@for_admin
+def wallet_add(request):
+    """  Add new Wallet to the site. """
+    form = WalletForm(request.POST or None, request.FILES or None)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect(wallet_list)
+    else:
+        form = WalletForm()
+    context = {
+        "title": "Add New Wallet",
+        "form": form
+    }
+    return render(request, 'forms/form.html', context)
+
+
+
+@for_admin
+def wallet_edit(request, id):
+    """ Edit existing wallet on the site. """
+    wallet = get_object_or_404(wallet, id=id)
+    form = WalletForm(data=request.POST or None,  instance=wallet)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect(wallet_list)
+    else:
+        form = WalletForm(instance=wallet)
+    context = {
+        "title": "Edit wallet",
+        "form": form
+    }
+    return render(request, 'forms/form.html', context)
+
+
+@for_admin
+def wallet_delete(request, id):
+    """ Delete existing wallet on the site. """
+    wallet = get_object_or_404(Wallet, id=id)
+    wallet.delete()
+    return redirect(wallet_list)

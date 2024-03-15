@@ -105,13 +105,15 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
     'GROUP_SIGNAL_LINK': ('https://t.me/adm', _('Group Signal Link like Telegram/Whatsapp')),
     'WITHDRAWAL_FEES_PERCENTAGE': (20, _('Withdrawal Fees in Percentage (Number only)'), int),
-    'SERVICE': ('9988776655', _('Service Number'))
+    'SERVICE': ('9988776655', _('Service Number')),
+    'UPI': ('admgaming@paytm', _('Upi Id for add money'))
 }
 
 CONSTANCE_CONFIG_FIELDSETS = {
     ('General Options'): {
+        'UPI',
+        'WITHDRAWAL_FEES_PERCENTAGE',
         'GROUP_SIGNAL_LINK', 
-        'WITHDRAWAL_FEES_PERCENTAGE'
     },
     ('Help & Service Setting'): {
         'SERVICE'
@@ -169,3 +171,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Email COnfigration
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.environ.get("EMAIL_HOST")
+EMAIL_PORT = os.environ.get("EMAIL_PORT")
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
