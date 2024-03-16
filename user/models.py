@@ -129,11 +129,12 @@ class Wallet(BaseModel):
     pay_type = models.CharField(
         _("Payment Type/Purpose"),
         choices=[
-            ("Add Money", "Add Money"), # Positive Amount
-            ("Lose", "Lose"), # Negative Amount
-            ("Winning", "Winning"), # Positive Amount
-            ("Loss", "Loss"), # Negative Amount
-            ("Widrawal", "Widrawal"), # Negative Amount
+            ("Add Money", "Add Money"), # Positive
+            ("Commission", "Commission"), # Positive (Referral Amount)
+            ("Lose", "Lose"), # Negative
+            ("Winning", "Winning"), # Positive
+            ("Loss", "Loss"), # Negative
+            ("Widrawal", "Widrawal"), # Negative
         ],
         max_length=20
     )
@@ -151,7 +152,7 @@ class Wallet(BaseModel):
         verbose_name="Payment Method",
         max_length=30,
         null=True, blank=True,
-        default= " "
+        default= " "    # QR or UPI
     )
     utr = models.CharField(
         _("UTR Number"),

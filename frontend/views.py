@@ -93,7 +93,21 @@ def mine(request):
 @login_required
 def recharge(request):
     if request.method == "POST":
-        print(request.POST)
+        user = request.user
+        amount = float(request.POST['amount'])
+        pay_method = request.POST['pay_method', None]
+        utr = request.POST['utr', None]
+        try:
+            wallet = Wallet.objects.create(
+                user = user,
+                amount = amount,
+                pay_type = "Add Money",
+                pay_method = pay_method,
+                utr = utr
+            )
+            return redirect("user_wallet")
+        except Exception as e:
+            print(e)        
     return render(request, 'frontend/recharge.html')
 
 

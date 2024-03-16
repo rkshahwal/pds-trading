@@ -21,7 +21,10 @@
                             <th scope="col" class="sort">ID</th>
                             <th scope="col" class="sort">User</th>
                             <th scope="col" class="sort">Amount</th>
+                            <th scope="col" class="sort">Pay Type</th>
                             <th scope="col" class="sort">Status</th>
+                            <th scope="col" class="sort">Method</th>
+                            <th scope="col" class="sort">UTR</th>
                             <th scope="col" class="sort">Date</th>
                         </tr>
                     </thead>
@@ -46,13 +49,21 @@
                                 {{wallet.amount|floatformat:2}}
                             </td>
                             <td>
+                                {{wallet.pay_type}}
+                            </td>
+                            <td>
                                 <select class="border-0 walletStatus" data-wallet-id="{{ wallet.id }}">
-                                    <option value="PENDING" {% if wallet.status == "PENDING" %}selected{% endif %}>PENDING</option>
-                                    <option value="walletED" {% if wallet.status == "walletED" %}selected{% endif %}>walletED</option>
-                                    <option value="IN-PROGRESS" {% if wallet.status == "IN-PROGRESS" %}selected{% endif %}>IN-PROGRESS</option>
-                                    <option value="DELIVERED" {% if wallet.status == "DELIVERED" %}selected{% endif %}>DELIVERED</option>
-                                    <option value="FAILED" {% if wallet.status == "FAILED" %}selected{% endif %}>FAILED</option>
+                                    <option value="Pending" {% if wallet.status == "Pending" %}selected{% endif %}>Pending</option>
+                                    <option value="Success" {% if wallet.status == "Success" %}selected{% endif %}>Success</option>
+                                    <option value="Hold" {% if wallet.status == "Hold" %}selected{% endif %}>Hold</option>
+                                    <option value="Rejected" {% if wallet.status == "Rejected" %}selected{% endif %}>Rejected</option>
                                 </select>
+                            </td>
+                            <td>
+                                {{wallet.pay_method}}
+                            </td>
+                            <td>
+                                {{wallet.utr}}
                             </td>
                             <td>
                                 {{wallet.created_at}}
