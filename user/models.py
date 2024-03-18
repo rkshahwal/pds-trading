@@ -114,6 +114,11 @@ class CustomUser(AbstractUser):
         if self.mobile_number:
             return "{}-{}".format(self.mobile_number)
         return ""
+    
+    @property
+    def available_amount(self):
+        amt = self.wallets.filter(status="Success").aggregate(total=models.Sum('amount'))['total'] or 0
+        return round(amt)
 
 
 
@@ -146,7 +151,8 @@ class Wallet(BaseModel):
             ("Hold", "Hold"),
             ("Rejected", "Rejected"),
         ],
-        max_length=20
+        max_length=20,
+        default = "Pending"
     )
     pay_method = models.CharField(
         verbose_name="Payment Method",

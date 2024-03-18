@@ -29,7 +29,7 @@
         <div class="row  my-2 ">
           <div class="col-6 ">
              <p class="w-para ms-0">Available</p>
-             <p class="w-bal ms-0">100</p>
+             <p class="w-bal ms-0">{{available}} </p>
           </div>
           <div class="col-3">
             <p class="w-para ms-0">Total revenue</p>
@@ -60,22 +60,39 @@
           <div class="row  my-2 ">
             <div class="col-12  ">
                <p class="ms-0 w-para-1">Commission</p>
-               <p class="w-bal ms-0">100</p>
+               <p class="w-bal ms-0">0</p>
             </div>
             
           
           </div>
           <div class="row  ">
-              <div class="col-8 col-lg-10 col-md-9 ">
+              {% comment %} <div class="col-8 col-lg-10 col-md-9 ">
                  <p class="w-para-1 text-secondary ms-0">Quantity</p>
                  <p class="w-bal-1 ms-0">+100.00</p>
               </div>
               <div class="col-4 col-lg-2  col-md-3 ">
                  <p class="w-para-1 text-secondary ">Time</p>
                  <p class="w-bal-1  ">2024-02-24 14:54:56</p>
-              </div>
-             
-            
+              </div> {% endcomment %}
+
+              <table class="table text-secondary">
+                <thead>
+                  <tr>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for w in wallets %}
+                  <tr>
+                    <td><p> {{w.amount}} </p> </td>
+                    <td><p> {{w.status}} </p> </td>
+                    <td><p> {{w.created_at}} </p> </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
       </div>
 

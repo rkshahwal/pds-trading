@@ -12,36 +12,37 @@
     <link rel="stylesheet" href="{% static "frontend/css/styles.css" %}">
   </head>
   <body>
-    <div class="container-fluid">
-      <div class="w-100">  
-        <div class="row py-2 py-sm-3 py-md-3 py-lg-3 py-xl-3 py-xl-3 py-xxl-3 ">
-          <div class="col-12 ">
-            <a href="javascript:void(0);" onclick="history.back()">  <i class="fa-solid fa-arrow-left text-dark"></i></a>
+    <form class="Login-Form w-100 " method="post" >
+      {% csrf_token %}
+      <div class="container-fluid">
+    
+          <div class="row py-2 py-sm-3 py-md-3 py-lg-3 py-xl-3 py-xl-3 py-xxl-3 ">
+            <div class="col-12 ">
+              <a href="javascript:void(0);" onclick="history.back()">  <i class="fa-solid fa-arrow-left text-dark"></i></a>
+            </div>
+            
           </div>
-          
-        </div>
-        <form action="" method="post" class="w-100">  
-          {% csrf_token %}
-            <div class="row  mb-2  mb-md-3 mb-sm-3 mb-lg-3 ">
+
+          <div class="row  mb-2  mb-md-3 mb-sm-3 mb-lg-3 ">
               <div class="col-12  ">
-                <p class="recharge-head mt-2  mt-md-0 mt-sm-0 mt-lg-0"> Recharge</p>
+              <p class="recharge-head mt-2  mt-md-0 mt-sm-0 mt-lg-0 ms-1"> Recharge</p>
               </div>
               
             </div>
             <div class="row   ">
               <div class="col-9     col-md-10 col-sm-9 col-lg-11">
-              <p class="recharge-Currency "> Currency</p>
+              <p class="recharge-Currency ms-1 "> Currency</p>
               </div>
               <div class="col-3   col-md-2 col-sm-3 col-lg-1 ">
                   <p class="recharge-INR float-end ">INR <i class="fa-solid fa-arrow-right Recharge-left-icon  ms-2  "></i>
                   </p>
-                  </div>
+              </div>
             </div>
-
-
+  
+  
             <div class="row   mt-2 mt-sm-3 mt-md-3 mt-lg-3  ">
               <div class="col-9 col-md-10 col-sm-9 col-lg-11  ">
-              <p class="recharge-Currency "> Payments</p>
+              <p class="recharge-Currency  ms-1"> Payments</p>
               </div>
               <div class="col-3  col-md-2 col-sm-3 col-lg-1 ">
                   <p class="recharge-INR float-end ">INR <i class="fa-solid fa-arrow-right Recharge-left-icon  ms-2  "></i>
@@ -49,86 +50,142 @@
                   </div>
             </div>
                   
-            <div class="row mt-3">
-              <div class="col-12  d-flex justify-content-start">
-  
-                <input type="radio" class="btn-check me-md-3 me-sm-3 me-lg-3 " name="options" id="option1" autocomplete="off" value="HEXPAY" checked>
-                <label class="btn btn-danger  btn-none fw-normal" for="option1">HEXPAY</label>
-                
-                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" value="SUNPAY">
-                <label class="btn btn-danger  btn-none fw-normal" for="option2">SUNPAY</label>
-                
-                <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off"  value="SUNPAY">
-                <label class="btn btn-danger  btn-none fw-normal" for="option3">SUNPAY</label>
-                
-                <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" value="QEEPAY">
-                <label class="btn btn-danger btn-none fw-normal " for="option4">QEEPAY</label>
-              </div>
+            <div class="row    mt-3   ">
+              <div class="col-12  d-flex justify-content-start   ">
+ 
+             <input type="radio" class="btn-check me-md-3 me-sm-3 me-lg-3 " name="options" id="option1" autocomplete="off" value="HEXPAY" checked>
+             <label class="btn btn-danger  btn-none fw-normal" for="option1">HEXPAY</label>
+             
+             <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" value="SUNPAY">
+             <label class="btn btn-danger  btn-none fw-normal" for="option2">SUNPAY</label>
+             
+             <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off"  value="SUNPAY">
+             <label class="btn btn-danger  btn-none fw-normal" for="option3">SUNPAY</label>
+             
+             <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" value="QEEPAY">
+             <label class="btn btn-danger btn-none fw-normal " for="option4">QEEPAY</label>
+             </div>
+              
             </div>
-
+  
+  
             <div class="row    mt-4  mt-md-5 mt-sm-5 mt-lg-5 ">
               <div class="col-12     ">
-                <p class="Recharge-Amt ms-1">Recharge Amount</p>
+            <p class="Recharge-Amt ms-1">Recharge Amount</p>
             
               </div>
               <div class="col-12    ">
-                <input class="form-control form-control" name="amount" type="number" placeholder="Please Enter Your Amount" aria-label=".form-control-lg example" id="input" required>
+                <input class="form-control form-control " type="number" name="amount" placeholder="Please Enter Your Amount" aria-label="form-control-lg example" id="id_amount" required >
             
               </div>
-              <div class="col-12   mt-3  mt-md-4 mt-sm-4 mt-lg-4">
-                <p class="Recharge-Amt  ">Single recharge limit：1000-1000000</p>
+              <div class="col-12   mt-3  mt-md-4 mt-sm-4 mt-lg-4 ">
+            <p class="Recharge-Amt ms-1  ">Single recharge limit 500-5000</p>
               </div>
               <div class="col-12   d-flex    ">
-                <p class="Amt me-3" id="p1">500</p>
-                <p class="Amt me-3" id="p2">2000</p>
-                <p class="Amt me-3 "id="p3">5000</p>
+                <p class="Amt  ms-1 me-3" id="p1">500</p>
+                <p class="Amt  me-3" id="p2">2000</p>
+                <p class="Amt  me-3 "id="p3">5000</p>
+        
               </div>
-          
-              
-            </div>
-            <div class="d-grid gap-2 mt-3">
+             
+              <div class='col-12 'id='show-btn'>
+             
+                </div>        
+
+                  <div class="col-12    ">
+                    <p class="Recharge-Amt ms-1  ">UTR Number</p>
+                    <input class="form-control form-control  " name="utr" type="text" placeholder="Enter Your UTR Number" aria-label=".form-control-lg example" id="UTR-input" required name="UTR-NUMBER"   >
+                 
+                  </div>
+                 
+            <div class="d-grid gap-2 mt-0 mt-4">
               <button class="btn btn-primary" type="submit">Submit</button>
             
             </div>
-        
+            
           </div>
+          
         </form>
-      </div>
-    </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+            
+                <h6 class="modal-title  text-muted " id="exampleModalLabel"  style="font-size: 15px;">Please pay the money by copying the upi id .</h6>
+                <!-- <h1 class="modal-title fs-6  text-muted" id="exampleModalLabel"style="font-size: 15px;">Please pay the money by Scaning  the QR Code .</h1> -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" id="body">
+                <img src="" alt="" class="rounded mx-auto d-block  img-fluid mb-2" id="qr-img">
+                <div class="alert alert-success alert-dismissible fade show mt-3 " role="alert"id="alert" >
+                  <h5 class="alert-heading">UPI ID</h5><h6 class="alert-heading  upi-id ">74892795933@ybl  <i class="fa-regular fa-copy " style="color: #0a3622; cursor: pointer;" id="copy"></i></h6></div>
+              </div>
+              <div class="modal-footer">
+              
+                <button type="button" class="btn btn-primary bg-primary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
 
-    {% comment %} Scripts {% endcomment %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
-      a=document.querySelector('#input')
+      a=document.querySelector('#id_amount')
       b=document.querySelector('#p1')
       c=document.querySelector('#p2')
       d=document.querySelector('#p3')
-      e=document.querySelector('#p4')
+      copyText=document.querySelector("#copy")
+      txt=document.querySelector('.upi-id')
+      qrhead=document.querySelector('.modal-title')
+      alertt=document.querySelector("#alert")
+      qrimg=document.querySelector("#qr-img")
+      sbtn=document.querySelector("#show-btn")
 
-      // console.log(b.tagName)
+      // console.log(qrhead.innerText)
+      copyText.addEventListener('click',function(){
+      text= txt.innerText
+            navigator.clipboard.writeText(text);
+            alert( `Copied the UPI ID Successfully ${text}!`);
+      
+        
+      })
 
       b.addEventListener("click",function(){
-        a.value=b.innerText
+
+      if (a.value=b.innerText) {
+      sbtn.innerHTML='<button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" ><span class="text-uppercase  fw-normal" >Click me To Show UPI ID</span></button>'
+      qrimg.removeAttribute('src','')
+
+
+      } 
+
       })
       c.addEventListener("click",function(){
-        a.value=c.innerText
+
+      if (a.value=c.innerText) {
+      
+        sbtn.innerHTML='<button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" ><span class="text-uppercase  fw-normal" >Click me To Show UPI ID</span></button>'
+      qrimg.removeAttribute('src',' https://i.ibb.co/jWKBnrT/qr-image.jpg')
+
+      
+      } 
       })
       d.addEventListener("click",function(){
-        a.value=d.innerText
+
+      if (a.value=d.innerText) {
+        sbtn.innerHTML='<button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" ><span class="text-uppercase  fw-normal" >Click me To Show QR CODE</span></button>'
+      qrhead.innerText='Please pay the money by Scaning  the QR code.'
+      qrimg.setAttribute('src','https://i.ibb.co/jWKBnrT/qr-image.jpg')
+      alertt.remove()
+
+      } 
+
       })
-      e.addEventListener("click",function(){
-        a.value=e.innerText
-      })
-      var buttons = document.querySelectorAll("button");
-      for (button in buttons) {
-          buttons[button].onclick = function() {
-            buttons.forEach(function(btn){
-              btn.classList.remove('highlight');
-              btn.classList.remove('Pay-type-active');
-            })
-            this.classList.add('highlight');
-          }
-      }
+
+
+
     </script>
   </body>
 </html>

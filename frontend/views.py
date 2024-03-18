@@ -94,10 +94,13 @@ def mine(request):
 def recharge(request):
     if request.method == "POST":
         user = request.user
-        amount = float(request.POST['amount'])
-        pay_method = request.POST['pay_method', None]
-        utr = request.POST['utr', None]
+        amount = float(request.POST.get('amount') or 0)
+        utr = request.POST.get('utr', None)
         try:
+            if amount >= 5000:
+                pay_method = "QR"
+            else:
+                pay_method = "UPI"
             wallet = Wallet.objects.create(
                 user = user,
                 amount = amount,
@@ -113,7 +116,12 @@ def recharge(request):
 
 @login_required
 def wallet(request):
-    return render(request, 'frontend/wallet.html')
+    user = request.user
+    context = {
+        "available": user.available_amount,
+        "wallets": user.wallets.all()
+    }
+    return render(request, 'frontend/wallet.html', context)
 
 
 @login_required
