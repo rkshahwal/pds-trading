@@ -7,8 +7,12 @@ from .models import (
     CustomUser as User,
     Wallet,
 )
-from frontend.models import Banner
-from frontend.forms import BannerForm
+from frontend.models import (
+    Banner, Market,
+)
+from frontend.forms import (
+    BannerForm, MarketForm,
+)
 
 from .forms import (
     UserUpdateForm, WalletForm,
@@ -88,6 +92,10 @@ def user_delete(request, id):
     user.delete()
     return redirect('users')
 
+
+"""
+Banner Views
+"""
 
 @for_admin
 def banner_list(request):
@@ -200,3 +208,61 @@ def wallet_delete(request, id):
     wallet = get_object_or_404(Wallet, id=id)
     wallet.delete()
     return redirect(wallet_list)
+
+
+
+""" Market Views """
+@for_admin
+def market_list(request):
+    """  markets listing page. """
+    markets = Market.objects.all()
+    context = {
+        "title": "Markets",
+        "markets": markets
+    }
+    return  render(request, 'frontend/admin/market-list.html', context)
+
+
+@for_admin
+def market_add(request):
+    """  Add new market to the site. """
+    form = MarketForm(request.POST or None, request.FILES or None)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect(market_list)
+    else:
+        form = MarketForm()
+    context = {
+        "title": "Add New market",
+        "form": form
+    }
+    return render(request, 'forms/form.html', context)
+
+
+
+@for_admin
+def market_edit(request, id):
+    """ Edit existing market on the site. """
+    market = get_object_or_404(Market, id=id)
+    form = MarketForm(data=request.POST or None, files=request.FILES or None,  instance=market)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect(market_list)
+    else:
+        form = MarketForm(instance=market)
+    context = {
+        "title": "Edit market",
+        "form": form
+    }
+    return render(request, 'forms/form.html', context)
+
+
+@for_admin
+def market_delete(request, id):
+    """ Delete existing market on the site. """
+    market = get_object_or_404(Market, id=id)
+    Market.delete()
+    return redirect(market_list)
+

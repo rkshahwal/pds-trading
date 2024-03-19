@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import login, logout
 from django.contrib import messages
@@ -9,7 +9,7 @@ from user.models import (
     Wallet, Referral,
 )
 from .models import (
-    Banner,
+    Banner, Market,
 )
 
 
@@ -19,6 +19,7 @@ def home(request):
         "service": config.SERVICE,
         "group_signal": config.GROUP_SIGNAL_LINK,
         "banners": Banner.objects.all(),
+        "markets": Market.objects.filter(status=True),
     }
     return render(request, 'frontend/home.html', context)
 
@@ -110,8 +111,12 @@ def recharge(request):
             )
             return redirect("user_wallet")
         except Exception as e:
-            print(e)        
-    return render(request, 'frontend/recharge.html')
+            print(e)
+    context = {
+        "qr": config.QR,
+        "upi": config.UPI
+    }   
+    return render(request, 'frontend/recharge.html', context)
 
 
 @login_required
@@ -133,8 +138,12 @@ def withdrowal(request):
 
 
 @login_required
-def call_put(request):
-    return render(request, 'frontend/call-put.html')
+def call_put(request, market_id):
+    market = get_object_or_404(Market, id=market_id)
+    context = {
+        "market": market
+    }
+    return render(request, 'frontend/call-put.html', context)
 
 
 def tc(request):

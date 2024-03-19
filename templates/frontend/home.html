@@ -82,24 +82,25 @@
           </div>
         </div>
 
-        
-              <table class="table table   table-responsive table-sm table-striped table-bordered table align-middle text-center table-hover" >
+              <table class="table table table-responsive table-sm table-striped table-bordered table align-middle text-center table-hover" >
                 <thead>
                   <tr class="">
                     <th scope="col " class="t-head" style="color: #707A8A;">Symbol</th>
                     <th scope="col"  class="t-head  " style="color: #707A8A;">Latest price</th>
                     <th scope="col"  class="t-head " style="color: #707A8A;">Fluctuation range</th>
-                    
                   </tr>
                 </thead>
                 <tbody>
+                  {% for market in markets %}
                   <tr style="font-size: 14px; font-weight: bold;">
                     
-                    <td><img src="{%static "frontend/img/btc.png" %}" alt="" width="20px" ><a href="{% url "call_put" %}" class="link-offset-2 link-underline link-underline-opacity-0 text-dark" > <span>BTC/USDT</span></a></td>
-                    <td>64924.22</td>
-                    <td ><span class="badge ">+4.38%</span></td>
+                    <td><img src="{{market.sybmol.url}}" alt="" width="20px" ><a href="{% url "call_put" market.id %}" class="link-offset-2 link-underline link-underline-opacity-0 text-dark" > <span>{{market.name}} </span></a></td>
+                    <td> {{market.latest_price}} </td>
+                    <td ><span class="badge {% if market.fun_range < 0 %} LOSS {% endif %}">{% if market.fun_range < 0 %}{% else %}+{% endif %}{{market.fun_range}} </span></td>
                   </tr>
-                  <tr style="font-size: 14px; font-weight: bold;">
+                  {% endfor %}
+
+                  {% comment %} <tr style="font-size: 14px; font-weight: bold;">
                     
                     <td><img src="{%static "frontend/img/eth.png" %}" alt="" width="20px"> <a href="{% url "call_put" %}" class="link-offset-2 link-underline link-underline-opacity-0 text-dark" > <span> ETH/USDT</span></a></td>
                     <td>3528.75</td>
@@ -187,7 +188,7 @@
                     <td><img src="{%static "frontend/img/bnb.png" %}" alt="" width="20px"> <a href="{% url "call_put" %}" class="link-offset-2 link-underline link-underline-opacity-0 text-dark" > <span>BNB/USDT</span></a></td>
                     <td>416.53</td>
                     <td ><span class="badge   ">+0.81%</span></td>
-                  </tr>
+                  </tr> {% endcomment %}
                   
                 </tbody>
               </table>

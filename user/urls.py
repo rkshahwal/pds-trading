@@ -18,6 +18,12 @@ urlpatterns = [
     path('edit-banner/<int:id>/', banner_edit, name='edit-banner'),
     path('delete-banner/<int:id>/', banner_delete, name='delete-banner'),
     
+    # Market Urls
+    path('markets/', market_list, name='markets'),
+    path('add-market/', market_add, name='add-market'),
+    path('edit-market/<int:id>/', market_edit, name='edit-market'),
+    path('delete-market/<int:id>/', market_delete, name='delete-market'),
+    
     
     # Wallete Urls
     path('wallets/', wallet_list, name='wallets'),

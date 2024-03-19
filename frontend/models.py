@@ -21,3 +21,28 @@ class Banner(BaseModel):
         
     def __str__(self):
         return str(self.id)
+
+
+
+""" Market Game Model. """
+class Market(BaseModel):
+    sybmol = models.ImageField(
+        _("Market Symbol Image"),
+        upload_to='frontend/market-symbol/',
+        default="btc.png",
+        help_text="Image Type: jpg,png,gif,jpeg"
+    )
+    name = models.CharField(
+        max_length=256, 
+        verbose_name=_('Name')
+    )
+    latest_price = models.FloatField(_("Latest Price"), default=0.0)
+    fun_range = models.FloatField(_("Fluctuation Range"), default=0.0, help_text="In percentage.")
+    status = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = _("Market Game")
+        verbose_name_plural = _("Market Games")
+        
+    def __str__(self):
+        return str(self.id)

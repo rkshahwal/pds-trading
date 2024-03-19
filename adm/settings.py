@@ -106,12 +106,14 @@ CONSTANCE_CONFIG = {
     'GROUP_SIGNAL_LINK': ('https://t.me/adm', _('Group Signal Link like Telegram/Whatsapp')),
     'WITHDRAWAL_FEES_PERCENTAGE': (20, _('Withdrawal Fees in Percentage (Number only)'), int),
     'SERVICE': ('9988776655', _('Service Number')),
-    'UPI': ('admgaming@paytm', _('Upi Id for add money'))
+    'UPI': ('admgaming@paytm', _('Upi Id for Recharge')),
+    'QR': ('https://i.ibb.co/jWKBnrT/qr-image.jpg', _('QR Code Image Link for Recharge'))
 }
 
 CONSTANCE_CONFIG_FIELDSETS = {
     ('General Options'): {
         'UPI',
+        'QR',
         'WITHDRAWAL_FEES_PERCENTAGE',
         'GROUP_SIGNAL_LINK', 
     },

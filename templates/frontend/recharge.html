@@ -119,7 +119,7 @@
               <div class="modal-body" id="body">
                 <img src="" alt="" class="rounded mx-auto d-block  img-fluid mb-2" id="qr-img">
                 <div class="alert alert-success alert-dismissible fade show mt-3 " role="alert"id="alert" >
-                  <h5 class="alert-heading">UPI ID</h5><h6 class="alert-heading  upi-id ">74892795933@ybl  <i class="fa-regular fa-copy " style="color: #0a3622; cursor: pointer;" id="copy"></i></h6></div>
+                  <h5 class="alert-heading">UPI ID</h5><h6 class="alert-heading  upi-id ">{{upi}}  <i class="fa-regular fa-copy " style="color: #0a3622; cursor: pointer;" id="copy"></i></h6></div>
               </div>
               <div class="modal-footer">
               
@@ -167,7 +167,7 @@
       if (a.value=c.innerText) {
       
         sbtn.innerHTML='<button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" ><span class="text-uppercase  fw-normal" >Click me To Show UPI ID</span></button>'
-      qrimg.removeAttribute('src',' https://i.ibb.co/jWKBnrT/qr-image.jpg')
+      qrimg.removeAttribute('src', '{{qr}}')
 
       
       } 
@@ -177,7 +177,7 @@
       if (a.value=d.innerText) {
         sbtn.innerHTML='<button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" ><span class="text-uppercase  fw-normal" >Click me To Show QR CODE</span></button>'
       qrhead.innerText='Please pay the money by Scaning  the QR code.'
-      qrimg.setAttribute('src','https://i.ibb.co/jWKBnrT/qr-image.jpg')
+      qrimg.setAttribute('src','{{qr}}')
       alertt.remove()
 
       } 

@@ -52,6 +52,15 @@
         </a>
       </li>
 
+      <li class="nav-item {% if request.resolver_match.view_name == 'markets' %} active {% endif %}">
+        <a href="{% url 'markets' %}" class="nav-link">
+          <span class="sidebar-icon">
+            <i class="fas fa-images"></i>
+          </span>
+          <span class="sidebar-text">Markets</span>
+        </a>
+      </li>
+
       {% comment %} <li class="nav-item {% if request.resolver_match.view_name == 'update-setting' %} active {% endif %}">
         <a href="{% url 'update-setting' %}" class="nav-link">
           <span class="sidebar-icon">
