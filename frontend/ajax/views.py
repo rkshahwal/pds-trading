@@ -13,12 +13,14 @@ def call_put_bid(request):
         market = Market.objects.get(pk=m_id)
         user = User.objects.get(id=uid)
         avl_amount =  user.available_amount
+        
         if avl_amount < 500:
             return JsonResponse({'success': False, 'error': "Less available amount."})
+        
         wallet = Wallet.objects.create(
             user = user,
-            amount = (avl_amount * 5 / 100), # 5% of available money is reserved
-            pay_type = bid,
+            amount = -(avl_amount * 5 / 100), # 5% of available money is reserved
+            pay_type = "Bid",
             status = "Success",
             remark = f"Bid ({bid}) on {market.name}"
         )
