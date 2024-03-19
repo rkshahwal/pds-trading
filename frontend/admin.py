@@ -17,5 +17,5 @@ class MarketAdmin(admin.ModelAdmin):
 
 @admin.register(MarketBid)
 class MarketBidAdmin(admin.ModelAdmin):
-    list_display = ('market', 'start_time', 'end_time', 'created_at')
-    list_filter = ('market', 'start_time', 'end_time', 'created_at')
+    list_display = ('market', 'bid', 'start_time', 'end_time', 'created_at')
+    list_filter = ('market', 'bid', 'start_time', 'end_time', 'created_at')
