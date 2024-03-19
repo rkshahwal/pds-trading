@@ -57,7 +57,8 @@ class MarketBid(BaseModel):
         choices = (
             ("Call","Call"),
             ("Put","Put"),
-        )
+        ),
+        max_length = 5
     )
     start_time = models.DateTimeField(default=timezone.now())
     end_time = models.DateTimeField(
