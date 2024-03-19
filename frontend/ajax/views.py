@@ -24,8 +24,8 @@ def call_put_bid(request):
         
         market_bid = MarketBid.objects.filter(
             market=market,
-            start_time__gte = now,
-            end_time__lte = now,
+            start_time__lte = now,
+            end_time__gte = now,
             bid = bid
         )
         
