@@ -13,3 +13,9 @@ class MarketAdmin(admin.ModelAdmin):
     list_display = ('name', 'latest_price', 'fun_range', 'status', 'created_at')
     search_fields = ('name', )
     list_filter = ('status', 'created_at',)
+
+
+@admin.register(MarketBid)
+class MarketBidAdmin(admin.ModelAdmin):
+    list_display = ('market', 'start_time', 'end_time', 'created_at')
+    list_filter = ('market', 'start_time', 'end_time', 'created_at')

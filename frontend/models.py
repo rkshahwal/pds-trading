@@ -1,5 +1,7 @@
 from django.db import models
 from user.models import BaseModel, _
+from django.utils import timezone
+from datetime import timedelta
 
 
 
@@ -45,4 +47,27 @@ class Market(BaseModel):
         verbose_name_plural = _("Market Games")
         
     def __str__(self):
-        return str(self.id)
+        return str(self.name)
+
+
+
+class MarketBid(BaseModel):
+    market = models.ForeignKey(Market, on_delete=models.CASCADE, related_name="bid_results")
+    bid = models.CharField(
+        choices = (
+            ("Call","Call"),
+            ("Put","Put"),
+        )
+    )
+    start_time = models.DateTimeField(default=timezone.now())
+    end_time = models.DateTimeField(
+        default=timezone.now() + timedelta(minutes=3)
+    )
+    
+    class Meta:
+        ordering = ('-start_time',)
+        verbose_name = _("Market Bid Result")
+        verbose_name_plural = _("Market Bid Results")
+    
+    def __str__(self) -> str:
+        return f"{self.id} - {self.market}"
