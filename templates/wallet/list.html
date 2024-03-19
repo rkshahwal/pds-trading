@@ -83,7 +83,7 @@
         $(document).on('change', '.walletStatus', function(e) {
             var wallet_id = $(this).data('wallet-id');
             var new_status = $(this).val();
-            {% comment %} var url = "#" // "{% url 'update-wallet-status-ajax' %}"; {% endcomment %}
+            var url = "{% url 'update-wallet-status-ajax' %}";
             
             $.ajax({
                 url: url,

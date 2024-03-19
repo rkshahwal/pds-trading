@@ -5,7 +5,7 @@ from user.email import password_reset, password_reset_confirm
 
 
 urlpatterns = [
-    # path('ajax/', include('frontend.ajax.urls')),
+    path('ajax/', include('frontend.ajax.urls')),
     path('', home, name='home'),
     path('register/', user_register, name='user_register'),
     path('login/', user_login, name='user_login'),

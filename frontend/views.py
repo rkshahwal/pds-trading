@@ -124,6 +124,8 @@ def wallet(request):
     user = request.user
     context = {
         "available": user.available_amount,
+        "total_commission": user.total_commission,
+        "total_revenue": user.total_revenue,
         "wallets": user.wallets.all()
     }
     return render(request, 'frontend/wallet.html', context)

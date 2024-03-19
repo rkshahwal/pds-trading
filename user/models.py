@@ -120,6 +120,18 @@ class CustomUser(AbstractUser):
         amt = self.wallets.filter(status="Success").aggregate(total=models.Sum('amount'))['total'] or 0
         return round(amt)
 
+    @property
+    def total_revenue(self):
+        amt = self.wallets.filter(status="Success", pay_type="Winning").aggregate(total=models.Sum('amount'))['total'] or 0
+        return round(amt)
+    
+    
+    @property
+    def total_commission(self):
+        amt = self.wallets.filter(status="Success", pay_type="Commission").aggregate(total=models.Sum('amount'))['total'] or 0
+        return round(amt)
+
+
 
 
 """ Wallet Transactions Model. """
@@ -136,7 +148,7 @@ class Wallet(BaseModel):
         choices=[
             ("Add Money", "Add Money"), # Positive
             ("Commission", "Commission"), # Positive (Referral Amount)
-            ("Lose", "Lose"), # Negative
+            ("Bid", "Bid"), # Negative
             ("Winning", "Winning"), # Positive
             ("Loss", "Loss"), # Negative
             ("Widrawal", "Widrawal"), # Negative
