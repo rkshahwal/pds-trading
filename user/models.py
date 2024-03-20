@@ -117,19 +117,26 @@ class CustomUser(AbstractUser):
     
     @property
     def available_amount(self):
-        amt = self.wallets.filter(status="Success").aggregate(total=models.Sum('amount'))['total'] or 0
+        amt = self.wallets.filter(status__in=["Success", "Hold"]).aggregate(total=models.Sum('amount'))['total'] or 0
         return round(amt)
 
     @property
     def total_revenue(self):
-        amt = self.wallets.filter(status="Success", pay_type="Winning").aggregate(total=models.Sum('amount'))['total'] or 0
+        amt = self.wallets.filter(status__in=["Success", "Hold"], pay_type="Winning").aggregate(total=models.Sum('amount'))['total'] or 0
         return round(amt)
     
     
     @property
     def total_commission(self):
-        amt = self.wallets.filter(status="Success", pay_type="Commission").aggregate(total=models.Sum('amount'))['total'] or 0
+        amt = self.wallets.filter(status__in=["Success", "Hold"], pay_type="Commission").aggregate(total=models.Sum('amount'))['total'] or 0
         return round(amt)
+    
+    def get_bank(self):
+        try:
+            bank = self.bank
+        except:
+            bank = None
+        return bank
 
 
 

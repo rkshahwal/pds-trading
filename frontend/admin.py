@@ -19,3 +19,11 @@ class MarketAdmin(admin.ModelAdmin):
 class MarketBidAdmin(admin.ModelAdmin):
     list_display = ('market', 'bid', 'start_time', 'end_time', 'created_at')
     list_filter = ('market', 'bid', 'start_time', 'end_time', 'created_at')
+
+
+@admin.register(UserBankDetail)
+class UserBankAdmin(admin.ModelAdmin):
+    list_display = ('user', 'name', 'bank', 'ifsc', 'ac')
+    search_fields = (
+        'user__email', 'user__mobile_number', 'user__name',
+        'name', 'bank', 'ifsc', 'ac')

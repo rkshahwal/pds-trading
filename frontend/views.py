@@ -9,7 +9,7 @@ from user.models import (
     Wallet, Referral,
 )
 from .models import (
-    Banner, Market,
+    Banner, Market, UserBankDetail,
 )
 
 
@@ -20,6 +20,7 @@ def home(request):
         "group_signal": config.GROUP_SIGNAL_LINK,
         "banners": Banner.objects.all(),
         "markets": Market.objects.filter(status=True),
+        "top_markets": Market.objects.filter(status=True).order_by('-latest_price')[:3],
     }
     return render(request, 'frontend/home.html', context)
 
@@ -123,6 +124,7 @@ def recharge(request):
 def wallet(request):
     user = request.user
     context = {
+        "user": user,
         "available": user.available_amount,
         "total_commission": user.total_commission,
         "total_revenue": user.total_revenue,
@@ -136,7 +138,37 @@ def withdrowal(request):
     context = {
         "tax": config.WITHDRAWAL_FEES_PERCENTAGE
     }
+    if request.method == "POST":
+        amount = request.POST["amount"]
+        wallet = Wallet.objects.create(
+            user = request.user,
+            amount = -abs(float(amount)),
+            status = "Hold",
+            pay_type = "Widrawal"
+        )
+        return redirect('user_wallet')
     return render(request, 'frontend/withdrwal.html', context)
+
+
+@login_required
+def save_bankdetails(request):
+    """
+    This function is used from the front end to add bank details of a user in his wallete popup.
+    """
+    if request.method == "POST":
+        name = request.POST.get('account_holder')
+        ifsc = request.POST.get('ifsc_code')
+        bank_name = request.POST.get('bank_name')
+        ac = request.POST.get('account_number')
+        
+        bank, _created = UserBankDetail.objects.get_or_create(user=request.user)
+        bank.name = name
+        bank.bank = bank_name
+        bank.ifsc = ifsc
+        bank.ac = ac
+        bank.save()
+        
+    return redirect('user_withdrowal')
 
 
 @login_required

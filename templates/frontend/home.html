@@ -64,21 +64,13 @@
 
         <div class="container-fluid text-center   my-5" id="markets">
           <div class="row">
+            {% for tm in top_markets %}
             <div class="col mt-1">
-            <h5 class="h-head">BTC/USDT</h5>
-            <h5 class="p-head">65388.51</h5>
-            <h5 class="p-head-g">+5.13%</h5>
+              <h5 class="h-head">{{tm.name}} </h5>
+              <h5 class="p-head">{{tm.latest_price}} </h5>
+              <h5 class="p-head-g">{% if tm.fun_range < 0 %}{% else %}+{% endif %}{{tm.fun_range}}%</h5>
             </div>
-            <div class="col mt-1 ">
-              <h5 class="h-head">ETH/USDT</h5>
-              <h5 class="p-head">3535.46</h5>
-              <h5 class="p-head-g">+3.29%</h5>
-            </div>
-            <div class="col mt-1 ">
-              <h5 class="h-head">EOS/USDT</h5>
-              <h5 class="p-head">1.1310</h5>
-              <h5 class="p-head-g">+6.98%</h5>
-            </div>
+            {% endfor %}
           </div>
         </div>
 

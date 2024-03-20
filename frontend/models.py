@@ -1,5 +1,5 @@
 from django.db import models
-from user.models import BaseModel, _
+from user.models import BaseModel, _, CustomUser as User
 from django.utils import timezone
 from datetime import timedelta
 
@@ -60,7 +60,7 @@ class MarketBid(BaseModel):
         ),
         max_length = 5
     )
-    start_time = models.DateTimeField(default=timezone.now())
+    start_time = models.DateTimeField(default=timezone.now)
     end_time = models.DateTimeField(
         default=timezone.now() + timedelta(minutes=3)
     )
@@ -72,3 +72,15 @@ class MarketBid(BaseModel):
     
     def __str__(self) -> str:
         return f"{self.id} - {self.market}"
+
+
+
+class UserBankDetail(BaseModel):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='bank')
+    name = models.CharField(_("Account Holder"), max_length=50, null=True, blank=True)
+    bank = models.CharField(_("Bank Name"), max_length=50, null=True, blank=True)
+    ifsc = models.CharField(_("Bank Ifsc Code"), max_length=20, null=True, blank=True)
+    ac = models.CharField(_("Account Number"), max_length=20, null=True, blank=True)
+    
+    def __str__(self) -> str:
+        return str(self.pk)
