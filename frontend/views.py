@@ -52,16 +52,27 @@ def user_register(request):
             return render(request, 'frontend/register.html')
         
         if code:
+            level = 0
+            try:
+                referred_by_referral = Referral.objects.get(referral_to=referred_by)
+            except Referral.DoesNotExist:
+                referred_by_referral = None
+                
+            if referred_by_referral:
+                level = (referred_by_referral.level + 1)
+            
             Referral.objects.create(
                 referred_by = referred_by,
-                referral_to = user
+                referral_to = user,
+                level = level
             )
-            Wallet.objects.create(
-                user = referred_by,
-                amount = 50,
-                pay_type = "Commission",
-                remark = "Refer a friend and get Rs.50.",
-            )
+            if level == 0:
+                Wallet.objects.create(
+                    user = referred_by,
+                    amount = 50,
+                    pay_type = "Commission",
+                    remark = "Refer a friend and get Rs.50.",
+                )
         return redirect('user_login')
     return render(request, 'frontend/register.html')
 

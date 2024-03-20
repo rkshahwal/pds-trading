@@ -208,7 +208,7 @@ class Referral(BaseModel):
     referred_by = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name='referred_by_me',
         verbose_name = "Referral By")
-    level = models.PositiveIntegerField(default=1)
+    level = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f'{self.referral_to} referred by {self.referred_by}'
