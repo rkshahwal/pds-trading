@@ -16,8 +16,8 @@ def call_put_bid(request):
         user = User.objects.get(id=uid)
         avl_amount =  user.available_amount
         
-        if avl_amount < 500:
-            return JsonResponse({'success': False, 'error': "Less available amount."})
+        # if avl_amount < 500:
+        #     return JsonResponse({'success': False, 'error': "Less available amount."})
         
         now = timezone.localtime()
         print(now)

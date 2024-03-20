@@ -21,9 +21,10 @@
           <div class="modal-content border-0">
             <div class="modal-body">
               <div class="d-flex justify-content-center">
-                <div class="spinner-border" role="status">
+                {% comment %} <div class="spinner-border" role="status">
                   <span class="sr-only">Loading...</span>
-                </div>
+                </div> {% endcomment %}
+                <p id="count-down" class="h1">60</p>
               </div>
             </div>
           </div>
@@ -107,7 +108,15 @@
                 $('#loader-modal').show();
                 setTimeout(function() {
                   $('#loader-modal').hide();
+                  window.location.href="/wallet/"
                 }, 60000);
+                
+                var seconds = 60;
+                function incrementSeconds() {
+                  seconds -= 1;
+                  $("#count-down").text(seconds);
+                }
+                setInterval(incrementSeconds, 1000);
               } else {
                 alert(data['error']);
               }
@@ -115,6 +124,7 @@
           });
         });
       });
+
     </script>
   </body>
 </html>
