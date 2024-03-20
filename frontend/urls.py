@@ -22,6 +22,9 @@ urlpatterns = [
     # Terms and Conditions
     path('terms-and-conditions/', tc, name="tc"),
     
+    # About US
+    path('about-us/', about_us, name="about_us"),
+    
     # User Password
     path('password-reset/', password_reset, name='reset_user_password'),
     path('set-password/<slug:uid>/<slug:token>/', password_reset_confirm, name='confirm_reset_password'),

@@ -107,7 +107,10 @@ def user_logout(request):
 
 @login_required
 def mine(request):
-    return render(request, 'frontend/mine.html')
+    context = {
+        "config": config,
+    }
+    return render(request, 'frontend/mine.html', context)
 
 
 @login_required
@@ -204,3 +207,7 @@ def tc(request):
     All the information given in this website is correct. This is a training game. It is possible to get used to it. I am investing in this website with all my senses,and I have read all its terms and conditions. If in any way I am not affected by this, then  I myself am responsible for the loss, and I am an 18 year old person.
     """
     return HttpResponse(tc)
+
+
+def about_us(request):
+    return render(request, "frontend/about-us.html")

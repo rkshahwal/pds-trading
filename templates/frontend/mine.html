@@ -37,17 +37,17 @@
           </div>
            <div class="container-fluid mt-3">
             <div class="row  py-3">
-              <a class="link-offset-2 link-underline text-dark link-underline-opacity-0" href="#">  <div class="col">
+              <a class="link-offset-2 link-underline text-dark link-underline-opacity-0" target="_blank" href="{{config.APK_URL}}">  <div class="col">
             <i class="fa-solid fa-circle-down u-icon "></i> <span class="u-name ms-3"> App Download </span><i class="fa-solid fa-arrow-right u-icon float-end"></i>
               </div>
             </a>   
             </div>
-            <div class="row  py-3">
+            {% comment %} <div class="row  py-3">
               <div class="col">
                 <a class="link-offset-2 link-underline text-dark link-underline-opacity-0" href="#">   <i class="fa-solid fa-folder u-icon "></i> <span class="u-name ms-3">Option Order </span><i class="fa-solid fa-arrow-right u-icon float-end"></i>
               </div>
             </a>
-            </div>
+            </div> {% endcomment %}
             <div class="row  py-3">
               <div class="col">
                 <a class="link-offset-2 link-underline text-dark link-underline-opacity-0" href="#">
@@ -55,16 +55,16 @@
               </div>
             </a>
             </div>
-            <div class="row  py-3">
+            {% comment %} <div class="row  py-3">
               <div class="col">
                 <a class="link-offset-2 link-underline text-dark link-underline-opacity-0" href="#">
                 <i class="fa-solid fa-wallet u-icon "></i> <span class="u-name ms-3"> Withdrwal Setting</span> <i class="fa-solid fa-arrow-right u-icon float-end"></i>
               </div>
             </a>
-            </div>
+            </div> {% endcomment %}
             <div class="row  py-3">
               <div class="col">
-                <a class="link-offset-2 link-underline text-dark link-underline-opacity-0" href="#">
+                <a class="link-offset-2 link-underline text-dark link-underline-opacity-0" target="_blank" href="{% url "about_us" %}">
                 <i class="fa-solid  fa-address-card u-icon"></i><span class="u-name ms-3">  About Us </span> <i class="fa-solid fa-arrow-right u-icon float-end"></i>
               </div>
             </a>

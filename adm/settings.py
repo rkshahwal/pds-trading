@@ -107,7 +107,8 @@ CONSTANCE_CONFIG = {
     'WITHDRAWAL_FEES_PERCENTAGE': (20, _('Withdrawal Fees in Percentage (Number only)'), int),
     'SERVICE': ('https://telegram.me//WWWAdmtradingofficialchannel', _('Service Link')),
     'UPI': ('7489279593-2@ybl', _('Upi Id for Recharge')),
-    'QR': ('https://i.ibb.co/jWKBnrT/qr-image.jpg', _('QR Code Image Link for Recharge'))
+    'QR': ('https://i.ibb.co/jWKBnrT/qr-image.jpg', _('QR Code Image Link for Recharge')),
+    'APK_URL': ('#', _('App Download Link'))
 }
 
 CONSTANCE_CONFIG_FIELDSETS = {
@@ -115,6 +116,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
         'UPI',
         'QR',
         'WITHDRAWAL_FEES_PERCENTAGE',
+        'APK_URL',
     },
     ('Help & Service Setting'): {
         'SERVICE',
