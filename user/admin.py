@@ -42,3 +42,4 @@ class CountryCodeAdmin(admin.ModelAdmin):
 class ReferralAdmin(admin.ModelAdmin):
     list_display = ('referral_to', 'referred_by', 'level')
     list_filter = ('level', )
+    list_editable = ('level', )
