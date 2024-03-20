@@ -56,6 +56,13 @@ def user_register(request):
                 referred_by = referred_by,
                 referral_to = user
             )
+            Wallet.objects.create(
+                user = referred_by,
+                amount = 50,
+                pay_type = "Commission",
+                remark = "Refer a friend and get Rs.50.",
+            )
+        return redirect('user_login')
     return render(request, 'frontend/register.html')
 
 
