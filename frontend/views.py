@@ -211,3 +211,7 @@ def tc(request):
 
 def about_us(request):
     return render(request, "frontend/about-us.html")
+
+
+def my_team(request):
+    return render(request, "frontend/team.html")

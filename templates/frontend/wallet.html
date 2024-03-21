@@ -80,15 +80,17 @@
                   <tr>
                     <th scope="col">Quantity</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Purpose</th>
                     <th scope="col">Time</th>
                   </tr>
                 </thead>
                 <tbody>
                   {% for w in wallets %}
                   <tr>
-                    <td><p> {{w.amount}} </p> </td>
-                    <td><p> {{w.status}} </p> </td>
-                    <td><p> {{w.created_at}} </p> </td>
+                    <td><p class="w-bal">{{w.amount}} </p> </td>
+                    <td><p class="w-bal">{{w.status}} </p> </td>
+                    <td><p class="w-bal">{{w.pay_type}} </p> </td>
+                    <td><p class="w-bal">{{w.created_at}} </p> </td>
                   </tr>
                   {% endfor %}
                 </tbody>

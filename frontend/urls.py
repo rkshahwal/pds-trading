@@ -24,6 +24,7 @@ urlpatterns = [
     
     # About US
     path('about-us/', about_us, name="about_us"),
+    path('team/', my_team, name="my_team"),
     
     # User Password
     path('password-reset/', password_reset, name='reset_user_password'),
