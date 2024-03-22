@@ -8,10 +8,10 @@ from .models import (
     Wallet,
 )
 from frontend.models import (
-    Banner, Market,
+    Banner, Market, MarketBid,
 )
 from frontend.forms import (
-    BannerForm, MarketForm,
+    BannerForm, MarketForm, MarketBidForm,
 )
 
 from .forms import (
@@ -265,4 +265,64 @@ def market_delete(request, id):
     market = get_object_or_404(Market, id=id)
     Market.delete()
     return redirect(market_list)
+
+
+
+
+"""
+ Market Result  Views
+"""
+@for_admin
+def market_bid_list(request):
+    """  markets listing page. """
+    markets = MarketBid.objects.all()
+    context = {
+        "title": "Market Bids",
+        "markets": markets
+    }
+    return  render(request, 'market-bid-result/list.html', context)
+
+
+@for_admin
+def market_bid_add(request):
+    """  Add new market to the site. """
+    form = MarketBidForm(request.POST or None, request.FILES or None)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect(market_bid_list)
+    else:
+        form = MarketBidForm()
+    context = {
+        "title": "Add New market",
+        "form": form
+    }
+    return render(request, 'forms/form.html', context)
+
+
+
+@for_admin
+def market_bid_edit(request, id):
+    """ Edit existing market on the site. """
+    market = get_object_or_404(MarketBid, id=id)
+    form = MarketBidForm(data=request.POST or None,  instance=market)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect(market_bid_list)
+    else:
+        form = MarketBidForm(instance=market)
+    context = {
+        "title": "Edit market",
+        "form": form
+    }
+    return render(request, 'forms/form.html', context)
+
+
+@for_admin
+def market_bid_delete(request, id):
+    """ Delete existing market on the site. """
+    market = get_object_or_404(MarketBid, id=id)
+    market.delete()
+    return redirect(market_bid_list)
 

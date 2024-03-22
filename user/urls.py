@@ -30,4 +30,11 @@ urlpatterns = [
     path('add-wallet/', wallet_add, name='add-wallet'),
     path('edit-wallet/<int:id>/', wallet_edit, name='edit-wallet'),
     path('delete-wallet/<int:id>/', wallet_delete, name='delete-wallet'),
+    
+    
+    # Market Result Url
+    path('market-bids/', market_bid_list, name='market-bids'),
+    path('add-market-bid/', market_bid_add, name='add-market-bid'),
+    path('edit-market-bid/<int:id>/', market_bid_edit, name='edit-market-bid'),
+    path('delete-market-bid/<int:id>/', market_bid_delete, name='delete-market-bid'),
 ]

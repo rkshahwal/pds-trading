@@ -214,4 +214,10 @@ def about_us(request):
 
 
 def my_team(request):
-    return render(request, "frontend/team.html")
+    referred_by_me = request.user.referred_by_me.select_related().all()
+    context = {
+        'l1': referred_by_me.filter(level=0).count(),
+        'l2': referred_by_me.filter(level=1).count(),
+        'l3': referred_by_me.filter(level=2).count(),
+    }
+    return render(request, "frontend/team.html", context)

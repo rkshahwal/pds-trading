@@ -74,11 +74,20 @@
       <li class="nav-item {% if request.resolver_match.view_name == 'wallets' %} active {% endif %}">
         <a href="{% url 'wallets' %}" class="nav-link">
           <span class="sidebar-icon">
-            <i class="fas fa-cog"></i>
+            <i class="fas fa-list"></i>
           </span>
           <span class="sidebar-text">Wallet Transactions</span>
         </a>
       </li>
+
+      {% comment %} <li class="nav-item {% if request.resolver_match.view_name == 'market-bids' %} active {% endif %}">
+        <a href="{% url 'market-bids' %}" class="nav-link">
+          <span class="sidebar-icon">
+            <i class="fas fa-coins"></i>
+          </span>
+          <span class="sidebar-text">Market Bid</span>
+        </a>
+      </li> {% endcomment %}
 
       {% endif %}
     </ul>
