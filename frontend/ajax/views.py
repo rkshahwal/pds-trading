@@ -23,7 +23,7 @@ def call_put_bid(request):
         # 1 Check if user already make bid for today
         if user.wallets.filter(
             status = "Success",
-            has_bet = True,
+            has_bid = True,
             created_at__date = now.date()
         ).exists():
             return JsonResponse({

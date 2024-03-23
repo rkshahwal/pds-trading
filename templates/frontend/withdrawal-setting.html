@@ -23,26 +23,8 @@
       </div>
 
     </div>
-    <div class="row  mt-3  ">
-      <div class=" col-7 col-md-10 col-sm-9 col-lg-10 ">
-        <p class="Withdraw-2  mt-2  mt-md-0 mt-sm-0 mt-lg-0">Withdraw</p>
-      </div>
-      <div class="col-5  col-md-2 col-sm-3 col-lg-2 ">
-        <p class="Withdraw-Head float-end  mt-2">Withdraw details</p>
-      </div>
-    </div>
-    <div class="row  mt-3 ">
-      <div class="col-9     col-md-10 col-sm-10 col-lg-11 ">
-        <p class="recharge-Currency   "> Currency</p>
-      </div>
-      <div class="col-3   col-md-2 col-sm-2 col-lg-1 ">
-        <p class="recharge-INR float-end  ">INR <i class="fa-solid fa-arrow-right Recharge-left-icon  ms-1  "></i>
-        </p>
-      </div>
-    </div>
 
-    
-    {% comment %} <div class="row  mt-3 mt-sm-4 mt-md-4 mt-lg-4 ">
+    <div class="row  mt-3 mt-sm-4 mt-md-4 mt-lg-4 ">
           <div class="col-12  ">
             <div class="card " >
             
@@ -69,64 +51,89 @@
                       <label for="exampleInputPassword1" class="form-label fw-bolder">ACCOUNT NUMBER</label>
                       <p class="card-text" id="exampleInputEmail1">{% if user.get_bank %}{{user.get_bank.ac}}{% endif %} </p>
                     </div></li>
+                    <li class="list-group-item"> <div class=" d-flex justify-content-center mt-3 ">
+                    
+                      <button type="button" class="btn btn-primary btn btn-primary bg-primary fw-normal btn-lg fs-6" data-bs-toggle="modal" data-bs-target="#exampleModal" >Edit Bank Details</button>
+                    </div></li>
                   </ul>
                 
+                
+                <!-- Modal -->
+              
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <form method="post" action="{% url "user_bank_detail" %}">
+                      {% csrf_token %}
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fw-semibold fs-4 text-dark" id="exampleModalLabel">ENTER YOUR BANK DETAILS</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                      
+                          
+                              <div class="mb-3">
+                                <label for="validationServer01" class="form-label fw-medium">Account Holder Name</label>
+                                <input type="text" class=" form-control is-invalid" id="validationServer01" placeholder="Enter Account Holder Name" name="account_holder" aria-describedby="validationServer01" value="{% if user.get_bank %}{{user.get_bank.name}}{% endif %}" >
+                                <div class="invalid-feedback ">
+                                Please Enter  Account Holder Name ! 
+                                </div>
+                                
+                                <div class="valid-feedback ">
+                                  Looking Good !
+                                </div>
+                              </div>
+                              <div class="mb-3">
+                                <label for="validationServer02" class="form-label fw-medium">Bank Name</label>
+                                <input type="text" class="form-control  is-invalid" id="validationServer02" placeholder="Enter Bank Name" name="bank_name"  value="{% if user.get_bank %}{{user.get_bank.bank}}{% endif %}">
+                                <div class="invalid-feedback ">
+                                  Please Enter  Bank  Name !
+                                </div>
+                                <div class="valid-feedback ">
+                                  Looking Good !
+                                </div>
+                                
+                              </div>
+                              <div class="mb-3">
+                                <label for="validationServer03" class="form-label fw-medium">IFSE Code</label>
+                                <input type="text" class="form-control  is-invalid" id="validationServer03" placeholder="Enter IFSE Code" name="ifsc_code"  value="{% if user.get_bank %}{{user.get_bank.ifsc}}{% endif %}" >
+                                <div class="invalid-feedback ">
+                                Please Enter Valid IFSE Code
+                                </div>
+                                <div class="valid-feedback ">
+                                  Looking Good !
+                                </div>
+                                
+                              </div>
+                              <div class="mb-3">
+                                <label for="validationServer04" class="form-label fw-medium">Account Number</label>
+                                <input type="number" class="form-control  is-invalid" id="validationServer04" placeholder="Enter Account Number" name="account_number"  value="{% if user.get_bank %}{{user.get_bank.ac}}{% endif %}">
+                                <div class="invalid-feedback ">
+                                Please Enter Account Number
+                                </div>
+                                <div class="valid-feedback ">
+                                  Looking Good !
+                                </div>
+                                
+                              </div>
+                          
+                        </div>
+                        <div class="modal-footer d-flex justify-content-between ">
+                          <button type="button" class="btn btn-secondary bg-secondary fw-normal" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary bg-primary fw-normal" id="btn-1">Save changes</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              
+              <!--Modal  -->
             
           </div>
        
         </div>
       </div>
     
-    </div> {% endcomment %}
-
-    <div class="row mt-3 ">
-      <div class="col-8     col-md-10 col-sm-9 col-lg-11 ">
-        <p class="recharge-Currency  ">Quantity</p>
-      </div>
-      <div class="col-4   col-md-2 col-sm-3 col-lg-1  ">
-        <p class="Withdraw-bal float-end  text-muted ">Available <span id="bal">{{request.user.available_amount}} </span>INR</p>
-      </div>
-    </div>
-
-    <form method="post" class="w-100">
-      {% csrf_token %}
-      <div class="row   ">
-        <div class="col-12    ">
-          <input class="form-control form-control" type="number"
-            placeholder="Enter withdrawal quantity" aria-label=".form-control-lg example" id="input" name="amount">
-
-        </div>
-        <div class="col-12" id="error">
-      
-
-        </div>
-        <div class="col-12 d-grid mt-3">
-
-          <button class="btn btn-danger" id="btn" type="submit" >Submit</button>
-
-        </div>
-      </div>
-    </form>
- 
-
-    <div class="row  mt-4 ">
-      <div class="col-9     col-md-10 col-sm-11 col-lg-11   ">
-        <p class="Withdraw-name  text-muted">Withdrawal fee</p>
-      </div>
-      <div class="col-3   col-md-2 col-sm-1 col-lg-1   ">
-        <p class="Withdraw-bal  text-danger float-end  ">{{tax}}%
-        </p>
-      </div>
-    </div>
-
-    <div class="row    ">
-      <div class="col-9     col-md-10 col-sm-11 col-lg-11   ">
-        <p class="Withdraw-name ms-0 text-muted   ">Ordinary withdrawal</p>
-      </div>
-      <div class="col-3   col-md-2 col-sm-1 col-lg-1 ">
-        <p class="Withdraw-bal  text-muted float-end "><span  id="Ordinary">0.00</span> INR
-        </p>
-      </div>
     </div>
 
  

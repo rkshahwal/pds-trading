@@ -33,7 +33,7 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Wallet)
 class CountryCodeAdmin(admin.ModelAdmin):
-    list_display = ('user', 'amount', 'status', 'pay_type', 'pay_method', 'utr', 'created_at')
+    list_display = ('user', 'amount', 'status', 'pay_type', 'pay_method', 'utr', 'has_bid', 'created_at')
     search_fields = ('user__name', 'user__email', 'utr')
     list_filter = ('status', 'pay_type', 'created_at')
 
@@ -41,5 +41,5 @@ class CountryCodeAdmin(admin.ModelAdmin):
 @admin.register(Referral)
 class ReferralAdmin(admin.ModelAdmin):
     list_display = ('referral_to', 'referred_by', 'level')
-    list_filter = ('level', )
+    list_filter = ('level',  'has_bid')
     list_editable = ('level', )

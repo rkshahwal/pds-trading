@@ -174,7 +174,8 @@ def withdrowal(request):
 @login_required
 def save_bankdetails(request):
     """
-    This function is used from the front end to add bank details of a user in his wallete popup.
+    This function is used from the front end to add bank details of a user.
+    On his mine > Withdrawal setting option.
     """
     if request.method == "POST":
         name = request.POST.get('account_holder')
@@ -188,8 +189,7 @@ def save_bankdetails(request):
         bank.ifsc = ifsc
         bank.ac = ac
         bank.save()
-        
-    return redirect('user_withdrowal')
+    return render(request, 'frontend/withdrawal-setting.html')
 
 
 @login_required
