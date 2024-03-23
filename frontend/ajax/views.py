@@ -19,17 +19,17 @@ def call_put_bid(request):
         
         now = timezone.localtime()
         
-        # # Validations
-        # # 1 Check if user already make bid for today
-        # if user.wallets.filter(
-        #     status = "Success",
-        #     has_bet = True,
-        #     created_at__date = now.date()
-        # ).exists():
-        #     return JsonResponse({
-        #         'success': False,
-        #         'error': "You have already bided today."
-        #     })
+        # Validations
+        # 1 Check if user already make bid for today
+        if user.wallets.filter(
+            status = "Success",
+            has_bet = True,
+            created_at__date = now.date()
+        ).exists():
+            return JsonResponse({
+                'success': False,
+                'error': "You have already bided today."
+            })
             
         # # 2 Recharge have done ? or Less amount of recharge
         # if user.wallets.filter(status="Success", pay_type="Add Money").exists():
