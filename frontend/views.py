@@ -15,12 +15,13 @@ from .models import (
 
 @login_required
 def home(request):
+    markets = Market.objects.filter(status=True).order_by('-latest_price')
     context = {
         "service": config.SERVICE,
         "group_signal": config.GROUP_SIGNAL_LINK,
         "banners": Banner.objects.all(),
-        "markets": Market.objects.filter(status=True),
-        "top_markets": Market.objects.filter(status=True).order_by('-latest_price')[:3],
+        "markets": markets,
+        "top_markets": markets[:3],
     }
     return render(request, 'frontend/home.html', context)
 
