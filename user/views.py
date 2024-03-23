@@ -25,6 +25,7 @@ def index(request):
     """ Dashbord Page."""
     context = {}
     context["total_user"] = User.objects.count()
+    context["total_markets"] = Market.objects.count()
     
     return render(request, 'user/index.html', context)
 

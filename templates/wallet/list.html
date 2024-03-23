@@ -64,7 +64,9 @@
                                 {{wallet.pay_method}}
                             </td>
                             <td>
+                                {% if wallet.utr %}
                                 {{wallet.utr}}
+                                {% endif %}
                             </td>
                             <td>
                                 {{wallet.remark}}

@@ -189,6 +189,10 @@ class Wallet(BaseModel):
         null=True, blank=True,
         default= " "
     )
+    has_bid = models.BooleanField(
+        default=False,
+        help_text="Has Bid of this transaction"
+    )
     
     def __str__(self) -> str:
         return str(self.user)+" > "+str(self.amount)

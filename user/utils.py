@@ -3,7 +3,6 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_str
 from django.shortcuts import redirect
 import re
-from django.http.response import HttpResponseNotFound
 
 
 """phone number validation"""
@@ -47,7 +46,8 @@ def render_index_page(request):
     return redirect('index')
 
 def render_user_home_page(request):
+    # Fontend Home page
     return redirect('home')
 
 def page_not_found(request):
-    return HttpResponseNotFound()
+    return redirect('home')

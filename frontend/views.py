@@ -149,7 +149,7 @@ def wallet(request):
         "available": user.available_amount,
         "total_commission": user.total_commission,
         "total_revenue": user.total_revenue,
-        "wallets": user.wallets.all()
+        "wallets": user.wallets.all()[:100]
     }
     return render(request, 'frontend/wallet.html', context)
 
@@ -216,8 +216,8 @@ def about_us(request):
 def my_team(request):
     referred_by_me = request.user.referred_by_me.select_related().all()
     context = {
-        'l1': referred_by_me.filter(level=0).count(),
-        'l2': referred_by_me.filter(level=1).count(),
-        'l3': referred_by_me.filter(level=2).count(),
+        'l1': referred_by_me.filter(level=0),
+        'l2': referred_by_me.filter(level=1),
+        'l3': referred_by_me.filter(level=2),
     }
     return render(request, "frontend/team.html", context)

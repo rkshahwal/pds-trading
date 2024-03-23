@@ -16,7 +16,7 @@
       <img src="/static/frontend/img/login-img.png" class="image-md">
     </div>
     
-    <ul class="nav flex-column pt-3 pt-md-0">
+    <ul class="nav flex-column pt-3 pt-md-0 mt-2">
 
       {% if request.user.is_staff %}
       <li class="nav-item {% if request.resolver_match.view_name == 'index' %} active {% endif %}">

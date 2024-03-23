@@ -3,7 +3,6 @@ from .views import *
 
 
 urlpatterns = [
-    # path('api/', include('user.api.urls')),
     path('ajax/', include('user.ajax.urls')),
     path('', index, name='index'),
     path('login/', admin_login, name='login'),
