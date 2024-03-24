@@ -61,15 +61,14 @@
         </a>
       </li>
 
-      {% comment %} <li class="nav-item {% if request.resolver_match.view_name == 'update-setting' %} active {% endif %}">
-        <a href="{% url 'update-setting' %}" class="nav-link">
+      <li class="nav-item {% if request.resolver_match.view_name == 'market-bids' %} active {% endif %}">
+        <a href="{% url 'market-bids' %}" class="nav-link">
           <span class="sidebar-icon">
-            <i class="fas fa-cog"></i>
+            <i class="fas fa-coins"></i>
           </span>
-          <span class="sidebar-text">Setting</span>
+          <span class="sidebar-text">Market Bid</span>
         </a>
-      </li> {% endcomment %}
-      
+      </li>
 
       <li class="nav-item {% if request.resolver_match.view_name == 'wallets' %} active {% endif %}">
         <a href="{% url 'wallets' %}" class="nav-link">
@@ -80,14 +79,16 @@
         </a>
       </li>
 
-      {% comment %} <li class="nav-item {% if request.resolver_match.view_name == 'market-bids' %} active {% endif %}">
-        <a href="{% url 'market-bids' %}" class="nav-link">
+      {% comment %} <li class="nav-item {% if request.resolver_match.view_name == 'update-setting' %} active {% endif %}">
+        <a href="{% url 'update-setting' %}" class="nav-link">
           <span class="sidebar-icon">
-            <i class="fas fa-coins"></i>
+            <i class="fas fa-cog"></i>
           </span>
-          <span class="sidebar-text">Market Bid</span>
+          <span class="sidebar-text">Setting</span>
         </a>
       </li> {% endcomment %}
+      
+
 
       {% endif %}
     </ul>

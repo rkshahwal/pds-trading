@@ -53,8 +53,28 @@
                 class="fa-solid fa-circle-info d-block up-icon"></i>Group signal</a>
             <a class="link-offset-2 up-link  text-center link-underline link-underline-opacity-0" href="#" onclick="copyShareLink()"><i
                 class="fa-solid fa-share-nodes d-block up-icon"></i>Share</a>
-            <a class="link-offset-2 up-link  text-center link-underline link-underline-opacity-0" href="{{service}}" target="_blank"><i
+            <a class="link-offset-2 up-link  text-center link-underline link-underline-opacity-0" data-bs-toggle="modal" data-bs-target="#serviceModal"  href="javascript:void(0);"><i
                 class="fa-solid fa-headphones d-block up-icon"></i>Services</a>
+
+              <!-- Service Modal -->
+              <div class="modal fade" id="serviceModal" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fw-semibold fs-4 text-dark" id="serviceModalLabel">Choose Service </h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      
+                      <a type="button" href="{{service}}" target="_blank" class="btn btn-primary btn-lg">Service 1</a>
+                      <a type="button" href="{{service2}}" target="_blank" class="btn btn-primary btn-lg">Service 2</a>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Modal  -->
+            
             </div>
          
             

@@ -18,6 +18,7 @@ def home(request):
     markets = Market.objects.filter(status=True).order_by('-latest_price')
     context = {
         "service": config.SERVICE,
+        "service2": config.SERVICE2,
         "group_signal": config.GROUP_SIGNAL_LINK,
         "banners": Banner.objects.all(),
         "markets": markets,
