@@ -137,7 +137,12 @@ class CustomUser(AbstractUser):
         except:
             bank = None
         return bank
-
+    
+    def first_recharge(self):
+        amt = self.wallets.filter(status="Success", pay_type="Add Money")
+        if amt.exists():
+            return amt.last().amount
+        return None
 
 
 
