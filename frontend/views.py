@@ -221,14 +221,14 @@ def my_team(request):
     users_wallet_list = Wallet.objects.filter(user__in=referred_by_me_users).order_by('-created_at')
     users_list = User.objects.filter(
         id__in = users_wallet_list.values_list('user', flat=True)
-    ).distinct('id')
+    )
     context = {
         'l1_list': referred_by_me.filter(level=0),
         'l2_list': referred_by_me.filter(level=1),
         'l3_list': referred_by_me.filter(level=2),
         
-        'l1': referred_by_me.filter(level=0, referral_to__in=users_list),
-        'l2': referred_by_me.filter(level=1, referral_to__in=users_list),
-        'l3': referred_by_me.filter(level=2, referral_to__in=users_list),
+        'l1': referred_by_me.filter(level=0, referral_to__in=users_list).count(),
+        'l2': referred_by_me.filter(level=1, referral_to__in=users_list).count(),
+        'l3': referred_by_me.filter(level=2, referral_to__in=users_list).count(),
     }
     return render(request, "frontend/team.html", context)
