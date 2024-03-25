@@ -221,8 +221,7 @@ def my_team(request):
     users_wallet_list = Wallet.objects.filter(user__in=referred_by_me_users).order_by('-created_at')
     users_list = User.objects.filter(
         id__in = users_wallet_list.values_list('user', flat=True)
-    )
-    print(users_list)
+    ).distinct('id')
     context = {
         'l1_list': referred_by_me.filter(level=0),
         'l2_list': referred_by_me.filter(level=1),
