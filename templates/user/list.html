@@ -21,6 +21,7 @@
                         <th scope="col" class="sort" data-sort="name">SN</th>
                         <th scope="col" class="sort" data-sort="name">Name</th>
                         <th scope="col" class="sort" data-sort="budget">Mobile</th>
+                        <th scope="col" class="sort" data-sort="budget">Avalable Amount</th>
                         <th scope="col">Active</th>
                         <th scope="col">Date</th>
                         <th scope="col">Action</th>
@@ -47,6 +48,9 @@
                         </th>
                         <td>
                             {{user.mobile_number}}
+                        </td>
+                        <td>
+                            {{user.available_amount}}
                         </td>
                         <td>
                         {% if user.is_active %}
@@ -93,7 +97,7 @@
                             </div>
                             <div class="modal-body">
                                 <p>Are you sure want to delete ?</p>
-                                <p>All user related data also will be deleted like: orders, cart items etc.</p>
+                                <p>All user related data also will be deleted like: wallet, bet items etc.</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -103,6 +107,7 @@
                         </div>
                     </div>
                     <!-- end Model -->
+
                     {% endfor %}
                 </tbody>
                 </table>

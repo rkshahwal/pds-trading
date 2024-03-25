@@ -216,10 +216,20 @@ def about_us(request):
 
 
 def my_team(request):
-    referred_by_me = request.user.referred_by_me.select_related().all()
+    referred_by_me = request.user.referred_by_me.prefetch_related('referral_to').all()
+    referred_by_me_users = referred_by_me.values('referral_to')
+    users_wallet_list = Wallet.objects.filter(user__in=referred_by_me_users).order_by('-created_at')
+    users_list = User.objects.filter(
+        id__in = users_wallet_list.values_list('user', flat=True)
+    )
+    print(users_list)
     context = {
         'l1': referred_by_me.filter(level=0),
         'l2': referred_by_me.filter(level=1),
         'l3': referred_by_me.filter(level=2),
+        
+        'l1_list': referred_by_me.filter(level=0, referral_to__in=users_list),
+        'l2_list': referred_by_me.filter(level=1, referral_to__in=users_list),
+        'l3_list': referred_by_me.filter(level=2, referral_to__in=users_list),
     }
     return render(request, "frontend/team.html", context)

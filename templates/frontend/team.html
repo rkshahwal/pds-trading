@@ -85,7 +85,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        {% for usr in l1 %}
+                        {% for usr in l1_list %}
                         <tr>
                           <td> {{ usr.referral_to.mobile_number }} </td>
                           <td> {% if usr.referral_to.first_recharge %} {{ usr.referral_to.first_recharge }} {% endif %}</td>
@@ -126,10 +126,10 @@
                       </tr>
                     </thead>
                     <tbody>
-                      {% for usr in l2 %}
+                      {% for usr in l2_list %}
                       <tr>
                         <td> {{ usr.referral_to.mobile_number }} </td>
-                        <td> {{ usr.referral_to.email }} </td>
+                        <td> {% if usr.referral_to.first_recharge %} {{ usr.referral_to.first_recharge }} {% endif %}</td>
                       </tr>
                       {% endfor %}
                     </tbody>
@@ -167,10 +167,10 @@
                       </tr>
                     </thead>
                     <tbody>
-                      {% for usr in l3 %}
+                      {% for usr in l3_list %}
                       <tr>
                         <td> {{ usr.referral_to.mobile_number }} </td>
-                        <td> {{ usr.referral_to.email }} </td>
+                        <td> {% if usr.referral_to.first_recharge %} {{ usr.referral_to.first_recharge }} {% endif %}</td>
                       </tr>
                       {% endfor %}
                     </tbody>

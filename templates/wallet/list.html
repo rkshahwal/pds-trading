@@ -20,6 +20,7 @@
                             <th scope="col" class="sort">SN</th>
                             <th scope="col" class="sort">ID</th>
                             <th scope="col" class="sort">User</th>
+                            <th scope="col" class="sort">Avl Amount</th>
                             <th scope="col" class="sort">Amount</th>
                             <th scope="col" class="sort">Pay Type</th>
                             <th scope="col" class="sort">Status</th>
@@ -47,7 +48,10 @@
                                 </div>
                             </td>
                             <td>
-                                {{wallet.amount|floatformat:2}}
+                                <span class="text-gray-400"> {{wallet.user.available_amount|floatformat:2}} </span>
+                            </td>
+                            <td>
+                                <span> {{wallet.amount|floatformat:2}} </span>
                             </td>
                             <td>
                                 {{wallet.pay_type}}
