@@ -224,12 +224,12 @@ def my_team(request):
     )
     print(users_list)
     context = {
-        'l1': referred_by_me.filter(level=0),
-        'l2': referred_by_me.filter(level=1),
-        'l3': referred_by_me.filter(level=2),
+        'l1_list': referred_by_me.filter(level=0),
+        'l2_list': referred_by_me.filter(level=1),
+        'l3_list': referred_by_me.filter(level=2),
         
-        'l1_list': referred_by_me.filter(level=0, referral_to__in=users_list),
-        'l2_list': referred_by_me.filter(level=1, referral_to__in=users_list),
-        'l3_list': referred_by_me.filter(level=2, referral_to__in=users_list),
+        'l1': referred_by_me.filter(level=0, referral_to__in=users_list),
+        'l2': referred_by_me.filter(level=1, referral_to__in=users_list),
+        'l3': referred_by_me.filter(level=2, referral_to__in=users_list),
     }
     return render(request, "frontend/team.html", context)
