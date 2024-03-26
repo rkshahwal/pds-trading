@@ -32,7 +32,7 @@ def call_put_bid(request):
             })
             
         # 2 Recharge have done ? or Less amount of recharge
-        if user.wallets.filter(status="Success", pay_type="Add Money").exists():
+        if not user.wallets.filter(status="Success", pay_type="Add Money").exists():
             return JsonResponse({'success': False, 'error': "Recharge first."})
         
         # 3 If User current total remaining amount < 80% of Recharged Amount 
