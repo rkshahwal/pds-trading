@@ -210,7 +210,7 @@ class Wallet(BaseModel):
 
 
 class Referral(BaseModel):
-    referral_to = models.OneToOneField(
+    referral_to = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name='referral',
         verbose_name = "Referral To", 
         help_text = "User that has created by referrals")
@@ -221,3 +221,6 @@ class Referral(BaseModel):
 
     def __str__(self):
         return f'{self.referral_to} referred by {self.referred_by}'
+    
+    class Meta:
+        unique_together = ('referral_to', 'level', 'referred_by')

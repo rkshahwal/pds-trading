@@ -55,26 +55,38 @@ def user_register(request):
         
         if code:
             level = 0
-            try:
-                referred_by_referral = Referral.objects.get(referral_to=referred_by)
-            except Referral.DoesNotExist:
-                referred_by_referral = None
-                
-            if referred_by_referral:
-                level = (referred_by_referral.level + 1)
-            
+            # First Level Referral
             Referral.objects.create(
                 referred_by = referred_by,
                 referral_to = user,
-                level = level
+                level = 0
             )
-            if level == 0:
-                Wallet.objects.create(
-                    user = referred_by,
-                    amount = 50,
-                    pay_type = "Commission",
-                    remark = "Refer a friend and get Rs.50.",
-                )
+            Wallet.objects.create(
+                user = referred_by,
+                amount = 50,
+                pay_type = "Commission",
+                remark = "Refer a friend and get Rs.50.",
+            )
+            
+            # MLM
+            referred_by_referrals = Referral.objects.filter(referral_to=referred_by).order_by('-level')
+            print(referred_by_referrals)
+            for referral in referred_by_referrals:
+                level = referral.level
+                print(level)
+                try:
+                    referral_lvl = Referral.objects.get(referral_to=referral.referred_by, level=level)
+                except Referral.DoesNotExist:
+                    referral_lvl = None
+                if referral_lvl:
+                    rfrl = referral_lvl
+                    next_level = level + 1
+                    Referral.objects.create(
+                        referred_by = rfrl.referred_by,
+                        referral_to = user,
+                        level = next_level
+                    )
+            
         return redirect('user_login')
     return render(request, 'frontend/register.html')
 
