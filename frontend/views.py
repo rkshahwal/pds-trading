@@ -72,7 +72,7 @@ def user_register(request):
             referred_by_referrals = Referral.objects.filter(referral_to=referred_by).order_by('level')
             if referred_by_referrals.exists():
                 referral = referred_by_referrals.first()
-                while referral.level != 0:
+                while True:
                     try:
                         referral = Referral.objects.get(referral_to=referral.referred_by, level=referral.level)
                     except Referral.DoesNotExist:
