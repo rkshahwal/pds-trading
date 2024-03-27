@@ -97,14 +97,14 @@ form.addEventListener('submit', function (eve) {
 
    }
    
-   // if (code.value == "") {
-   //    //  let al=document.querySelector('.error-3')
-   //    // al.append(div)
-   //    error_3.innerHTML = '<div class="col-sm-10"><div class="alert alert-primary alert alert-danger alert-dismissible fade show p-2" role="alert"  style="height:40px; "> Invite Code Empty<button type="button" class="btn-close  " data-bs-dismiss="alert" aria-label="Close"  style="height:1px; "></button></div></div>'
-   //    console.log("nothingCode")
-   //    eve.preventDefault()
+   if (code.value == "") {
+      //  let al=document.querySelector('.error-3')
+      // al.append(div)
+      error_3.innerHTML = '<div class="col-sm-10"><div class="alert alert-primary alert alert-danger alert-dismissible fade show p-2" role="alert"  style="height:40px; "> Invite Code Empty<button type="button" class="btn-close  " data-bs-dismiss="alert" aria-label="Close"  style="height:1px; "></button></div></div>'
+      console.log("nothingCode")
+      eve.preventDefault()
 
-   // }
+   }
 
 
 

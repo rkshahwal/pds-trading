@@ -236,8 +236,34 @@ def my_team(request):
         'l2_list': referred_by_me.filter(level=1),
         'l3_list': referred_by_me.filter(level=2),
         
-        'l1': referred_by_me.filter(level=0, referral_to__in=users_list).count(),
-        'l2': referred_by_me.filter(level=1, referral_to__in=users_list).count(),
-        'l3': referred_by_me.filter(level=2, referral_to__in=users_list).count(),
+        'l1': referred_by_me.filter(level=0, referral_to__in=users_list).distinct().count(),
+        'l2': referred_by_me.filter(level=1, referral_to__in=users_list).distinct().count(),
+        'l3': referred_by_me.filter(level=2, referral_to__in=users_list).distinct().count(),
     }
     return render(request, "frontend/team.html", context)
+
+
+@login_required
+def password_setting(request):
+    # Change Password Views
+    
+    if request.method == "POST":
+        old_password = request.POST.get("old_password", None)
+        user = request.user
+        
+        if not user.check_password(old_password):
+            messages.error(request, "Old Password is incorrect.")
+            return redirect('password_setting')
+        
+        else:
+            new_password = request.POST['new_password']
+            confirm_password = request.POST['confirm_password']
+            if new_password != confirm_password:
+                messages.error(request, "New password and Confirm password are different")
+                return redirect('password_setting')
+            else:
+                user.set_password(new_password)
+                user.save()
+                messages.success(request, "Password has been changed successfully!")
+                return redirect('user_logout')
+    return render(request, "frontend/password-setting.html")

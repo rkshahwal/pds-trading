@@ -35,15 +35,15 @@ def call_put_bid(request):
         if not user.wallets.filter(status="Success", pay_type="Add Money").exists():
             return JsonResponse({'success': False, 'error': "Recharge first."})
         
-        # 3 If User current total remaining amount < 80% of Recharged Amount 
-        user_recharged_amt = user.wallets.filter(
-            status="Success", pay_type="Add Money"
-        ).aggregate(total=Sum('amount'))['total']
-        if (user_recharged_amt / avl_amount)*100 < 80 :
-            return JsonResponse({
-                    'success':False,
-                    'error':'Your Remaining amount is less than 80% of your Recharged amount.'
-                })
+        # # 3 If User current total remaining amount < 80% of Recharged Amount 
+        # user_recharged_amt = user.wallets.filter(
+        #     status="Success", pay_type="Add Money"
+        # ).aggregate(total=Sum('amount'))['total']
+        # if (user_recharged_amt / avl_amount)*100 < 80 :
+        #     return JsonResponse({
+        #         'success':False,
+        #         'error':'Your Remaining amount is less than 80% of your Recharged amount.'
+        #     })
         
         # Process for bid
         # Get Market Bid Result to make make bid for user
