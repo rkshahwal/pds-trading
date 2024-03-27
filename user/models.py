@@ -223,4 +223,4 @@ class Referral(BaseModel):
         return f'{self.referral_to} referred by {self.referred_by}'
     
     class Meta:
-        unique_together = ('referral_to', 'level', 'referred_by')
+        unique_together = ('referral_to', 'level')
