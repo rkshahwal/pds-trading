@@ -69,20 +69,21 @@ def user_register(request):
             )
             
             # MLM
-            referred_by_referrals = Referral.objects.filter(referral_to=referred_by).order_by('level')
-            if referred_by_referrals.exists():
-                referral = referred_by_referrals.first()
-                while True:
-                    try:
-                        referral = Referral.objects.get(referral_to=referral.referred_by, level=referral.level)
-                    except Referral.DoesNotExist:
-                        break
-                    next_level = referral.level + 1
-                    Referral.objects.create(
-                        referred_by = referral.referred_by,
-                        referral_to = user,
-                        level = next_level
-                    )
+            # referred_by_referrals = Referral.objects.filter(referral_to=referred_by).order_by('created_at')
+            # if referred_by_referrals.exists():
+            #     referral = referred_by_referrals.first()
+            while True:
+                try:
+                    referral = Referral.objects.get(referral_to=referred_by, level=level)
+                    referred_by = referral.referred_by
+                except Referral.DoesNotExist:
+                    break
+                level += 1
+                Referral.objects.create(
+                    referred_by = referred_by,
+                    referral_to = user,
+                    level = level
+                )
             
         return redirect('user_login')
     return render(request, 'frontend/register.html')
