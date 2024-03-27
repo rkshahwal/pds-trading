@@ -69,7 +69,7 @@ def user_register(request):
             )
             
             # MLM
-            referred_by_referrals = Referral.objects.filter(referral_to=referred_by).order_by('-level')
+            referred_by_referrals = Referral.objects.filter(referral_to=referred_by).order_by('level')
             if referred_by_referrals.exists():
                 referral = referred_by_referrals.first()
                 while referral.level != 0:
