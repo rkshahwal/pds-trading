@@ -73,17 +73,16 @@ def user_register(request):
             # if referred_by_referrals.exists():
             #     referral = referred_by_referrals.first()
             while True:
-                try:
-                    referral = Referral.objects.get(referral_to=referred_by, level=level)
-                    referred_by = referral.referred_by
-                except Referral.DoesNotExist:
+                referrals = Referral.objects.filter(referral_to=referred_by)
+                if not referrals.exists():
                     break
-                level += 1
-                Referral.objects.create(
-                    referred_by = referred_by,
-                    referral_to = user,
-                    level = level
-                )
+                for referral in referrals:
+                    referred_by = referral.referred_by
+                    Referral.objects.create(
+                        referred_by = referred_by,
+                        referral_to = user,
+                        level = referral.level + 1
+                    )
             
         return redirect('user_login')
     return render(request, 'frontend/register.html')
