@@ -69,9 +69,6 @@ def user_register(request):
             )
             
             # MLM
-            # referred_by_referrals = Referral.objects.filter(referral_to=referred_by).order_by('created_at')
-            # if referred_by_referrals.exists():
-            #     referral = referred_by_referrals.first()
             while True:
                 referrals = Referral.objects.filter(referral_to=referred_by)
                 if not referrals.exists():
