@@ -7,10 +7,8 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
-                <h3 class="mb-0">{{title}} </h3>
-                {% comment %} {% if request.resolver_match.view_name == 'user-wallets' %}
-                <button onclick="history.back()" class="bg-gray-300 btn float-end mx-2">Back</button>
-                {% endif %} {% endcomment %}
+                <h3 class="mb-0">{{title}} 
+                <a href="{% url "add-wallet" %}" class="btn-gray-200 btn float-end mx-2">Add New</a></h3>
             </div>
             <!-- Light table -->
             <div class="table-responsive">
@@ -20,9 +18,10 @@
                             <th scope="col" class="sort">SN</th>
                             <th scope="col" class="sort">ID</th>
                             <th scope="col" class="sort">User</th>
-                            <th scope="col" class="sort">Avl Amount</th>
+                            {% comment %} <th scope="col" class="sort">Avl Amount</th> {% endcomment %}
                             <th scope="col" class="sort">Amount</th>
                             <th scope="col" class="sort">Pay Type</th>
+                            <th scope="col" class="sort">Bank</th>
                             <th scope="col" class="sort">Status</th>
                             <th scope="col" class="sort">Method</th>
                             <th scope="col" class="sort">UTR</th>
@@ -47,14 +46,22 @@
                                     {% endif %}
                                 </div>
                             </td>
-                            <td>
+                            {% comment %} <td>
                                 <span class="text-gray-400"> {{wallet.user.available_amount|floatformat:2}} </span>
-                            </td>
+                            </td> {% endcomment %}
                             <td>
                                 <span> {{wallet.amount|floatformat:2}} </span>
                             </td>
                             <td>
                                 {{wallet.pay_type}}
+                            </td>
+                            <td>
+                                {% if wallet.pay_type == "Widrawal" and wallet.status == "Hold" %}
+                                <p class="m-0" >Ac: {{wallet.user.bank.ac}} </p>
+                                <p class="m-0" style="font-size: smaller;" >Ifsc: {{wallet.user.bank.ifsc}} </p>
+                                <p class="m-0" style="font-size: smaller;" >Bank: {{wallet.user.bank.bank}} </p>
+                                <p class="m-0" style="font-size: smaller;" >Name: {{wallet.user.bank.name}} </p>
+                                {% endif %}
                             </td>
                             <td>
                                 <select class="border-0 walletStatus" data-wallet-id="{{ wallet.id }}">

@@ -16,8 +16,8 @@
 <body>
 
   <div class="container-fluid">
-    <form method="get" class="w-100">
-      
+    <form method="post" class="w-100">
+    {% csrf_token %}
     <div class="row py-2 py-sm-3 py-md-3 py-lg-3 py-xl-3 py-xl-3 py-xxl-3 ">
       <div class="col-12 ">
         <a href="javascript:void(0);" onclick="history.back()"> <i class="fa-solid fa-arrow-left text-dark"></i></a>
