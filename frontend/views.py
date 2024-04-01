@@ -61,12 +61,12 @@ def user_register(request):
                 referral_to = user,
                 level = 0
             )
-            Wallet.objects.create(
-                user = referred_by,
-                amount = 50,
-                pay_type = "Commission",
-                remark = "Refer a friend and get Rs.50.",
-            )
+            # Wallet.objects.create(
+            #     user = referred_by,
+            #     amount = 50,
+            #     pay_type = "Commission",
+            #     remark = "Refer a friend and get Rs.50.",
+            # )
             
             # MLM
             while True:
@@ -169,7 +169,7 @@ def withdrowal(request):
         "tax": _tax
     }
     if request.method == "POST":
-        amount = abs(request.POST["amount"])
+        amount = abs(float(request.POST["amount"]))
         withdrawal_charge = float(amount) * _tax / 100
         withdrawal_amt = amount - withdrawal_charge
         wallet = Wallet.objects.create(
@@ -206,7 +206,8 @@ def save_bankdetails(request):
         bank.ifsc = ifsc
         bank.ac = ac
         bank.save()
-    return render(request, 'frontend/withdrawal-setting.html')
+    return render(request, 'frontend/withdrawal-bank-setting.html')
+    # return render(request, 'frontend/bank-details.html')
 
 
 @login_required

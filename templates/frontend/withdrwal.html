@@ -33,6 +33,7 @@
       </div>
     </div>
     <div class="row  mt-3 ">
+
       <div class="col-9     col-md-10 col-sm-10 col-lg-11 ">
         <p class="recharge-Currency   "> Currency</p>
       </div>
@@ -40,6 +41,16 @@
         <p class="recharge-INR float-end  ">INR <i class="fa-solid fa-arrow-right Recharge-left-icon  ms-1  "></i>
         </p>
       </div>
+
+      <div class="col-12">
+        <p> ⚠⚠⚠निकासी नियम (केवल रिचार्ज सदस्य):⚠⚠ </p>
+        <ol>
+          <li> ✅ सोमवार से शुक्रवार सुबह 7 बजे से 9 बजे तक, और उसी दिन शाम 5 बजे तक पहुंचें </li>
+          <li> ✅ कृपया अपनी कुल रिचार्ज राशि अपने खाते में रखें, अन्यथा आप सफलतापूर्वक निकासी नहीं कर पाएंगे </li>
+          <li> ✅ निकासी पर 20% कर लगता है (खाते की शेष राशि से अलग से काटा जाता है, कृपया ध्यान दें </li>
+        </ol>
+      </div>
+
     </div>
 
 
@@ -56,7 +67,6 @@
       <div class="col-12    ">
         <input class="form-control form-control  " type="number"
           placeholder="Enter withdrawal quantity" aria-label=".form-control-lg example" id="input"  name="amount">
-
       </div>
       <div class="col-12    " id="error">
      
@@ -111,13 +121,6 @@
     a=aval.innerText   
     b=Number(a)
 
- 
-
-
-
-
-
-    
     inp.addEventListener("input", function () {
   
       if (inp.value>b ) {

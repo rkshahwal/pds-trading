@@ -158,7 +158,7 @@ class Wallet(BaseModel):
     pay_type = models.CharField(
         _("Payment Type/Purpose"),
         choices=[
-            ("Add Money", "Add Money"), # Positive
+            ("Add Money", "Add Money"), # (Recharge) Positive
             ("Commission", "Commission"), # Positive (Referral Amount)
             ("Bid", "Bid"), # Negative
             ("Winning", "Winning"), # Positive
