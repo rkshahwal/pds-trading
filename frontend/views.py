@@ -164,16 +164,25 @@ def wallet(request):
 
 @login_required
 def withdrowal(request):
+    _tax = config.WITHDRAWAL_FEES_PERCENTAGE
     context = {
-        "tax": config.WITHDRAWAL_FEES_PERCENTAGE
+        "tax": _tax
     }
     if request.method == "POST":
-        amount = request.POST["amount"]
+        amount = abs(request.POST["amount"])
+        withdrawal_charge = float(amount) * _tax / 100
+        withdrawal_amt = amount - withdrawal_charge
         wallet = Wallet.objects.create(
             user = request.user,
-            amount = -abs(float(amount)),
+            amount = - withdrawal_amt,
             status = "Hold",
             pay_type = "Widrawal"
+        )
+        wallet = Wallet.objects.create(
+            user = request.user,
+            amount = - withdrawal_charge,
+            status = "Success",
+            pay_type = "Widrawal Charge"
         )
         return redirect('user_wallet')
     return render(request, 'frontend/withdrwal.html', context)

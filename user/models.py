@@ -164,6 +164,7 @@ class Wallet(BaseModel):
             ("Winning", "Winning"), # Positive
             ("Loss", "Loss"), # Negative
             ("Widrawal", "Widrawal"), # Negative
+            ("Widrawal Charge", "Widrawal Charge"), # Negative
         ],
         max_length=20
     )
