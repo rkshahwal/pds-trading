@@ -173,18 +173,13 @@ def withdrowal(request):
         pay_type__in = ["Commission", "Bid", "Winning", "Loss", "Widrawal", "Widrawal Charge"]
     ).aggregate(Sum('amount'))['amount__sum'] or 0, # This Amount can be withdra
     
-    _recharged_amount = user.wallets.filter(
-        status="Success",
-        pay_type = "Add Money"
-    ).aggregate(Sum('amount'))['amount__sum'] or 0, # Recharged Amont
-    
     can_withdrawal = False
     if _withdrawalable_amount[0] >= 300.0: # 300 is winning amount
         can_withdrawal = True
     
     context = {
         "tax": _tax,
-        "amount": _withdrawalable_amount[0],
+        "amount":user.available_amount,
         "can_withdrawal": can_withdrawal        
     }
     
