@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
 from constance import config
 from user.models import (
     CustomUser as User,
@@ -165,26 +166,48 @@ def wallet(request):
 @login_required
 def withdrowal(request):
     _tax = config.WITHDRAWAL_FEES_PERCENTAGE
+    user = request.user
+    
+    _withdrawalable_amount = user.wallets.filter(
+        status="Success",
+        pay_type__in = ["Commission", "Bid", "Winning", "Loss", "Widrawal", "Widrawal Charge"]
+    ).aggregate(Sum('amount'))['amount__sum'] or 0, # This Amount can be withdra
+    
+    _recharged_amount = user.wallets.filter(
+        status="Success",
+        pay_type = "Add Money"
+    ).aggregate(Sum('amount'))['amount__sum'] or 0, # Recharged Amont
+    
+    can_withdrawal = False
+    if _withdrawalable_amount[0] >= 300.0: # 300 is winning amount
+        can_withdrawal = True
+    
     context = {
-        "tax": _tax
+        "tax": _tax,
+        "amount": _withdrawalable_amount[0],
+        "can_withdrawal": can_withdrawal        
     }
+    
     if request.method == "POST":
-        amount = abs(float(request.POST["amount"]))
-        withdrawal_charge = float(amount) * _tax / 100
-        withdrawal_amt = amount - withdrawal_charge
-        wallet = Wallet.objects.create(
-            user = request.user,
-            amount = - withdrawal_amt,
-            status = "Hold",
-            pay_type = "Widrawal"
-        )
-        wallet = Wallet.objects.create(
-            user = request.user,
-            amount = - withdrawal_charge,
-            status = "Success",
-            pay_type = "Widrawal Charge"
-        )
-        return redirect('user_wallet')
+        if can_withdrawal:
+            amount = abs(float(request.POST["amount"]))
+            withdrawal_charge = float(amount) * _tax / 100
+            withdrawal_amt = amount - withdrawal_charge
+            wallet = Wallet.objects.create(
+                user = request.user,
+                amount = - withdrawal_amt,
+                status = "Hold",
+                pay_type = "Widrawal"
+            )
+            wallet = Wallet.objects.create(
+                user = request.user,
+                amount = - withdrawal_charge,
+                status = "Success",
+                pay_type = "Widrawal Charge"
+            )
+            return redirect('user_wallet')
+        else:
+            messages.warning(request, "Insufficient balance.")
     return render(request, 'frontend/withdrwal.html', context)
 
 

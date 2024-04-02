@@ -59,7 +59,7 @@
         <p class="recharge-Currency  ">Quantity</p>
       </div>
       <div class="col-4   col-md-2 col-sm-3 col-lg-1  ">
-        <p class="Withdraw-bal float-end  text-muted ">Available <span id="bal"> {{request.user.available_amount}} </span>INR</p>
+        <p class="Withdraw-bal float-end  text-muted ">Available <span id="bal"> {{amount}} </span>INR</p>
       </div>
     </div>
 
@@ -68,10 +68,19 @@
         <input class="form-control form-control  " type="number"
           placeholder="Enter withdrawal quantity" aria-label=".form-control-lg example" id="input"  name="amount">
       </div>
-      <div class="col-12    " id="error">
-     
 
-      </div>
+      <div class="col-12" id="error"></div>
+      {% if messages %}
+        <div class="col-12" id="backenderror">
+          {% for message in messages %}
+          <div class="alert alert-primary alert alert-danger alert-dismissible fade show p-2  mt-2 mb-0 " role="alert"  style="height:40px; ">
+            {{ message }}
+            <button type="button" class="btn-close  " data-bs-dismiss="alert" aria-label="Close"  style="height:1px; "></button>
+          </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
       <div class="col-12  d-grid   mt-3   ">
 
         <button class="btn btn-danger"  id="btn" type="submit" >Submit</button>
