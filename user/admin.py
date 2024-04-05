@@ -11,7 +11,7 @@ class UserAdmin(admin.ModelAdmin):
     readonly_fields = ("referral_code",)
     list_editable = ('is_active',)
     list_filter = ('date_joined', 'is_active')
-    search_fields = ('name', 'email', 'mobile_number')
+    search_fields = ('name', 'email', 'mobile_number', 'referral_code')
     
     fieldsets = (
         ("Profile", {
@@ -34,7 +34,7 @@ class UserAdmin(admin.ModelAdmin):
 @admin.register(Wallet)
 class CountryCodeAdmin(admin.ModelAdmin):
     list_display = ('user', 'amount', 'status', 'pay_type', 'pay_method', 'utr', 'has_bid', 'created_at')
-    search_fields = ('user__name', 'user__email', 'utr')
+    search_fields = ('user__name', 'user__email', 'user__mobile_number', 'utr')
     list_filter = ('status', 'has_bid', 'pay_type', 'created_at')
 
 

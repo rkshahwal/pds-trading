@@ -22,7 +22,9 @@ class UserUpdateForm(forms.ModelForm):
 class WalletForm(forms.ModelForm):
     class Meta:
         model = Wallet
-        fields = "__all__"
+        fields = (
+            "user", "pay_type", "status", "pay_method", "utr", "amount", "remark"
+        )
         
         widgets = {
             'user': forms.Select(attrs={'class': 'form-control'}),

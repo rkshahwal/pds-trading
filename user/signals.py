@@ -10,8 +10,11 @@ from .models import (
 def wallete_save(sender, instance, created, **kwargs):
     if instance.status == "Success" and instance.pay_type == "Add Money":
         user = instance.user
-        if not user.wallets.filter(status="Success", pay_type="Add Money").exists():
-            # Level First Commission
+        user_wallets = user.wallets.filter(status="Success", pay_type="Add Money").count()
+        
+        # Commission on First Success Recharge
+        if not user_wallets > 1:
+            # First Level Referral Commission
             try:
                 referral_by_0 = user.referral.filter(level=0).first()
                 Wallet.objects.create(

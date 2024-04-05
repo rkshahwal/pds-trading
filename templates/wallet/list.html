@@ -18,7 +18,7 @@
                             <th scope="col" class="sort">SN</th>
                             <th scope="col" class="sort">ID</th>
                             <th scope="col" class="sort">User</th>
-                            {% comment %} <th scope="col" class="sort">Avl Amount</th> {% endcomment %}
+                            <th scope="col" class="sort">Mobile Number</th>
                             <th scope="col" class="sort">Amount</th>
                             <th scope="col" class="sort">Pay Type</th>
                             <th scope="col" class="sort">Bank</th>
@@ -40,15 +40,20 @@
                             </td>
                             <td>
                                 <div class="media-body">
+
+                                    {% if wallet.user.name %}
                                     <span class="name mb-0 text-sm">{{wallet.user.name}} </span>
+                                    {% endif %}
+
                                     {% if wallet.user.email %}
                                     <p class="name mb-0 text-xs">{{wallet.user.email}} </p>
                                     {% endif %}
+                                    
                                 </div>
                             </td>
-                            {% comment %} <td>
-                                <span class="text-gray-400"> {{wallet.user.available_amount|floatformat:2}} </span>
-                            </td> {% endcomment %}
+                            <td>
+                                <span class=""> {{wallet.user.mobile_number}} </span>
+                            </td>
                             <td>
                                 <span> {{wallet.amount|floatformat:2}} </span>
                             </td>
@@ -64,12 +69,16 @@
                                 {% endif %}
                             </td>
                             <td>
+                                {% if wallet.status == "Success" %}
+                                Success
+                                {% else %}
                                 <select class="border-0 walletStatus" data-wallet-id="{{ wallet.id }}">
                                     <option value="Pending" {% if wallet.status == "Pending" %}selected{% endif %}>Pending</option>
                                     <option value="Success" {% if wallet.status == "Success" %}selected{% endif %}>Success</option>
                                     <option value="Hold" {% if wallet.status == "Hold" %}selected{% endif %}>Hold</option>
                                     <option value="Rejected" {% if wallet.status == "Rejected" %}selected{% endif %}>Rejected</option>
                                 </select>
+                                {% endif %}
                             </td>
                             <td>
                                 {{wallet.pay_method}}
