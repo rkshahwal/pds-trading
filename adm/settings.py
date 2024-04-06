@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-1%_0vi!m#9905+yqbqfq^+9e0s7&l_&0nx6=hglwx*k545bhl6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["admtrade.in", "13.233.122.12", "*"]
 
 
 # Application definition
