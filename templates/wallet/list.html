@@ -69,16 +69,16 @@
                                 {% endif %}
                             </td>
                             <td>
-                                {% if wallet.status == "Success" %}
+                                {% comment %} {% if wallet.status == "Success" %}
                                 Success
-                                {% else %}
+                                {% else %} {% endcomment %}
                                 <select class="border-0 walletStatus" data-wallet-id="{{ wallet.id }}">
                                     <option value="Pending" {% if wallet.status == "Pending" %}selected{% endif %}>Pending</option>
                                     <option value="Success" {% if wallet.status == "Success" %}selected{% endif %}>Success</option>
                                     <option value="Hold" {% if wallet.status == "Hold" %}selected{% endif %}>Hold</option>
                                     <option value="Rejected" {% if wallet.status == "Rejected" %}selected{% endif %}>Rejected</option>
                                 </select>
-                                {% endif %}
+                                {% comment %} {% endif %} {% endcomment %}
                             </td>
                             <td>
                                 {{wallet.pay_method}}
