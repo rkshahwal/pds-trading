@@ -75,7 +75,7 @@
                                 <select class="border-0 walletStatus" data-wallet-id="{{ wallet.id }}">
                                     <option value="Pending" {% if wallet.status == "Pending" %}selected{% endif %}>Pending</option>
                                     <option value="Success" {% if wallet.status == "Success" %}selected{% endif %}>Success</option>
-                                    <option value="Hold" {% if wallet.status == "Hold" %}selected{% endif %}>Hold</option>
+                                    <option value="Hold" {% if wallet.status == "Hold" %}selected{% endif %}>Loss</option>
                                     <option value="Rejected" {% if wallet.status == "Rejected" %}selected{% endif %}>Rejected</option>
                                 </select>
                                 {% comment %} {% endif %} {% endcomment %}
