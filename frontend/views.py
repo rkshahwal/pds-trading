@@ -158,7 +158,9 @@ def wallet(request):
         "available": user.available_amount,
         "total_commission": user.total_commission,
         "total_revenue": user.total_revenue,
-        "wallets": user.wallets.all()[:100]
+        "wallets": user.wallets.filter(
+            pay_type__in=["Add Money", "Commission", "Widrawal", "Widrawal Charge", "Bonus"]
+        )[:100]
     }
     return render(request, 'frontend/wallet.html', context)
 
@@ -167,40 +169,40 @@ def wallet(request):
 def withdrowal(request):
     _tax = config.WITHDRAWAL_FEES_PERCENTAGE
     user = request.user
+    _available_amount = user.available_amount
+    _total_recharged_amount = user.total_recharged_amount
     
-    _withdrawalable_amount = user.wallets.filter(
-        status="Success",
-        pay_type__in = ["Commission", "Bid", "Winning", "Loss", "Widrawal", "Widrawal Charge"]
-    ).aggregate(Sum('amount'))['amount__sum'] or 0, # This Amount can be withdra
+    _withdrawalable_amount = _available_amount - _total_recharged_amount # This Amount can be withdrwal
     
-    can_withdrawal = False
-    if _withdrawalable_amount[0] >= 300.0: # 300 is winning amount
+    can_withdrawal =  False
+    if _withdrawalable_amount >= 300.0: # 300 minimum withdrwal
         can_withdrawal = True
     
     context = {
         "tax": _tax,
         "amount":user.available_amount,
-        "can_withdrawal": can_withdrawal        
+        "can_withdrawal": can_withdrawal
     }
-    
+    can_withdrawal =  False # Force to show the form without amount in it. remove this line
     if request.method == "POST":
         if can_withdrawal:
             amount = abs(float(request.POST["amount"]))
-            withdrawal_charge = float(amount) * _tax / 100
-            withdrawal_amt = amount - withdrawal_charge
-            wallet = Wallet.objects.create(
-                user = request.user,
-                amount = - withdrawal_amt,
-                status = "Hold",
-                pay_type = "Widrawal"
-            )
-            wallet = Wallet.objects.create(
-                user = request.user,
-                amount = - withdrawal_charge,
-                status = "Success",
-                pay_type = "Widrawal Charge"
-            )
-            return redirect('user_wallet')
+            if amount <= _withdrawalable_amount:
+                withdrawal_charge = float(amount) * _tax / 100
+                withdrawal_amt = amount - withdrawal_charge
+                wallet = Wallet.objects.create(
+                    user = request.user,
+                    amount = - withdrawal_amt,
+                    status = "Hold",
+                    pay_type = "Widrawal"
+                )
+                wallet = Wallet.objects.create(
+                    user = request.user,
+                    amount = - withdrawal_charge,
+                    status = "Success",
+                    pay_type = "Widrawal Charge"
+                )
+                return redirect('user_wallet')
         else:
             messages.warning(request, "Insufficient balance.")
     return render(request, 'frontend/withdrwal.html', context)

@@ -112,7 +112,7 @@ class CustomUser(AbstractUser):
     @property
     def mobile(self):
         if self.mobile_number:
-            return "{}-{}".format(self.mobile_number)
+            return "{}".format(self.mobile_number)
         return ""
     
     @property
@@ -129,6 +129,11 @@ class CustomUser(AbstractUser):
     @property
     def total_commission(self):
         amt = self.wallets.filter(status__in=["Success", "Hold"], pay_type="Commission").aggregate(total=models.Sum('amount'))['total'] or 0
+        return round(amt)
+    
+    @property
+    def total_recharged_amount(self):
+        amt = self.wallets.filter(status__in=["Success", "Hold"], pay_type="Add Money").aggregate(total=models.Sum('amount'))['total'] or 0
         return round(amt)
     
     def get_bank(self):
@@ -160,7 +165,7 @@ class Wallet(BaseModel):
         choices=[
             ("Add Money", "Add Money"), # (Recharge) Positive
             ("Commission", "Commission"), # Positive (Referral Amount)
-            ("Bid", "Bid"), # Negative
+            ("Bonus", "Bonus"), # Positive
             ("Winning", "Winning"), # Positive
             ("Loss", "Loss"), # Negative
             ("Widrawal", "Widrawal"), # Negative

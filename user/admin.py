@@ -35,6 +35,7 @@ class UserAdmin(admin.ModelAdmin):
 class CountryCodeAdmin(admin.ModelAdmin):
     list_display = ('user', 'amount', 'status', 'pay_type', 'pay_method', 'utr', 'has_bid', 'created_at')
     search_fields = ('user__name', 'user__email', 'user__mobile_number', 'utr')
+    list_editable = ("pay_type", "pay_method", "status")
     list_filter = ('status', 'has_bid', 'pay_type', 'created_at')
 
 
