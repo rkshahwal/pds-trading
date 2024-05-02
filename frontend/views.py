@@ -159,7 +159,10 @@ def wallet(request):
         "total_commission": user.total_commission,
         "total_revenue": user.total_revenue,
         "wallets": user.wallets.filter(
-            pay_type__in=["Add Money", "Commission", "Widrawal", "Widrawal Charge", "Bonus"]
+            pay_type__in=[
+                "Add Money", "Commission", "Widrawal", "Widrawal Charge", "Bonus",
+                "Winning", "Loss"
+            ]
         )[:100]
     }
     return render(request, 'frontend/wallet.html', context)
