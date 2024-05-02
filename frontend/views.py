@@ -183,8 +183,29 @@ def withdrowal(request):
         "amount":user.available_amount,
         "can_withdrawal": can_withdrawal
     }
-    
-    # take code from env
+        
+    if request.method == "POST":
+        if can_withdrawal:
+            amount = abs(float(request.POST["amount"]))
+            if amount <= _withdrawalable_amount:
+                withdrawal_charge = float(amount) * _tax / 100
+                withdrawal_amt = amount - withdrawal_charge
+                wallet = Wallet.objects.create(
+                    user = request.user,
+                    amount = - withdrawal_amt,
+                    status = "Hold",
+                    pay_type = "Widrawal"
+                )
+                wallet = Wallet.objects.create(
+                    user = request.user,
+                    amount = - withdrawal_charge,
+                    status = "Success",
+                    pay_type = "Widrawal Charge"
+                )
+                return redirect('user_wallet')
+        else:
+            messages.warning(request, "Insufficient balance.")
+
     return render(request, 'frontend/withdrwal.html', context)
 
 
