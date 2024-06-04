@@ -19,8 +19,8 @@
                 <thead class="thead-light">
                     <tr>
                         <th scope="col" class="sort" data-sort="name">SN</th>
-                        <th scope="col" class="sort" data-sort="name">Name</th>
-                        <th scope="col" class="sort" data-sort="budget">Mobile</th>
+                        <th scope="col" class="sort" data-sort="name">Customer</th>
+                        <th scope="col" class="sort" data-sort="budget">Referral Code</th>
                         <th scope="col" class="sort" data-sort="budget">Recharge Amount</th>
                         <th scope="col" class="sort" data-sort="budget">Avalable Amount</th>
                         <th scope="col">Can Bid/Trad ?</th>
@@ -40,7 +40,7 @@
                                 <img alt="Image placeholder" src="../assets/img/theme/sketch.jpg">
                             </a> {% endcomment %}
                             <div class="media-body">
-                                <span class="name mb-0 text-sm">{{user.name}} </span>
+                                <span class="name mb-0 text-sm">{{user.mobile_number}} </span>
                                 {% if user.email %}
                                 <p class="name mb-0 text-xs">{{user.email}} </p>
                                 {% endif %}
@@ -48,7 +48,7 @@
                             </div>
                         </th>
                         <td>
-                            {{user.mobile_number}}
+                            {{user.referral_code}}
                         </td>
                         <td>
                             {{user.total_recharged_amount}}

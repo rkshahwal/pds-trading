@@ -175,6 +175,7 @@ class Wallet(BaseModel):
             ("Commission", "Commission"), # Positive (Referral Amount)
             ("Bonus", "Bonus"), # Positive
             ("Winning", "Winning"), # Positive
+            ("Salary", "Salary"), # Positive
             ("Loss", "Loss"), # Negative
             ("Widrawal", "Widrawal"), # Negative
             ("Widrawal Charge", "Widrawal Charge"), # Negative

@@ -10,9 +10,59 @@
                 <h3 class="mb-0">{{title}} 
                 <a href="{% url "add-wallet" %}" class="btn-gray-200 btn float-end mx-2">Add New</a></h3>
             </div>
+
+            {% comment %} Filter Options {% endcomment %}
+            <div id="filterDiv" class="m-3 row ">
+                <!-- Search -->
+                
+                
+                <div class="col">
+                    <div class="form-floating">
+                        <input class="form-control" id="searchMobile">
+                        <label for="searchMobile">Mobile</label>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-floating">
+                        <input class="form-control" id="searchUTR">
+                        <label for="searchUTR">UTR</label>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-floating">
+                        <select class="form-select" id="searchType" aria-label="Floating label select example">
+                            <option selected value>All</option>
+                            <option>Add Money</option>
+                            <option>Commission</option>
+                            <option>Winning</option>
+                            <option>Loss</option>
+                            <option>Widrawal</option>
+                            <option>Widrawal Charge</option>
+                            <option>Salary</option>
+                        </select>
+                        <label for="searchType">Pay Type</label>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-floating">
+                        <select class="form-select" id="searchMethod">
+                            <option selected value>All</option>
+                            <option>UPI</option>
+                            <option>QR</option>
+                            <option>Bank</option>
+                        </select>
+                        <label for="searchMethod">Method</label>
+                    </div>
+                </div>
+
+            </div>
+
             <!-- Light table -->
             <div class="table-responsive">
-                <table class="table table-hover" id="example1">
+                <table class="table table-hover" id="walletListTableId">
                     <thead class="thead-light">
                         <tr>
                             <th scope="col" class="sort">SN</th>
@@ -105,6 +155,10 @@
 </div>
 {% endblock content %}
 {% block javascripts %}
+    
+    {% comment %} Search JS {% endcomment %}
+    <script src="{% static 'assets/custom-js/wallet-search.js' %}"></script>
+
     <script>
         $(document).on('change', '.walletStatus', function(e) {
             var wallet_id = $(this).data('wallet-id');
