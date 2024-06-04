@@ -9,11 +9,12 @@ from .models import (
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('name', 'email', 'mobile_number', )
+        fields = ('name', 'email', 'mobile_number', 'is_active', 'password')
         
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class':'form-control'}),
+            'password': forms.TextInput(attrs={'class':'form-control', }),
             'mobile_number': forms.NumberInput(attrs={'class': 'form-control', 'readonly':''}),
         }
 

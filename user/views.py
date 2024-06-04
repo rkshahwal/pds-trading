@@ -27,6 +27,13 @@ def index(request):
     context["total_user"] = User.objects.count()
     context["total_markets"] = Market.objects.count()
     
+    # get total recharged and withdrawal users
+    wallet_users = Wallet.objects.select_related().all()
+    context["recharge_users"] = wallet_users.filter(
+        pay_type='Add Money', status='Success').order_by('user').distinct('user').count()
+    context["withdrawal_users"] = wallet_users.filter(
+        pay_type='Widrawal', status='Success').order_by('user').distinct('user').count()
+    
     return render(request, 'user/index.html', context)
 
 
@@ -61,9 +68,25 @@ def user_logout(request):
 @for_admin
 def user_list(request):
     """ All Customers Listing. """
+    users = User.objects.filter(is_staff=False)
+    rs = request.GET.get('rs', None)
+    
+    if rs:
+        if rs == 'recharge':
+            wallets = Wallet.objects.filter(
+                pay_type="Add Money", status="Success"
+            ).order_by('user').distinct('user').values_list('user', flat=True)
+            users = users.filter(id__in=wallets)
+            
+        elif rs == 'withdrawal':
+            wallets = Wallet.objects.filter(
+                pay_type="Widrawal", status="Success"
+            ).order_by('user').distinct('user').values_list('user', flat=True)
+            users = users.filter(id__in=wallets)
+
     context = {
         'title': "Users",
-        'users': User.objects.filter(is_staff=False)
+        'users': users
     }
     return render(request, 'user/list.html', context)
 
@@ -92,6 +115,33 @@ def user_delete(request, id):
     user = get_object_or_404(User, id=id)
     user.delete()
     return redirect('users')
+
+
+@for_admin
+def user_team(request, id):
+    """ referal mlm team a customer. """
+    user = get_object_or_404(User, id=id)
+    referred_by_user = user.referred_by_me.prefetch_related('referral_to').all()
+    # referred_by_me_users = referred_by_user.values('referral_to')
+    # users_wallet_list = Wallet.objects.filter(user__in=referred_by_me_users).order_by('-created_at')
+    # users_list = User.objects.filter(
+    #     id__in = users_wallet_list.values_list('user', flat=True)
+    # )
+    
+    context = {
+        'title': f"{user} Team Member's",
+        'levels' : {
+            '1': referred_by_user.filter(level=0),
+            '2': referred_by_user.filter(level=1),
+            '3': referred_by_user.filter(level=2),
+        },
+        
+        # 'l1': referred_by_user.filter(level=0, referral_to__in=users_list).distinct().count(),
+        # 'l2': referred_by_user.filter(level=1, referral_to__in=users_list).distinct().count(),
+        # 'l3': referred_by_user.filter(level=2, referral_to__in=users_list).distinct().count(),
+    }
+    print(context)
+    return render(request, 'user/team.html', context)
 
 
 """
@@ -159,7 +209,7 @@ Wallet Views
 @for_admin
 def wallet_list(request):
     """  wallets listing page. """
-    wallets = Wallet.objects.all()
+    wallets = Wallet.objects.select_related().all()
     context = {
         "title": "Wallets",
         "wallets": wallets

@@ -21,8 +21,9 @@
                         <th scope="col" class="sort" data-sort="name">SN</th>
                         <th scope="col" class="sort" data-sort="name">Name</th>
                         <th scope="col" class="sort" data-sort="budget">Mobile</th>
+                        <th scope="col" class="sort" data-sort="budget">Recharge Amount</th>
                         <th scope="col" class="sort" data-sort="budget">Avalable Amount</th>
-                        <th scope="col">Active</th>
+                        <th scope="col">Can Bid/Trad ?</th>
                         <th scope="col">Date</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -50,18 +51,21 @@
                             {{user.mobile_number}}
                         </td>
                         <td>
+                            {{user.total_recharged_amount}}
+                        </td>
+                        <td>
                             {{user.available_amount}}
                         </td>
                         <td>
-                        {% if user.is_active %}
+                        {% if user.can_bid %}
                         <select class="border-0 userStatus" data-user-id="{{ user.id }}">
-                            <option value="1" {% if user.is_active %}selected{% endif %}>Yes</option>
-                            <option value="0" {% if not user.is_active %}selected{% endif %}>No</option>
+                            <option value="1" {% if user.can_bid %}selected{% endif %}>Yes</option>
+                            <option value="0" {% if not user.can_bid %}selected{% endif %}>No</option>
                         </select>
-                      {% else %}
-                       <select class="border-0 userStatus" data-user-id="{{ user.id }}">
-                            <option value="1" {% if user.is_active %}selected{% endif %}>Yes</option>
-                            <option value="0" {% if not user.is_active %}selected{% endif %}>No</option>
+                        {% else %}
+                        <select class="border-0 userStatus" data-user-id="{{ user.id }}">
+                            <option value="1" {% if user.can_bid %}selected{% endif %}>Yes</option>
+                            <option value="0" {% if not user.can_bid %}selected{% endif %}>No</option>
                         </select>
                         {% endif %}
                         </td>
@@ -74,20 +78,25 @@
                             </a>
                             <div class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-2 py-1">
                                 
+                                <a class="dropdown-item d-flex align-items-center" type="button" href="{% url "user-team" user.id %}">
+                                    <i class="fas fa-network-wired text-info me-2" style="font-size:20px"></i>
+                                    Team
+                                </a>
+                                <div role="separator" class="dropdown-divider my-1"></div>
                                 <a class="dropdown-item d-flex align-items-center" href="{% url 'edit-user' user.id %}">
                                     <i class="fas fa-pen me-2" style="font-size:20px"></i>
                                     Edit
                                 </a>
-                                <div role="separator" class="dropdown-divider my-1"></div>
+                                {% comment %} <div role="separator" class="dropdown-divider my-1"></div>
                                 <a class="dropdown-item d-flex align-items-center" type="button" data-bs-toggle="modal" href="#deleteUserModal{{user.id}}">
                                     <i class="fas fa-trash text-danger me-2" style="font-size:20px"></i>
                                     Delete
-                                </a>
+                                </a> {% endcomment %}
                             </div>
                         </td>
                     </tr>
                     
-                    <!-- Delete User Modal -->
+                    {% comment %} <!-- Delete User Modal -->
                     <div class="modal fade" id="deleteUserModal{{user.id}}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
                         <div class="modal-dialog">
                           <div class="modal-content">
@@ -106,7 +115,7 @@
                           </div>
                         </div>
                     </div>
-                    <!-- end Model -->
+                    <!-- end Model --> {% endcomment %}
 
                     {% endfor %}
                 </tbody>
@@ -138,10 +147,10 @@
                 dataType: 'json',
                 success: function(data) {
                     if (data.success) {
-                        console.log('User status updated successfully');
+                        console.log('User bid status updated successfully');
                     
                     } else {
-                        console.error('Error updating user status:', data.error);
+                        console.error('Error updating user bid status:', data.error);
                     }
                 }
             });

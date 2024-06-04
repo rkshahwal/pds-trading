@@ -10,6 +10,7 @@ urlpatterns = [
     path('users/', user_list, name='users'),
     path('edit-user/<int:id>/', user_update, name='edit-user'),
     path('delete-user/<int:id>/', user_delete, name='delete-user'),
+    path('user-teams/<int:id>/', user_team, name='user-team'),
     
     # Banner Urls
     path('banners/', banner_list, name='banners'),
@@ -24,7 +25,7 @@ urlpatterns = [
     path('delete-market/<int:id>/', market_delete, name='delete-market'),
     
     
-    # Wallete Urls
+    # Wallet Urls
     path('wallets/', wallet_list, name='wallets'),
     path('add-wallet/', wallet_add, name='add-wallet'),
     path('edit-wallet/<int:id>/', wallet_edit, name='edit-wallet'),

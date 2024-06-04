@@ -80,6 +80,14 @@ class CustomUser(AbstractUser):
             "Unselect this instead of deleting accounts."
         ),
     )
+    can_bid = models.BooleanField(
+        _("Is User Able to Bid"),
+        default=True,
+        help_text=_(
+            "If this is active user will be able to bid/trading. "
+            "Unselect this instead of stop biding/trading."
+        ),
+    )
     updated_at = models.DateTimeField(auto_now=True)
     
     username = None
