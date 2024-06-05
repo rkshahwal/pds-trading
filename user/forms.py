@@ -14,7 +14,7 @@ class UserUpdateForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class':'form-control'}),
-            'password': forms.TextInput(attrs={'class':'form-control', }),
+            'password': forms.PasswordInput(attrs={'class':'form-control', }),
             'mobile_number': forms.NumberInput(attrs={'class': 'form-control', 'readonly':''}),
         }
 

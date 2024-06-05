@@ -99,6 +99,7 @@ def user_update(request, id):
     if request.method == "POST":
         form = UserUpdateForm(data=request.POST, files=request.FILES, instance=user)
         if form.is_valid():
+            form.save()
             messages.success(request, f'Profile updated successfully!')
             return redirect('users')
     
