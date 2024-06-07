@@ -24,6 +24,7 @@
                         <th scope="col" class="sort" data-sort="budget">Recharge Amount</th>
                         <th scope="col" class="sort" data-sort="budget">Avalable Amount</th>
                         <th scope="col">Can Bid/Trad ?</th>
+                        <th scope="col">Is Active</th>
                         <th scope="col">Date</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -58,14 +59,28 @@
                         </td>
                         <td>
                         {% if user.can_bid %}
-                        <select class="border-0 userStatus" data-user-id="{{ user.id }}">
+                        <select class="border-0 userBidStatus" data-user-id="{{ user.id }}">
                             <option value="1" {% if user.can_bid %}selected{% endif %}>Yes</option>
                             <option value="0" {% if not user.can_bid %}selected{% endif %}>No</option>
                         </select>
                         {% else %}
-                        <select class="border-0 userStatus" data-user-id="{{ user.id }}">
+                        <select class="border-0 userBidStatus" data-user-id="{{ user.id }}">
                             <option value="1" {% if user.can_bid %}selected{% endif %}>Yes</option>
                             <option value="0" {% if not user.can_bid %}selected{% endif %}>No</option>
+                        </select>
+                        {% endif %}
+                        </td>
+                        
+                        <td>
+                        {% if user.is_active %}
+                        <select class="border-0 userStatus" data-user-id="{{ user.id }}">
+                            <option value="1" {% if user.is_active %}selected{% endif %}>Yes</option>
+                            <option value="0" {% if not user.is_active %}selected{% endif %}>No</option>
+                        </select>
+                        {% else %}
+                        <select class="border-0 userStatus" data-user-id="{{ user.id }}">
+                            <option value="1" {% if user.is_active %}selected{% endif %}>Yes</option>
+                            <option value="0" {% if not user.is_active %}selected{% endif %}>No</option>
                         </select>
                         {% endif %}
                         </td>
@@ -135,6 +150,31 @@
             var user_id = $(this).data('user-id');
             var new_status = $(this).val();
             var url = "{% url 'update-user-active-ajax' %}";
+            
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: {
+                    'user_id': user_id,
+                    'new_status': new_status,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.success) {
+                        console.log('User bid status updated successfully');
+                    
+                    } else {
+                        console.error('Error updating user bid status:', data.error);
+                    }
+                }
+            });
+        });
+        
+        $(document).on('change', '.userBidStatus', function(e) {
+            var user_id = $(this).data('user-id');
+            var new_status = $(this).val();
+            var url = "{% url 'update-user-bid-status-ajax' %}";
             
             $.ajax({
                 url: url,
