@@ -103,7 +103,8 @@ LOGIN_URL = "/login/"
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 CONSTANCE_CONFIG = {
-    'GROUP_SIGNAL_LINK': ('https://t.me/ADMtradingofficialgrup', _('Group Signal Link like Telegram/Whatsapp')),
+    'GROUP_SIGNAL_LINK': ('https://t.me/admtradingchannellink', _('Group Signal Link Telegram')),
+    'GROUP_SIGNAL_LINK_WA': ('https://whatsapp.com/channel/0029VagL2rO9xVJWxBpRJ634', _('Group Signal Link Whatsapp')),
     'WITHDRAWAL_FEES_PERCENTAGE': (20, _('Withdrawal Fees in Percentage (Number only)'), int),
     'SERVICE': ('https://telegram.me//WWWAdmtradingofficialchannel', _('Service Link 1')),
     'SERVICE2': ('https://telegram.me//WWWAdmtradingofficialchannel', _('Service Link 2')),
@@ -120,9 +121,8 @@ CONSTANCE_CONFIG_FIELDSETS = {
         'APK_URL',
     },
     ('Help & Service Setting'): {
-        'SERVICE',
-        'SERVICE2',
-        'GROUP_SIGNAL_LINK'
+        'SERVICE', 'SERVICE2',
+        'GROUP_SIGNAL_LINK', 'GROUP_SIGNAL_LINK_WA'
     }
 }
 

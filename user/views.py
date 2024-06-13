@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.utils import timezone
+from datetime import timedelta
 from permission_decorators import for_admin
 from .models import (
     CustomUser as User,
@@ -210,7 +212,7 @@ Wallet Views
 @for_admin
 def wallet_list(request):
     """  wallets listing page. """
-    wallets = Wallet.objects.select_related().all()
+    wallets = Wallet.objects.select_related().filter(updated_at__gte=timezone.now()-timedelta(weeks=2))
     context = {
         "title": "Wallets",
         "wallets": wallets

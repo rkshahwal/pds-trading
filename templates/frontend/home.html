@@ -49,13 +49,33 @@
                 class="fa-solid fa-download up-icon  d-block "></i>  Recharge</a>
             <a class="link-offset-2 up-link  text-center link-underline link-underline-opacity-0" href="{% url "user_withdrowal" %}"><i
                 class="fa-solid fa-upload d-block up-icon"></i>Withdraw</a>
-            <a class="link-offset-2 up-link  text-center link-underline link-underline-opacity-0" href="{{group_signal}}" target="_blank"><i
+            <a class="link-offset-2 up-link  text-center link-underline link-underline-opacity-0" data-bs-toggle="modal" data-bs-target="#grpSignalModel" href="javascript:void(0);"><i
                 class="fa-solid fa-circle-info d-block up-icon"></i>Group signal</a>
             <a class="link-offset-2 up-link  text-center link-underline link-underline-opacity-0" href="#" onclick="copyShareLink()"><i
                 class="fa-solid fa-share-nodes d-block up-icon"></i>Share</a>
             <a class="link-offset-2 up-link  text-center link-underline link-underline-opacity-0" data-bs-toggle="modal" data-bs-target="#serviceModal"  href="javascript:void(0);"><i
                 class="fa-solid fa-headphones d-block up-icon"></i>Services</a>
 
+              <!-- Signal Modal -->
+              <div class="modal fade" id="grpSignalModel" tabindex="-1" aria-labelledby="grpSignalModelLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fw-semibold fs-4 text-dark" id="grpSignalModelLabel">Join Signal </h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      
+                      <a type="button" href="{{group_signal_wa}}" target="_blank" class="btn btn-primary btn-lg">WhatsApp</a>
+                      <a type="button" href="{{group_signal}}" target="_blank" class="btn btn-primary btn-lg">Teligram</a>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Modal  -->
+
+              
               <!-- Service Modal -->
               <div class="modal fade" id="serviceModal" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable">

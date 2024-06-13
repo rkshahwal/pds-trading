@@ -27,7 +27,7 @@
             <div class="col-6 col-md-4  col-sm-4 col-lg-7 ">
                
            
-           <p class="u-number "> {{request.user.mobile_number}} (VIP0)     </p>
+           <p class="u-number "> {{request.user.mobile_number}} (VIP{{request.user.vip_level}})     </p>
            <p class="u-join " > Join time：{{request.user.date_joined|date}}  </p> 
            <p  class="u-code "> Invite code：{{request.user.referral_code}}  <i class="fa-solid fa-copy fa-xs copy-icon ms-1" style="color: #fafafa;"></i></p> 
          

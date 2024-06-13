@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
+from django.utils import timezone
 from constance import config
 from user.models import (
     CustomUser as User,
@@ -21,6 +22,7 @@ def home(request):
         "service": config.SERVICE,
         "service2": config.SERVICE2,
         "group_signal": config.GROUP_SIGNAL_LINK,
+        "group_signal_wa": config.GROUP_SIGNAL_LINK_WA,
         "banners": Banner.objects.all(),
         "markets": markets,
         "top_markets": markets[:3],
@@ -161,7 +163,7 @@ def wallet(request):
         "wallets": user.wallets.filter(
             pay_type__in=[
                 "Add Money", "Commission", "Widrawal", "Widrawal Charge", "Bonus",
-                "Winning", "Loss"
+                "Winning", "Loss", "Salary"
             ]
         )[:100]
     }
@@ -175,11 +177,32 @@ def withdrowal(request):
     _available_amount = user.available_amount
     _total_recharged_amount = user.total_recharged_amount
     
-    _withdrawalable_amount = _available_amount - _total_recharged_amount # This Amount can be withdrwal
+    _withdrawable_amount = _available_amount - _total_recharged_amount # This Amount can be withdrawal
     
     can_withdrawal =  False
-    if _withdrawalable_amount >= 300.0: # 300 minimum withdrwal
-        can_withdrawal = True
+    
+    # Withdrawal can be done only on Monday to Friday 7:00 AM to 9:00 AM
+    # Get current time in the correct timezone
+    now = timezone.localtime(timezone.now())
+    
+    # Check if today is a weekday
+    if now.weekday() < 5:  # 5 = Saturday, 6 = Sunday
+        # messages.warning(request, 'Withdrawals can only be made from Monday to Friday.')
+
+        # Check if current time is within 7:00 AM to 9:00 AM
+        start_time = now.replace(hour=7, minute=0, second=0, microsecond=0)
+        end_time = now.replace(hour=9, minute=0, second=0, microsecond=0)
+    
+        if start_time <= now <= end_time:
+        
+            if _withdrawable_amount >= 300.0: # 300 minimum withdrawal
+                can_withdrawal = True
+            else:
+                messages.warning(request, "Insufficient balance.")
+        else:
+            messages.warning(request, "Allowed from 7 am to 9 am.")   
+    else:
+        messages.warning(request, "Allowed Monday to Friday only.")
     
     context = {
         "tax": _tax,
@@ -190,7 +213,7 @@ def withdrowal(request):
     if request.method == "POST":
         if can_withdrawal:
             amount = abs(float(request.POST["amount"]))
-            if amount <= _withdrawalable_amount:
+            if amount <= _withdrawable_amount:
                 withdrawal_charge = float(amount) * _tax / 100
                 withdrawal_amt = amount - withdrawal_charge
                 wallet = Wallet.objects.create(
@@ -206,8 +229,6 @@ def withdrowal(request):
                     pay_type = "Widrawal Charge"
                 )
                 return redirect('user_wallet')
-        else:
-            messages.warning(request, "Insufficient balance.")
 
     return render(request, 'frontend/withdrwal.html', context)
 
@@ -262,7 +283,12 @@ def my_team(request):
     users_list = User.objects.filter(
         id__in = users_wallet_list.values_list('user', flat=True)
     )
+    total_salary = Wallet.objects.filter(
+        pay_type="Salary", status="Success"
+    ).aggregate(Sum('amount'))['amount__sum'] or 0.0
+    
     context = {
+        'total_salary': total_salary,
         'l1_list': referred_by_me.filter(level=0),
         'l2_list': referred_by_me.filter(level=1),
         'l3_list': referred_by_me.filter(level=2),

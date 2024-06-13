@@ -102,16 +102,16 @@
                                     <i class="fas fa-pen me-2" style="font-size:20px"></i>
                                     Edit
                                 </a>
-                                {% comment %} <div role="separator" class="dropdown-divider my-1"></div>
+                                <div role="separator" class="dropdown-divider my-1"></div>
                                 <a class="dropdown-item d-flex align-items-center" type="button" data-bs-toggle="modal" href="#deleteUserModal{{user.id}}">
                                     <i class="fas fa-trash text-danger me-2" style="font-size:20px"></i>
                                     Delete
-                                </a> {% endcomment %}
+                                </a>
                             </div>
                         </td>
                     </tr>
                     
-                    {% comment %} <!-- Delete User Modal -->
+                    <!-- Delete User Modal -->
                     <div class="modal fade" id="deleteUserModal{{user.id}}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
                         <div class="modal-dialog">
                           <div class="modal-content">
@@ -130,7 +130,7 @@
                           </div>
                         </div>
                     </div>
-                    <!-- end Model --> {% endcomment %}
+                    <!-- end Model -->
 
                     {% endfor %}
                 </tbody>

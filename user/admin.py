@@ -6,11 +6,11 @@ from .models import *
 class UserAdmin(admin.ModelAdmin):
     list_display = (
         'name', 'email', 'mobile_number', 'referral_code',
-        'date_joined', 'is_active'
+        'date_joined', 'is_active', 'vip_level',
     )
     readonly_fields = ("referral_code",)
     list_editable = ('is_active',)
-    list_filter = ('date_joined', 'is_active')
+    list_filter = ('date_joined', 'is_active', 'vip_level')
     search_fields = ('name', 'email', 'mobile_number', 'referral_code')
     
     fieldsets = (
@@ -33,9 +33,9 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Wallet)
 class CountryCodeAdmin(admin.ModelAdmin):
-    list_display = ('user', 'amount', 'status', 'pay_type', 'pay_method', 'utr', 'has_bid', 'created_at')
+    list_display = ('user', 'amount', 'status', 'pay_type', 'pay_method', 'utr', 'has_bid', 'created_at',)
     search_fields = ('user__name', 'user__email', 'user__mobile_number', 'utr')
-    list_editable = ("pay_type", "pay_method", "status")
+    list_editable = ("pay_type", "pay_method", "status",)
     list_filter = ('status', 'has_bid', 'pay_type', 'created_at')
 
 
@@ -43,4 +43,5 @@ class CountryCodeAdmin(admin.ModelAdmin):
 class ReferralAdmin(admin.ModelAdmin):
     list_display = ('referral_to', 'referred_by', 'level')
     list_filter = ('level', )
+    search_fields = ('referral_to__mobile_number', 'referred_by__mobile_number',)
     list_editable = ('level', )

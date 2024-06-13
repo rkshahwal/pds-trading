@@ -88,6 +88,11 @@ class CustomUser(AbstractUser):
             "Unselect this instead of stop biding/trading."
         ),
     )
+    vip_level = models.CharField(
+        "VIP Level Tag", max_length=2,
+        choices=[(str(i), str(i)) for i in range(0, 7)],
+        default="0"
+    )
     updated_at = models.DateTimeField(auto_now=True)
     
     username = None
