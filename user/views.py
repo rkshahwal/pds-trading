@@ -24,7 +24,7 @@ from .forms import (
 
 @for_admin
 def index(request):
-    """ Dashbord Page."""
+    """ Dashboard Page."""
     context = {}
     context["total_user"] = User.objects.count()
     context["total_markets"] = Market.objects.count()
@@ -82,7 +82,7 @@ def user_list(request):
             
         elif rs == 'withdrawal':
             wallets = Wallet.objects.filter(
-                pay_type="Widrawal", status="Success"
+                pay_type="Withdrawal", status="Success"
             ).order_by('user').distinct('user').values_list('user', flat=True)
             users = users.filter(id__in=wallets)
 
@@ -122,7 +122,7 @@ def user_delete(request, id):
 
 @for_admin
 def user_team(request, id):
-    """ referal mlm team a customer. """
+    """ referral mlm team a customer. """
     user = get_object_or_404(User, id=id)
     referred_by_user = user.referred_by_me.prefetch_related('referral_to').all()
     # referred_by_me_users = referred_by_user.values('referral_to')
@@ -317,7 +317,7 @@ def market_edit(request, id):
 def market_delete(request, id):
     """ Delete existing market on the site. """
     market = get_object_or_404(Market, id=id)
-    Market.delete()
+    market.delete()
     return redirect(market_list)
 
 
