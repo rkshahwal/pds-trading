@@ -276,6 +276,10 @@ def about_us(request):
     return render(request, "frontend/about-us.html")
 
 
+def option_order(request):
+    return render(request, "frontend/option-order.html")
+
+
 def my_team(request):
     referred_by_me = request.user.referred_by_me.prefetch_related('referral_to').all()
     referred_by_me_users = referred_by_me.values('referral_to')
@@ -284,7 +288,8 @@ def my_team(request):
         id__in = users_wallet_list.values_list('user', flat=True)
     )
     total_salary = Wallet.objects.filter(
-        pay_type="Salary", status="Success"
+        pay_type="Salary", status="Success",
+        user = request.user
     ).aggregate(Sum('amount'))['amount__sum'] or 0.0
     
     context = {
