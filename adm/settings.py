@@ -102,6 +102,15 @@ LOGIN_URL = "/login/"
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
+
+CONSTANCE_ADDITIONAL_FIELDS = {
+    'image_field': ['django.forms.ImageField', {}],
+    'yes_no_select': ['django.forms.fields.ChoiceField', {
+        'widget': 'django.forms.Select',
+        'choices': (("yes", "Yes"), ("no", "No"))
+    }],
+}
+
 CONSTANCE_CONFIG = {
     'GROUP_SIGNAL_LINK': ('https://t.me/admtradingchannellink', _('Group Signal Link Telegram')),
     'GROUP_SIGNAL_LINK_WA': ('https://whatsapp.com/channel/0029VagL2rO9xVJWxBpRJ634', _('Group Signal Link Whatsapp')),
@@ -110,11 +119,15 @@ CONSTANCE_CONFIG = {
     'SERVICE2': ('https://telegram.me//WWWAdmtradingofficialchannel', _('Service Link 2')),
     'UPI': ('7489279593-2@ybl', _('Upi Id for Recharge')),
     'QR': ('https://i.ibb.co/jWKBnrT/qr-image.jpg', _('QR Code Image Link for Recharge')),
-    'APK_URL': ('#', _('App Download Link'))
+    'APK_URL': ('#', _('App Download Link')),
+    'ABOUT_US': ('frontend/about-us.jpg', 'About us page image', 'image_field'),
+    'TRADING_IMAGE': ('frontend/img/call-img.png', 'Trading Page Image (Live)', 'image_field'),
 }
 
 CONSTANCE_CONFIG_FIELDSETS = {
     ('General Options'): {
+        'ABOUT_US',
+        'TRADING_IMAGE',
         'UPI',
         'QR',
         'WITHDRAWAL_FEES_PERCENTAGE',

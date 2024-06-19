@@ -218,6 +218,10 @@ class Wallet(BaseModel):
         default=False,
         help_text="Has Bid of this transaction"
     )
+    market_name = models.CharField(
+        _("Market Name"), max_length=20, 
+        default="",
+        help_text="Put market name if user had bid")
     
     def __str__(self) -> str:
         return str(self.user)+" > "+str(self.amount)

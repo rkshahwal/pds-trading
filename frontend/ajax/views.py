@@ -62,16 +62,18 @@ def call_put_bid(request):
                 pay_type = "Winning",
                 status = "Success",
                 has_bid = True,
+                market_name = market.name,
                 remark = f"Winning ({bid}) on {market.name}"
             )
         else:
             # Loss
             wallet = Wallet.objects.create(
                 user = user,
-                amount = -(avl_amount * 10 / 100), # 10% of available money is lossed
+                amount = -(avl_amount * 10 / 100), # 10% of available money is loosed
                 pay_type = "Loss",
                 status = "Success",
                 has_bid = True,
+                market_name = market.name,
                 remark = f"Bid ({bid}) on {market.name}"
             )
         

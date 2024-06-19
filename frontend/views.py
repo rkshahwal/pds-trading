@@ -259,7 +259,8 @@ def save_bankdetails(request):
 def call_put(request, market_id):
     market = get_object_or_404(Market, id=market_id)
     context = {
-        "market": market
+        "market": market,
+        "image": config.TRADING_IMAGE
     }
     return render(request, 'frontend/call-put.html', context)
 
@@ -273,7 +274,10 @@ def tc(request):
 
 
 def about_us(request):
-    return render(request, "frontend/about-us.html")
+    context = {
+        "image": config.ABOUT_US
+    }
+    return render(request, "frontend/about-us.html", context)
 
 
 def option_order(request):

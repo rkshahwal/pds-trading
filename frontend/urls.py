@@ -17,7 +17,7 @@ urlpatterns = [
     path('recharge/', recharge, name='user_recharge'),
     path('wallet/', wallet, name='user_wallet'),
     path('bank-withdrawal-setting/', save_bankdetails, name='user_bank_detail'),
-    path('withdrowal/', withdrowal, name='user_withdrowal'),
+    path('withdrawal/', withdrowal, name='user_withdrowal'),
     path('call-put/<int:market_id>/', call_put, name='call_put'),
     
     # Terms and Conditions
