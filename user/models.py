@@ -223,6 +223,15 @@ class Wallet(BaseModel):
         default="",
         help_text="Put market name if user had bid")
     
+    order_option = models.CharField(
+        _("Order Option"), max_length=4, 
+        default="",
+        choices = (
+            ("Call","Call"),
+            ("Put","Put"),
+        ),
+        help_text="Enter Call or Put if user had bid")
+    
     def __str__(self) -> str:
         return str(self.user)+" > "+str(self.amount)
 

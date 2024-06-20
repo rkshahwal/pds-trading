@@ -281,7 +281,13 @@ def about_us(request):
 
 
 def option_order(request):
-    return render(request, "frontend/option-order.html")
+    context = {
+        "orders": Wallet.objects.filter(
+            user = request.user,
+            has_bid = True
+        )
+    }
+    return render(request, "frontend/option-order.html", context)
 
 
 def my_team(request):

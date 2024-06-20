@@ -42,6 +42,7 @@
                             </a> {% endcomment %}
                             <div class="media-body">
                                 <span class="name mb-0 text-sm">{{user.mobile_number}} </span>
+                                <span class="name mb-0 text-gray-500 accordion-body text-italic "> (L-{{user.vip_level}}) </span>
                                 {% if user.email %}
                                 <p class="name mb-0 text-xs">{{user.email}} </p>
                                 {% endif %}

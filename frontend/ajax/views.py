@@ -63,6 +63,7 @@ def call_put_bid(request):
                 status = "Success",
                 has_bid = True,
                 market_name = market.name,
+                order_option = bid,
                 remark = f"Winning ({bid}) on {market.name}"
             )
         else:
@@ -74,6 +75,7 @@ def call_put_bid(request):
                 status = "Success",
                 has_bid = True,
                 market_name = market.name,
+                order_option = bid,
                 remark = f"Bid ({bid}) on {market.name}"
             )
         

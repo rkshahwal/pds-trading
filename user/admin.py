@@ -5,12 +5,12 @@ from .models import *
 @admin.register(CustomUser)
 class UserAdmin(admin.ModelAdmin):
     list_display = (
-        'name', 'email', 'mobile_number', 'referral_code',
+        'name', 'email', 'mobile_number', 'referral_code', 'can_bid',
         'date_joined', 'is_active', 'vip_level',
     )
     readonly_fields = ("referral_code",)
-    list_editable = ('is_active',)
-    list_filter = ('date_joined', 'is_active', 'vip_level')
+    list_editable = ('is_active', 'can_bid',)
+    list_filter = ('date_joined', 'is_active', 'can_bid', 'vip_level')
     search_fields = ('name', 'email', 'mobile_number', 'referral_code')
     
     fieldsets = (
