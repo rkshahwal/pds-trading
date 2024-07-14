@@ -37,10 +37,10 @@ def index(request):
     context["withdrawal_users"] = wallet_users.filter(
         pay_type='Widrawal', status='Success').order_by('user').distinct('user').count()
     
-    context["tot_recharge_amount"] = abs(wallet_users.filter(
-        pay_type='Add Money', status='Success').aggregate(Sum('amount'))['amount__sum'] or 0)
-    context["tot_withdrawal_amount"] = abs(wallet_users.filter(
-        pay_type='Widrawal', status='Success').aggregate(Sum('amount'))['amount__sum'] or 0)
+    context["tot_recharge_amount"] = int(abs(wallet_users.filter(
+        pay_type='Add Money', status='Success').aggregate(Sum('amount'))['amount__sum'] or 0))
+    context["tot_withdrawal_amount"] = int(abs(wallet_users.filter(
+        pay_type='Widrawal', status='Success').aggregate(Sum('amount'))['amount__sum'] or 0))
     
     return render(request, 'user/index.html', context)
 
