@@ -147,7 +147,10 @@ def recharge(request):
             print(e)
     context = {
         "qr": config.QR,
-        "upi": config.UPI
+        "upi": config.UPI,
+        "wallets": request.user.wallets.filter(
+            pay_type = "Add Money"
+        )[:50]
     }   
     return render(request, 'frontend/recharge.html', context)
 
@@ -162,8 +165,10 @@ def wallet(request):
         "total_revenue": user.total_revenue,
         "wallets": user.wallets.filter(
             pay_type__in=[
-                "Add Money", "Commission", "Widrawal", "Widrawal Charge", "Bonus",
-                "Winning", "Loss", "Salary"
+                "Commission", "Bonus", "Salary",
+                # "Add Money",
+                # "Widrawal", "Widrawal Charge",
+                # "Winning", "Loss",
             ]
         )[:100]
     }
@@ -204,10 +209,19 @@ def withdrowal(request):
     else:
         messages.warning(request, "Allowed Monday to Friday only.")
     
+    if not UserBankDetail.objects.filter(user=user).exists():
+        can_withdrawal = False
+        messages.warning(request, "Please add your bank details first.")
+    
     context = {
         "tax": _tax,
         "amount":user.available_amount,
-        "can_withdrawal": can_withdrawal
+        "can_withdrawal": can_withdrawal,
+        "wallets": user.wallets.filter(
+            pay_type__in=[
+                "Widrawal", "Widrawal Charge",
+            ]
+        )[:50]
     }
         
     if request.method == "POST":
@@ -293,10 +307,12 @@ def option_order(request):
 def my_team(request):
     referred_by_me = request.user.referred_by_me.prefetch_related('referral_to').all()
     referred_by_me_users = referred_by_me.values('referral_to')
-    users_wallet_list = Wallet.objects.filter(user__in=referred_by_me_users).order_by('-created_at')
+    users_wallet_list = Wallet.objects.filter(
+        user__in=referred_by_me_users, 
+        status="Success").order_by('-created_at')
     users_list = User.objects.filter(
         id__in = users_wallet_list.values_list('user', flat=True)
-    )
+    ).distinct()
     total_salary = Wallet.objects.filter(
         pay_type="Salary", status="Success",
         user = request.user
@@ -308,9 +324,12 @@ def my_team(request):
         'l2_list': referred_by_me.filter(level=1),
         'l3_list': referred_by_me.filter(level=2),
         
-        'l1': referred_by_me.filter(level=0, referral_to__in=users_list).distinct().count(),
-        'l2': referred_by_me.filter(level=1, referral_to__in=users_list).distinct().count(),
-        'l3': referred_by_me.filter(level=2, referral_to__in=users_list).distinct().count(),
+        'l1': referred_by_me.filter(
+            level=0, referral_to__in=users_list).distinct().count(),
+        'l2': referred_by_me.filter(
+            level=1, referral_to__in=users_list).distinct().count(),
+        'l3': referred_by_me.filter(
+            level=2, referral_to__in=users_list).distinct().count(),
     }
     return render(request, "frontend/team.html", context)
 

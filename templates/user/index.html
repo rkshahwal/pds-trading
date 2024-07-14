@@ -77,7 +77,7 @@
         
             {% comment %} <span class="text-primary col text-center align-self-center text-lg p-1"> <i class="fas fa-user"></i></span> {% endcomment %}
             <a href="{% url "users" %}" class="col align-self-center text-lg p-1">
-                <div class="card-counter info">
+                <div class="card-counter primary">
                     <i class="fa fa-users"></i>
                     <span class="count-numbers">{{total_user}}</span><br/>
                     <span class="count-name">Total Users</span>
@@ -104,9 +104,9 @@
 
             <a href="{% url "users" %}?rs=recharge" class="col align-self-center text-lg p-1">
                 <div class="card-counter success">
-                    <i class="fas fa-network-wired"></i>
+                    <i class="fas fa-users"></i>
                     <span class="count-numbers">{{recharge_users}}</span><br/>
-                    <span class="count-name">Total Recharge Users</span>
+                    <span class="count-name">Recharge Users</span>
                 </div>
                 
             </a>
@@ -117,38 +117,37 @@
 
             <a href="{% url "users" %}?rs=withdrawal" class="col align-self-center text-lg p-1">
                 <div class="card-counter info">
-                    <i class="fas fa-network-wired"></i>
+                    <i class="fas fa-users"></i>
                     <span class="count-numbers">{{withdrawal_users}}</span><br/>
-                    <span class="count-name">Total Withdrawal Users</span>
+                    <span class="count-name">Withdrawal Users</span>
                 </div>
                 
             </a>
         </div>
 
-        {% comment %} <div class="col row m-1 bg-gradient-lighter rounded p-1 pb-2">
+        <div class="col row m-1 bg-gradient-lighter rounded p-1 pb-2">
             <div class="col p-1">
                 <div class="card-counter success">
-                    <i class="fas fa-images"></i>
-                    <span class="count-numbers">0</span><br/>
-                    <span class="count-name">Total Products</span>
+                    <i class="fas fa-coins"></i>
+                    <span class="count-numbers">{{tot_recharge_amount}}</span><br/>
+                    <span class="count-name">Total Recharge</span>
                 </div>
             
             </div>
-        </div> {% endcomment %}
+        </div>
 
     
-        {% comment %} <div class="col row m-1 bg-gradient-lighter rounded p-1 pb-2">
+        <div class="col row m-1 bg-gradient-lighter rounded p-1 pb-2">
             
             <div class="col p-1">
-                <div class="card-counter primary">
-                    <i class="fas fa-list"></i>
-
-                    <span class="count-numbers"></span><br/>
-                    <span class="count-name">Total Orders</span>
+                <div class="card-counter danger">
+                    <i class="fas fa-coins"></i>
+                    <span class="count-numbers">{{tot_withdrawal_amount}} </span><br/>
+                    <span class="count-name">Total Withdrawal</span>
                 </div>
             
             </div>
-        </div> {% endcomment %}
+        </div>
     </div>
 </div>
 

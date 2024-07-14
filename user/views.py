@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
+from django.db.models import Sum
 from datetime import timedelta
 from permission_decorators import for_admin
 from .models import (
@@ -35,6 +36,11 @@ def index(request):
         pay_type='Add Money', status='Success').order_by('user').distinct('user').count()
     context["withdrawal_users"] = wallet_users.filter(
         pay_type='Widrawal', status='Success').order_by('user').distinct('user').count()
+    
+    context["tot_recharge_amount"] = wallet_users.filter(
+        pay_type='Add Money', status='Success').aggregate(Sum('amount'))['amount__sum']
+    context["tot_withdrawal_amount"] = wallet_users.filter(
+        pay_type='Widrawal', status='Success').aggregate(Sum('amount'))['amount__sum']
     
     return render(request, 'user/index.html', context)
 
@@ -212,7 +218,7 @@ Wallet Views
 @for_admin
 def wallet_list(request):
     """  wallets listing page. """
-    wallets = Wallet.objects.select_related().filter(updated_at__gte=timezone.now()-timedelta(weeks=2))
+    wallets = Wallet.objects.select_related().all() #.filter(updated_at__gte=timezone.now()-timedelta(weeks=2))
     context = {
         "title": "Wallets",
         "wallets": wallets

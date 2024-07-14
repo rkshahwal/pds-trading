@@ -129,85 +129,110 @@
       </div>
     </div>
     <!-- Modal -->
-
+    <div class="row  ">
+      <table class="table text-secondary">
+        <thead>
+          <tr>
+            <th scope="col">Quantity</th>
+            <th scope="col">Status</th>
+            <th scope="col">Purpose</th>
+            <th scope="col">Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for w in wallets %}
+          <tr>
+            <td><p class="w-bal">{{w.amount}} </p> </td>
+            <td><p class="w-bal">{{w.status}} </p> </td>
+            <td><p class="w-bal">{{w.pay_type}} </p> </td>
+            <td><p class="w-bal">{{w.created_at}} </p> </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script>
-a=document.querySelector('#input')
-b=document.querySelector('#p1')
-c=document.querySelector('#p2')
-d=document.querySelector('#p3')
-copyText=document.querySelector("#copy")
-txt=document.querySelector('.upi-id')
-show=document.querySelector("#show-btn")
-modalbody=document.querySelector(".modal-body")
-img=document.createElement('img')
-img.setAttribute('src','{{qr}}')
-img.setAttribute('class','rounded mx-auto d-block  img-fluid mb-2')
-img.setAttribute('alt','QR-IMG')
-modaltitle=document.querySelector('.modal-title')
-allert=document.querySelector("#alert")
-allert.style.display = "none"
-subbtn=document.querySelector("#submit")
-subbtn.disabled=true;
-utr=document.querySelector("#UTR-input")
-console.log(subbtn,utr)
-utr.addEventListener('input',function(){
-
-
-  if (utr.value=="") {
+  a=document.querySelector('#input')
+  b=document.querySelector('#p1')
+  c=document.querySelector('#p2')
+  d=document.querySelector('#p3')
+  copyText=document.querySelector("#copy")
+  txt=document.querySelector('.upi-id')
+  show=document.querySelector("#show-btn")
+  modalbody=document.querySelector(".modal-body")
+  img=document.createElement('img')
+  img.setAttribute('src','{{qr}}')
+  img.setAttribute('class','rounded mx-auto d-block  img-fluid mb-2')
+  img.setAttribute('alt','QR-IMG')
+  modaltitle=document.querySelector('.modal-title')
+  allert=document.querySelector("#alert")
+  allert.style.display = "none"
+  subbtn=document.querySelector("#submit")
   subbtn.disabled=true;
-  } 
-else{
-  subbtn.disabled=false;
-}
+  utr=document.querySelector("#UTR-input")
+  console.log(subbtn,utr)
+  utr.addEventListener('input', function(){
+
+    if (validateUTR(utr.value)) {
+      subbtn.disabled=false;
+    }
+    else{
+      subbtn.disabled=true;
+    }
+    
+  })
+
+  copyText.addEventListener('click',function(){
+  text= txt.innerText
+        navigator.clipboard.writeText(text);
+        alert( `Copied the UPI ID Successfully ${text}!`);
   
-})
+    
+  })
 
-copyText.addEventListener('click',function(){
- text= txt.innerText
-      navigator.clipboard.writeText(text);
-      alert( `Copied the UPI ID Successfully ${text}!`);
- 
-  
-})
+  b.addEventListener("click",function(){
 
- b.addEventListener("click",function(){
-
-if (a.value=b.innerText) {
-show.innerHTML='<button type="button" class="btn btn-danger mb-3 text-uppercase  fw-normal" data-bs-toggle="modal" data-bs-target="#exampleModal" >Click me To Show UPI ID</button>'
-img.remove()
-modaltitle.innerText='Please pay the money by copying the upi id .'
-allert.style.display = "block"
-
-
-} 
-
-})
-c.addEventListener("click",function(){
-
-if (a.value=c.innerText) {
+  if (a.value=b.innerText) {
   show.innerHTML='<button type="button" class="btn btn-danger mb-3 text-uppercase  fw-normal" data-bs-toggle="modal" data-bs-target="#exampleModal" >Click me To Show UPI ID</button>'
+  img.remove()
   modaltitle.innerText='Please pay the money by copying the upi id .'
- img.remove()
-
- allert.style.display = "block"
- 
-}
-
-})
-d.addEventListener("click",function(){
-
-if (a.value=d.innerText) {
-  show.innerHTML='<button type="button" class="btn btn-danger mb-3 text-uppercase  fw-normal" data-bs-toggle="modal" data-bs-target="#exampleModal" >Click me To Show QR CODE</button>'
-modalbody.prepend(img)
-modaltitle.innerText="Please pay the money by Scaning the QR Code ."
-allert.style.display = "none"
-} 
-
-})
+  allert.style.display = "block"
 
 
+  } 
 
+  })
+  c.addEventListener("click",function(){
+
+  if (a.value=c.innerText) {
+    show.innerHTML='<button type="button" class="btn btn-danger mb-3 text-uppercase  fw-normal" data-bs-toggle="modal" data-bs-target="#exampleModal" >Click me To Show UPI ID</button>'
+    modaltitle.innerText='Please pay the money by copying the upi id .'
+  img.remove()
+
+  allert.style.display = "block"
+  
+  }
+
+  })
+  d.addEventListener("click",function(){
+
+  if (a.value=d.innerText) {
+    show.innerHTML='<button type="button" class="btn btn-danger mb-3 text-uppercase  fw-normal" data-bs-toggle="modal" data-bs-target="#exampleModal" >Click me To Show QR CODE</button>'
+    modalbody.prepend(img)
+    modaltitle.innerText="Please pay the money by Scaning the QR Code ."
+    allert.style.display = "none"
+  } 
+
+  })
+
+
+  function validateUTR(utr) {
+    // Regular expression to match UTR number pattern
+    var utrRegex = /^[0-9]{12}$/; // Example pattern, adjust as per actual UTR format
+    
+    return utrRegex.test(utr);
+  }
 </script>
 </body>
 </html>
