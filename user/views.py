@@ -219,9 +219,22 @@ Wallet Views
 def wallet_list(request):
     """  wallets listing page. """
     wallets = Wallet.objects.select_related().all() #.filter(updated_at__gte=timezone.now()-timedelta(weeks=2))
+    mobile_number = request.GET.get('mobile', None)
+    if mobile_number:
+        wallets = wallets.filter(user__mobile_number__icontains=mobile_number)
+    pay_type = request.GET.get('pt', None)
+    if pay_type:
+        wallets = wallets.filter(pay_type__icontains=pay_type)
+    pay_method = request.GET.get('pm', None)
+    if pay_method:
+        wallets = wallets.filter(pay_method__icontains=pay_method)
+    utr = request.GET.get('utr', None)
+    if utr:
+        wallets = wallets.filter(utr__icontains=utr)
+
     context = {
         "title": "Wallets",
-        "wallets": wallets
+        "wallets": wallets[:100]
     }
     return  render(request, 'wallet/list.html', context)
 
