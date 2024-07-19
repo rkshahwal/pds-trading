@@ -234,7 +234,7 @@ def wallet_list(request):
 
     context = {
         "title": "Wallets",
-        "wallets": wallets[:100]
+        "wallets": wallets[:5000]
     }
     return  render(request, 'wallet/list.html', context)
 
