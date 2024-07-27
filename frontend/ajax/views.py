@@ -3,7 +3,8 @@ from django.db.models import Sum
 from ..models import Market, MarketBid
 from user.models import CustomUser as User, Wallet
 from django.utils import timezone
-from datetime import datetime, timedelta
+import json
+from razor_pay.views import rzp_client
 
 
 
@@ -82,3 +83,40 @@ def call_put_bid(request):
         return JsonResponse({'success': True})
     except Exception as e:
         return JsonResponse({'success': False, 'error': f'{e}'})
+
+
+def recharge(request):
+    if request.method == 'POST':
+        try:
+            data = request.POST
+            user = request.user
+            amount = float(data['amount'])
+            if amount < 100:
+                return JsonResponse({'success': False, 'error': 'Minimum recharge amount is 100.'})
+            else:
+                wallet = Wallet.objects.create(
+                    user = user,
+                    amount = amount,
+                    pay_type = "Add Money",
+                    pay_method = "razorpay",
+                )
+                
+                # Razorpay integrations
+                DATA = {
+                    "amount": float(amount) * 100,
+                    "currency": "INR",
+                    "receipt": f"{wallet.id}",
+                    "notes": {
+                        "mobile": f"{user.mobile_number}",
+                    }
+                }
+                rzp_data = rzp_client.order.create(data=DATA)
+                wallet.razorpay_order_id = rzp_data['id']
+                wallet.save()
+                return JsonResponse({'success': True, 'rzp': rzp_data})
+            
+        except Exception as e:
+            print(e)
+            return JsonResponse({'success': False, 'error': f'{e}'})
+        
+    return JsonResponse(405)

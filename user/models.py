@@ -209,6 +209,21 @@ class Wallet(BaseModel):
         max_length = 100,
         null = True, blank = True
     )
+    razorpay_order_id = models.CharField(
+        _("RazorPay Order ID"),
+        max_length = 100,
+        null = True, blank = True
+    )
+    razorpay_payment_id = models.CharField(
+        _("RazorPay Payment ID"),
+        max_length = 100,
+        null = True, blank = True
+    )
+    razorpay_signature = models.CharField(
+        _("RazorPay Signature ID"),
+        max_length = 100,
+        null = True, blank = True
+    )
     remark = models.CharField(
         max_length=250,
         null=True, blank=True,

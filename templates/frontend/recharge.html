@@ -92,14 +92,14 @@
                
               </div>        
 
-              <div class="col-12    ">
+              {% comment %} <div class="col-12    ">
                 <p class="Recharge-Amt ms-1  ">UTR Number</p>
                 <input class="form-control form-control  " type="text" name="utr" placeholder="Enter Your UTR Number" aria-label=".form-control-lg example" id="UTR-input" required   >
               
-              </div>
+              </div> {% endcomment %}
                  
             <div class="d-grid gap-2 mt-0 mt-4">
-              <button class="btn btn-danger" type="submit" id="submit">Submit</button>
+              <button class="btn btn-danger" type="button" id="submit">Submit</button>
             
             </div>
             
@@ -151,9 +151,11 @@
         </tbody>
       </table>
     </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script>
-  a=document.querySelector('#input')
+  selectedAmount=document.querySelector('#input')
   b=document.querySelector('#p1')
   c=document.querySelector('#p2')
   d=document.querySelector('#p3')
@@ -169,10 +171,9 @@
   allert=document.querySelector("#alert")
   allert.style.display = "none"
   subbtn=document.querySelector("#submit")
-  subbtn.disabled=true;
-  utr=document.querySelector("#UTR-input")
-  console.log(subbtn,utr)
-  utr.addEventListener('input', function(){
+  // subbtn.disabled=true;
+  // utr=document.querySelector("#UTR-input")
+  /*utr.addEventListener('input', function(){
 
     if (validateUTR(utr.value)) {
       subbtn.disabled=false;
@@ -181,7 +182,7 @@
       subbtn.disabled=true;
     }
     
-  })
+  })*/
 
   copyText.addEventListener('click',function(){
   text= txt.innerText
@@ -193,7 +194,9 @@
 
   b.addEventListener("click",function(){
 
-  if (a.value=b.innerText) {
+    selectedAmount.value=b.innerText;
+    
+ /* if (selectedAmount.value=b.innerText) {
   show.innerHTML='<button type="button" class="btn btn-danger mb-3 text-uppercase  fw-normal" data-bs-toggle="modal" data-bs-target="#exampleModal" >Click me To Show UPI ID</button>'
   img.remove()
   modaltitle.innerText='Please pay the money by copying the upi id .'
@@ -201,23 +204,29 @@
 
 
   } 
-
+*/
   })
+
+
   c.addEventListener("click",function(){
 
-  if (a.value=c.innerText) {
+    selectedAmount.value=c.innerText;
+    /*
+  if (selectedAmount.value=c.innerText) {
     show.innerHTML='<button type="button" class="btn btn-danger mb-3 text-uppercase  fw-normal" data-bs-toggle="modal" data-bs-target="#exampleModal" >Click me To Show UPI ID</button>'
     modaltitle.innerText='Please pay the money by copying the upi id .'
-  img.remove()
+    img.remove()
 
-  allert.style.display = "block"
-  
-  }
+    allert.style.display = "block"
+    
+  } */
 
   })
+  
+  {% comment %} 
   d.addEventListener("click",function(){
 
-  if (a.value=d.innerText) {
+  if (selectedAmount.value=d.innerText) {
     show.innerHTML='<button type="button" class="btn btn-danger mb-3 text-uppercase  fw-normal" data-bs-toggle="modal" data-bs-target="#exampleModal" >Click me To Show QR CODE</button>'
     modalbody.prepend(img)
     modaltitle.innerText="Please pay the money by Scaning the QR Code ."
@@ -232,7 +241,67 @@
     var utrRegex = /^[0-9]{12}$/; // Example pattern, adjust as per actual UTR format
     
     return utrRegex.test(utr);
-  }
+  } {% endcomment %}
+</script>
+
+{% comment %} Razor Pay Integration {% endcomment %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  
+  // ajax post request
+  $(document).ready(function() {
+    $('#submit').on('click', function(e) {
+      const amount = $('#input').val();
+      console.log("Submit button clicked !");
+      if (amount) {
+        console.log("Initiating recharge of: " +  amount);
+        $.ajax({
+          type: "POST",
+          url: "{% url 'recharge_rzp' %}",
+          data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            amount: amount,
+          },
+          success: function(data, textStatus, jqXHR) {
+            // Handle success response
+            console.log("Success:", data);
+
+            var options = {
+              "key": data.key, // Enter the Key ID generated from the Dashboard
+              "amount": data.rzp.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+              "currency": "INR",
+              "name": "ADM TRADING ENTERPRISES", //your business name
+              "description": "",
+              // "image": "https://example.com/your_logo",
+              "order_id": data.rzp.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+              "callback_url": "{% url 'verify_rzp_payment' %}",
+              "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+                  "name": "", //your customer's name
+                  "email": "{{request.user.email}}",
+                  "contact": "{{request.user.mobile_number}}" //Provide the customer's phone number for better conversion rates 
+              },
+              /* "notes": {
+                  "address": ""
+              }, */
+              "theme": {
+                  "color": "#3399cc"
+              }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+            e.preventDefault();
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            // Handle error response
+            console.log("Error:", textStatus, errorThrown);
+            alert("Error sending data!");
+          }
+        });
+      }
+    });
+  });
+  
+
 </script>
 </body>
 </html>
