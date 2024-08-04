@@ -80,6 +80,7 @@
                             <th scope="col" class="sort">Status</th>
                             <th scope="col" class="sort">Method</th>
                             <th scope="col" class="sort">UTR</th>
+                            <th scope="col" class="sort">Rzp Ord Id</th>
                             <th scope="col" class="sort">Remark</th>
                             <th scope="col" class="sort">Date</th>
                         </tr>
@@ -142,6 +143,9 @@
                                 {% if wallet.utr %}
                                 {{wallet.utr}}
                                 {% endif %}
+                            </td>
+                            <td>
+                                {{wallet.razorpay_order_id}}
                             </td>
                             <td>
                                 {{wallet.remark}}

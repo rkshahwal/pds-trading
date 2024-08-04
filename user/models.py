@@ -149,6 +149,14 @@ class CustomUser(AbstractUser):
         amt = self.wallets.filter(status__in=["Success", "Hold"], pay_type="Add Money").aggregate(total=models.Sum('amount'))['total'] or 0
         return round(amt)
     
+    @property
+    def total_withdrawal_amount(self):
+        amt = self.wallets.filter(
+            status="Success", 
+            pay_type="Widrawal"
+        ).aggregate(total=models.Sum('amount'))['total'] or 0
+        return round(amt)
+    
     def get_bank(self):
         try:
             bank = self.bank

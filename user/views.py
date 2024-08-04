@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Sum
+from django.core.paginator import Paginator
 from datetime import timedelta
 from permission_decorators import for_admin
 from .models import (
@@ -92,9 +93,12 @@ def user_list(request):
             ).order_by('user').distinct('user').values_list('user', flat=True)
             users = users.filter(id__in=wallets)
 
+    paginator = Paginator(users, 100)  # Show 25 contacts per page.
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     context = {
         'title': "Users",
-        'users': users
+        'users': page_obj
     }
     return render(request, 'user/list.html', context)
 
@@ -130,26 +134,65 @@ def user_delete(request, id):
 def user_team(request, id):
     """ referral mlm team a customer. """
     user = get_object_or_404(User, id=id)
-    referred_by_user = user.referred_by_me.prefetch_related('referral_to').all()
-    # referred_by_me_users = referred_by_user.values('referral_to')
-    # users_wallet_list = Wallet.objects.filter(user__in=referred_by_me_users).order_by('-created_at')
-    # users_list = User.objects.filter(
-    #     id__in = users_wallet_list.values_list('user', flat=True)
-    # )
+    # referal list of user 
+    referred_by_user = user.referred_by_me.prefetch_related().all()
+    
+    # list of users that has refered by user
+    referred_by_users = referred_by_user.values('referral_to').distinct()
+    users_wallet_list = Wallet.objects.filter(
+        user__in=referred_by_users, 
+        status="Success").order_by('-created_at')
+    recharged_users_list = User.objects.filter(
+        id__in = users_wallet_list.values_list('user', flat=True)
+    ).distinct()
+
+    referred_by_users_l1 = referred_by_user.filter(
+        level = 0, 
+        referral_to__in = referred_by_users)
+    referred_by_users_l2 = referred_by_user.filter(
+        level = 1, 
+        referral_to__in = referred_by_users)
+    referred_by_users_l3 = referred_by_user.filter(
+        level = 2, 
+        referral_to__in = referred_by_users)
+
+    recharged_l1 = referred_by_user.filter(
+        level = 0, 
+        referral_to__in = recharged_users_list)
+    recharged_l2 = referred_by_user.filter(
+        level = 1, 
+        referral_to__in = recharged_users_list)
+    recharged_l3 = referred_by_user.filter(
+        level = 2,
+        referral_to__in = recharged_users_list)
+    
+    referred_by_users_l1_count = referred_by_users_l1.count()
+    referred_by_users_l2_count = referred_by_users_l2.count()
+    referred_by_users_l3_count = referred_by_users_l3.count()
+
+    recharged_l1_count = recharged_l1.count()
+    recharged_l2_count = recharged_l2.count()
+    recharged_l3_count = recharged_l3.count()
+
+    total_recharged_user_count = int(
+        recharged_l1_count + recharged_l2_count + recharged_l3_count)
+    total_user_count = int(
+        referred_by_users_l1_count + referred_by_users_l2_count + referred_by_users_l3_count)
     
     context = {
         'title': f"{user} Team Member's",
-        'levels' : {
-            '1': referred_by_user.filter(level=0),
-            '2': referred_by_user.filter(level=1),
-            '3': referred_by_user.filter(level=2),
-        },
         
-        # 'l1': referred_by_user.filter(level=0, referral_to__in=users_list).distinct().count(),
-        # 'l2': referred_by_user.filter(level=1, referral_to__in=users_list).distinct().count(),
-        # 'l3': referred_by_user.filter(level=2, referral_to__in=users_list).distinct().count(),
+        'referred_by_users_l1': referred_by_users_l1,
+        'referred_by_users_l2': referred_by_users_l2,
+        'referred_by_users_l3': referred_by_users_l3,
+
+        'recharged_l1_count': recharged_l1_count,
+        'recharged_l2_count': recharged_l2_count,
+        'recharged_l3_count': recharged_l3_count,
+
+        'total_recharged_user_count': total_recharged_user_count,
+        'total_user_count': total_user_count,
     }
-    print(context)
     return render(request, 'user/team.html', context)
 
 

@@ -22,6 +22,7 @@
                         <th scope="col" class="sort" data-sort="name">Customer</th>
                         <th scope="col" class="sort" data-sort="budget">Referral Code</th>
                         <th scope="col" class="sort" data-sort="budget">Recharge Amount</th>
+                        <th scope="col" class="sort" data-sort="budget">Withdrawal Amount</th>
                         <th scope="col" class="sort" data-sort="budget">Avalable Amount</th>
                         <th scope="col">Can Bid/Trad ?</th>
                         <th scope="col">Is Active</th>
@@ -54,6 +55,9 @@
                         </td>
                         <td>
                             {{user.total_recharged_amount}}
+                        </td>
+                        <td>
+                            {{user.total_withdrawal_amount}}
                         </td>
                         <td>
                             {{user.available_amount}}
@@ -136,6 +140,23 @@
                     {% endfor %}
                 </tbody>
                 </table>
+            </div>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if users.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ users.previous_page_number }}">previous</a>
+                    {% endif %}
+            
+                    <span class="current mx-4">
+                        Page {{ users.number }} of {{ users.paginator.num_pages }}.
+                    </span>
+            
+                    {% if users.has_next %}
+                        <a href="?page={{ users.next_page_number }}">next</a>
+                        <a href="?page={{ users.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
             </div>
         </div>  
     </div>

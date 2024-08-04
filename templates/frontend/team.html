@@ -82,6 +82,8 @@
                         <tr >
                           <th scope="col">Mobile Number</th>
                           <th scope="col">Recharge Amount</th>
+                          <th scope="col">Level</th>
+                          <th scope="col">Joining Date</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -89,6 +91,8 @@
                         <tr>
                           <td> {{ usr.referral_to.mobile_number }} </td>
                           <td> {% if usr.referral_to.first_recharge %} {{ usr.referral_to.first_recharge }} {% endif %}</td>
+                          <td> {{ usr.level }} </td>
+                          <td> {{ usr.referral_to.date_joined|date }} </td>
                         </tr>
                         {% endfor %}
                       </tbody>
