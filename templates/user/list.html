@@ -12,10 +12,49 @@
             <div class="card-header border-0">
                 <h3 class="mb-0">{{title}} </h3>
             </div>
+            
+            {% comment %} Filter Options {% endcomment %}
+            <form method="get">
+                <!-- Search -->
+                <input class="" hidden id="pageNumber" name="page" value="{{request.GET.page}}">
+                <div id="filterDiv" class="m-3 row col">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="form-floating">
+                            <input class="form-control" id="searchMobile" name="mobile" value="{{request.GET.mobile}}">
+                            <label for="searchMobile">Mobile</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3">
+                        <div class="form-floating">
+                            <input class="form-control" id="searchName" name="name" value="{{request.GET.name}}">
+                            <label for="searchName">Name or Email</label>
+                        </div>
+                    </div>
+
+                    {% comment %} <div class="col-md-6 col-lg-3">
+                        <div class="form-floating">
+                            <select class="form-select" id="searchType" name="pt" aria-label="Floating label select example">
+                                <option selected value>All</option>
+                                <option>Add Money</option>
+                                <option>Commission</option>
+                            </select>
+                            <label for="searchType">Pay Type</label>
+                        </div>
+                    </div> {% endcomment %}
+
+
+                    <div class="col-md-6 col-lg-3">
+                        <input type="submit" value="Filter">
+                    </div>
+                
+                </div>
+            </form>
+
             {% csrf_token %}
             <!-- Light table -->
             <div class="table-responsive">
-                <table class="table align-items-center table-flush" id="example1">
+                <table class="table align-items-center table-flush" id="">
                 <thead class="thead-light">
                     <tr>
                         <th scope="col" class="sort" data-sort="name">SN</th>
@@ -44,6 +83,9 @@
                             <div class="media-body">
                                 <span class="name mb-0 text-sm">{{user.mobile_number}} </span>
                                 <span class="name mb-0 text-gray-500 accordion-body text-italic "> (L-{{user.vip_level}}) </span>
+                                {% if user.name %}
+                                <p class="name mb-0 text-xs">{{user.name}} </p>
+                                {% endif %}
                                 {% if user.email %}
                                 <p class="name mb-0 text-xs">{{user.email}} </p>
                                 {% endif %}
@@ -144,8 +186,8 @@
             <div class="pagination">
                 <span class="step-links">
                     {% if users.has_previous %}
-                        <a href="?page=1">&laquo; first</a>
-                        <a href="?page={{ users.previous_page_number }}">previous</a>
+                        <a class="" href="?page=1">&laquo; first</a>
+                        <a class="mx-2" href="?page={{ users.previous_page_number }}">previous</a>
                     {% endif %}
             
                     <span class="current mx-4">
@@ -153,8 +195,8 @@
                     </span>
             
                     {% if users.has_next %}
-                        <a href="?page={{ users.next_page_number }}">next</a>
-                        <a href="?page={{ users.paginator.num_pages }}">last &raquo;</a>
+                        <a class="mx-2" href="?page={{ users.next_page_number }}">next</a>
+                        <a class="" href="?page={{ users.paginator.num_pages }}">last &raquo;</a>
                     {% endif %}
                 </span>
             </div>

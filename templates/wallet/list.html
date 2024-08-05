@@ -95,7 +95,7 @@
                                 {{wallet.id}}
                             </td>
                             <td>
-                                <div class="media-body">
+                                <a href="{% url "user-team" wallet.user.id %}" class="media-body">
 
                                     {% if wallet.user.name %}
                                     <span class="name mb-0 text-sm">{{wallet.user.name}} </span>
@@ -105,7 +105,7 @@
                                     <p class="name mb-0 text-xs">{{wallet.user.email}} </p>
                                     {% endif %}
                                     
-                                </div>
+                                </a>
                             </td>
                             <td>
                                 <span class=""> {{wallet.user.mobile_number}} </span>

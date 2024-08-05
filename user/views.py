@@ -2,10 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.utils import timezone
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.core.paginator import Paginator
-from datetime import timedelta
 from permission_decorators import for_admin
 from .models import (
     CustomUser as User,
@@ -79,6 +77,17 @@ def user_list(request):
     """ All Customers Listing. """
     users = User.objects.filter(is_staff=False)
     rs = request.GET.get('rs', None)
+    name = request.GET.get('name', None)
+    mobile = request.GET.get('mobile', None)
+
+    if name:
+        users = users.filter(
+            Q(name__icontains=name) or
+            Q(email__icontains=name))
+    
+    if mobile:
+        users = users.filter(
+            mobile_number__icontains=mobile)
     
     if rs:
         if rs == 'recharge':
@@ -93,7 +102,7 @@ def user_list(request):
             ).order_by('user').distinct('user').values_list('user', flat=True)
             users = users.filter(id__in=wallets)
 
-    paginator = Paginator(users, 100)  # Show 25 contacts per page.
+    paginator = Paginator(users, 25)  # Show 25 contacts per page.
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     context = {

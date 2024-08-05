@@ -32,6 +32,7 @@ def home(request):
 
 def user_register(request):
     if request.method == "POST":
+        name = request.POST.get('name', None)
         mobile = request.POST.get('mobile', None)
         password = request.POST.get('password', None)
         email = request.POST.get('email', None)
@@ -48,6 +49,7 @@ def user_register(request):
         
         try:    
             user = User.objects.create(
+                name = name,
                 mobile_number = mobile,
                 email = email,
                 password = password
