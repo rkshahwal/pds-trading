@@ -16,16 +16,19 @@
                 <!-- Search -->
                 
                 <div id="filterDiv" class="m-3 row col">
+                    
+                    <input class="" hidden id="pageNumber" name="page" value="{{request.GET.page}}">
+                    
                     <div class="col-md-6 col-lg-3">
                         <div class="form-floating">
-                            <input class="form-control" id="searchMobile" name="mobile">
+                            <input class="form-control" id="searchMobile" name="mobile" value="{{request.GET.mobile}}">
                             <label for="searchMobile">Mobile</label>
                         </div>
                     </div>
 
                     <div class="col-md-6 col-lg-3">
                         <div class="form-floating">
-                            <input class="form-control" id="searchUTR" name="utr">
+                            <input class="form-control" id="searchUTR" name="utr" value="{{request.GET.utr}}">
                             <label for="searchUTR">UTR</label>
                         </div>
                     </div>
@@ -33,14 +36,14 @@
                     <div class="col-md-6 col-lg-3">
                         <div class="form-floating">
                             <select class="form-select" id="searchType" name="pt" aria-label="Floating label select example">
-                                <option selected value>All</option>
-                                <option>Add Money</option>
-                                <option>Commission</option>
-                                <option>Winning</option>
-                                <option>Loss</option>
-                                <option>Widrawal</option>
-                                <option>Widrawal Charge</option>
-                                <option>Salary</option>
+                                <option value>All</option>
+                                <option {% if request.GET.pt == 'Add Money' %}selected{% endif %} >Add Money</option>
+                                <option {% if request.GET.pt == 'Commission' %}selected{% endif %} >Commission</option>
+                                <option {% if request.GET.pt == 'Winning' %}selected{% endif %} >Winning</option>
+                                <option {% if request.GET.pt == 'Loss' %}selected{% endif %} >Loss</option>
+                                <option {% if request.GET.pt == 'Widrawal' %}selected{% endif %} >Widrawal</option>
+                                <option {% if request.GET.pt == 'Widrawal Charge' %}selected{% endif %} >Widrawal Charge</option>
+                                <option {% if request.GET.pt == 'Salary' %}selected{% endif %} >Salary</option>
                             </select>
                             <label for="searchType">Pay Type</label>
                         </div>
@@ -49,10 +52,10 @@
                     <div class="col-md-6 col-lg-3">
                         <div class="form-floating">
                             <select class="form-select" id="searchMethod" name="pm">
-                                <option selected value>All</option>
-                                <option>UPI</option>
-                                <option>QR</option>
-                                <option>Bank</option>
+                                <option value>All</option>
+                                <option {% if request.GET.pm == 'UPI' %}selected{% endif %} >UPI</option>
+                                <option {% if request.GET.pm == 'QR' %}selected{% endif %} >QR</option>
+                                <option {% if request.GET.pm == 'Bank' %}selected{% endif %} >Bank</option>
                             </select>
                             <label for="searchMethod">Method</label>
                         </div>
@@ -73,14 +76,13 @@
                             <th scope="col" class="sort">SN</th>
                             <th scope="col" class="sort">ID</th>
                             <th scope="col" class="sort">User</th>
-                            <th scope="col" class="sort">Mobile Number</th>
+                            <th scope="col" class="sort">Tot. Withdrawal</th>
                             <th scope="col" class="sort">Amount</th>
                             <th scope="col" class="sort">Pay Type</th>
                             <th scope="col" class="sort">Bank</th>
                             <th scope="col" class="sort">Status</th>
                             <th scope="col" class="sort">Method</th>
-                            <th scope="col" class="sort">UTR</th>
-                            <th scope="col" class="sort">Rzp Ord Id</th>
+                            <th scope="col" class="sort">UTR/Rzp Ord Id</th>
                             <th scope="col" class="sort">Remark</th>
                             <th scope="col" class="sort">Date</th>
                         </tr>
@@ -105,10 +107,12 @@
                                     <p class="name mb-0 text-xs">{{wallet.user.email}} </p>
                                     {% endif %}
                                     
+                                    <p class="name mb-0 text-xs">{{wallet.user.mobile_number}} </p>
+                                    
                                 </a>
                             </td>
                             <td>
-                                <span class=""> {{wallet.user.mobile_number}} </span>
+                                <span class=""> {{wallet.user.total_withdrawal_amount}} </span>
                             </td>
                             <td>
                                 <span> {{wallet.amount|floatformat:2}} </span>
@@ -143,9 +147,9 @@
                                 {% if wallet.utr %}
                                 {{wallet.utr}}
                                 {% endif %}
-                            </td>
-                            <td>
+                                {% if wallet.razorpay_order_id %}
                                 {{wallet.razorpay_order_id}}
+                                {% endif %}
                             </td>
                             <td>
                                 {{wallet.remark}}
@@ -159,6 +163,24 @@
                     </tbody>
                 </table>
             </div>
+            
+            <div class="pagination">
+                <span class="step-links">
+                    {% if wallets.has_previous %}
+                        <a class="" href="?page=1">&laquo; first</a>
+                        <a class="mx-2" href="?page={{ wallets.previous_page_number }}">previous</a>
+                    {% endif %}
+            
+                    <span class="current mx-4">
+                        Page {{ wallets.number }} of {{ wallets.paginator.num_pages }}.
+                    </span>
+            
+                    {% if wallets.has_next %}
+                        <a class="mx-2" href="?page={{ wallets.next_page_number }}">next</a>
+                        <a class="" href="?page={{ wallets.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
         </div>  
     </div>
 </div>
@@ -166,7 +188,7 @@
 {% block javascripts %}
     
     {% comment %} Search JS {% endcomment %}
-    <script src="{% static 'assets/custom-js/wallet-search.js' %}"></script>
+    {% comment %} <script src="{% static 'assets/custom-js/wallet-search.js' %}"></script> {% endcomment %}
 
     <script>
         $(document).on('change', '.walletStatus', function(e) {

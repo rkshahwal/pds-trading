@@ -284,9 +284,13 @@ def wallet_list(request):
     if utr:
         wallets = wallets.filter(utr__icontains=utr)
 
+    paginator = Paginator(wallets, 100)  # Show 25 contacts per page.
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
     context = {
         "title": "Wallets",
-        "wallets": wallets[:5000]
+        "wallets": page_obj
     }
     return  render(request, 'wallet/list.html', context)
 

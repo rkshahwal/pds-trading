@@ -12,7 +12,7 @@ $(document).ready(function() {
     var filterValue = $('#searchMobile').val().trim().toLowerCase();
     
     // Get the value in the "Name" column for the current row
-    var nameColumnValue = data[3].toLowerCase();
+    var nameColumnValue = data[2].toLowerCase();
 
     // Perform the filtering based on your criteria (e.g., simple substring matching)
     if (nameColumnValue.includes(filterValue)) {
