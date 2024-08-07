@@ -79,6 +79,7 @@ def user_list(request):
     rs = request.GET.get('rs', None)
     name = request.GET.get('name', None)
     mobile = request.GET.get('mobile', None)
+    salaried = request.GET.get('salaried', None)
 
     if name:
         users = users.filter(
@@ -88,6 +89,15 @@ def user_list(request):
     if mobile:
         users = users.filter(
             mobile_number__icontains=mobile)
+    
+    if salaried == 'true':
+        vip_levels = ['1', '2', '3', '4', '5', '6', '7']
+        users = users.filter(
+            vip_level__in=vip_levels)
+    
+    elif salaried == 'false':
+        users = users.filter(
+            vip_level='0')
     
     if rs:
         if rs == 'recharge':

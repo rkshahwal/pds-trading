@@ -32,16 +32,16 @@
                         </div>
                     </div>
 
-                    {% comment %} <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-3">
                         <div class="form-floating">
-                            <select class="form-select" id="searchType" name="pt" aria-label="Floating label select example">
-                                <option selected value>All</option>
-                                <option>Add Money</option>
-                                <option>Commission</option>
+                            <select class="form-select" id="salaried" name="salaried" aria-label="Floating label select example">
+                                <option value>All</option>
+                                <option value="true" {% if request.GET.salaried == 'true' %}selected{% endif %} >Yes</option>
+                                <option value="false" {% if request.GET.salaried == 'false' %}selected{% endif %} >No</option>
                             </select>
-                            <label for="searchType">Pay Type</label>
+                            <label for="salaried">Salary Users</label>
                         </div>
-                    </div> {% endcomment %}
+                    </div>
 
 
                     <div class="col-md-6 col-lg-3">
@@ -62,7 +62,7 @@
                         <th scope="col" class="sort" data-sort="budget">Referral Code</th>
                         <th scope="col" class="sort" data-sort="budget">Recharge Amount</th>
                         <th scope="col" class="sort" data-sort="budget">Withdrawal Amount</th>
-                        <th scope="col" class="sort" data-sort="budget">Avalable Amount</th>
+                        <th scope="col" class="sort" data-sort="budget">Available Amount</th>
                         <th scope="col">Can Bid/Trad ?</th>
                         <th scope="col">Is Active</th>
                         <th scope="col">Date</th>
