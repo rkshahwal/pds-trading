@@ -76,7 +76,7 @@
                             <th scope="col" class="sort">SN</th>
                             <th scope="col" class="sort">ID</th>
                             <th scope="col" class="sort">User</th>
-                            <th scope="col" class="sort">Tot. Withdrawal</th>
+                            <th scope="col" class="sort">Tot. Withdra/Recharge</th>
                             <th scope="col" class="sort">Amount</th>
                             <th scope="col" class="sort">Pay Type</th>
                             <th scope="col" class="sort">Bank</th>
@@ -112,7 +112,9 @@
                                 </a>
                             </td>
                             <td>
-                                <span class=""> {{wallet.user.total_withdrawal_amount}} </span>
+                                {% if wallet.pay_type == "Widrawal" %}
+                                <span class=""> {{wallet.user.total_withdrawal_amount}}/{{wallet.user.total_recharged_amount}} </span>
+                                {% endif %}
                             </td>
                             <td>
                                 <span> {{wallet.amount|floatformat:2}} </span>

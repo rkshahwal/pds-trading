@@ -1,3 +1,6 @@
+from datetime import datetime
+import pytz
+from django.conf import settings
 from django.core.validators import RegexValidator
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_str
@@ -51,3 +54,8 @@ def render_user_home_page(request):
 
 def page_not_found(request):
     return redirect('home')
+
+def is_weekend():
+    today = datetime.now(pytz.timezone(settings.TIME_ZONE))
+    return today.weekday() >= 5  # In Python's datetime module, Monday is 0 and Sunday is 6
+

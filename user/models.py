@@ -155,7 +155,7 @@ class CustomUser(AbstractUser):
             status="Success", 
             pay_type="Widrawal"
         ).aggregate(total=models.Sum('amount'))['total'] or 0
-        return round(amt)
+        return round(abs(amt))
     
     def get_bank(self):
         try:
