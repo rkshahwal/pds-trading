@@ -58,32 +58,32 @@ def wallete_save(sender, instance, created, **kwargs):
                     remark = f"Referal user {user.mobile_number} 10% of {instance.amount} recharge commission"
                 )
                 # Sending Bonus to referred user level 1
-                # send_bonus(
-                #     to_user=referral_by_0.referred_by,
-                #     recharge_amount=instance.amount,
-                #     level=0
-                # )
+                send_bonus(
+                    to_user=referral_by_0.referred_by,
+                    recharge_amount=instance.amount,
+                    level=0
+                )
             except Exception as e:
                 print(e)
             
             # Sending Bonus to referred user level 2
-            # try:
-            #     referral_by_1 = user.referral.filter(level=1).first()
-            #     send_bonus(
-            #         to_user=referral_by_1.referred_by,
-            #         recharge_amount=instance.amount,
-            #         level=1
-            #     )
-            # except Exception as e:
-            #     pass
+            try:
+                referral_by_1 = user.referral.filter(level=1).first()
+                send_bonus(
+                    to_user=referral_by_1.referred_by,
+                    recharge_amount=instance.amount,
+                    level=1
+                )
+            except Exception as e:
+                pass
 
-            # # Sending Bonus to referred user level 3
-            # try:
-            #     referral_by_2 = user.referral.filter(level=2).first()
-            #     send_bonus(
-            #         to_user=referral_by_2.referred_by,
-            #         recharge_amount=instance.amount,
-            #         level=2
-            #     )
-            # except Exception as e:
-            #     pass
+            # Sending Bonus to referred user level 3
+            try:
+                referral_by_2 = user.referral.filter(level=2).first()
+                send_bonus(
+                    to_user=referral_by_2.referred_by,
+                    recharge_amount=instance.amount,
+                    level=2
+                )
+            except Exception as e:
+                pass
