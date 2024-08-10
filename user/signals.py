@@ -9,8 +9,15 @@ from .models import (
 
 def send_bonus(to_user, recharge_amount, level):
     if config.REFERRAL_BONUS_ON:
-        # Check today id Saturday or Friday in Setting Defined time Zone
+        """
+        Check today id Saturday or Friday in Setting Defined time Zone
+        and send the bonus accourding to bellow calculation.
+        commission is: 10-15%, 10%, 5% for level upto 3 accordingly.
+        """
+        recharge_amount = int(recharge_amount)
         bonus_amount = 0
+
+        # Level 1 referal user
         if level == 0:
             if recharge_amount == 500:
                 bonus_amount = 50 # 10%
@@ -19,9 +26,13 @@ def send_bonus(to_user, recharge_amount, level):
                     bonus_amount = 150 # 15%
                 else:
                     bonus_amount = 100 # 10%
+        
+        # Level 2 referal user
         elif level == 1:
             # 10% of recharged amount
             bonus_amount = recharge_amount * 0.1
+        
+        # Level 1 referal user
         elif level == 2:
             # 5% of recharged amount
             bonus_amount = recharge_amount * 0.05
