@@ -8,7 +8,7 @@ from .models import (
 
 
 def send_bonus(to_user, recharge_amount, level):
-    if config.REFERRAL_BONUS_ON:
+    if config.REFERRAL_BONUS_ON == 'yes':
         """
         Check today id Saturday or Friday in Setting Defined time Zone
         and send the bonus accourding to bellow calculation.
@@ -80,13 +80,14 @@ def wallete_save(sender, instance, created, **kwargs):
             # Sending Bonus to referred user level 2
             try:
                 referral_by_1 = user.referral.filter(level=1).first()
-                send_bonus(
-                    to_user=referral_by_1.referred_by,
-                    recharge_amount=instance.amount,
-                    level=1
-                )
+                if referral_by_1:
+                    send_bonus(
+                        to_user=referral_by_1.referred_by,
+                        recharge_amount=instance.amount,
+                        level=1
+                    )
             except Exception as e:
-                pass
+                print(e)
 
             # Sending Bonus to referred user level 3
             try:
@@ -97,4 +98,4 @@ def wallete_save(sender, instance, created, **kwargs):
                     level=2
                 )
             except Exception as e:
-                pass
+                print(e)

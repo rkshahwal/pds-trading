@@ -122,6 +122,7 @@ CONSTANCE_CONFIG = {
     'APK_URL': ('#', _('App Download Link')),
     'ABOUT_US': ('frontend/about-us.jpg', 'About us page image', 'image_field'),
     'TRADING_IMAGE': ('frontend/img/call-img.png', 'Trading Page Image (Live)', 'image_field'),
+    'REFERRAL_BONUS_ON': ('yes', 'Bonus Setting', 'yes_no_select'),
 }
 
 CONSTANCE_CONFIG_FIELDSETS = {
