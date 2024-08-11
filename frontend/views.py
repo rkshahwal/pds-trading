@@ -218,6 +218,7 @@ def withdrowal(request):
     context = {
         "tax": _tax,
         "amount":user.available_amount,
+        "total_withdrawal": user.total_withdrawal_amount,
         "can_withdrawal": can_withdrawal,
         "wallets": user.wallets.filter(
             pay_type__in=[
