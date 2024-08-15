@@ -83,6 +83,7 @@
             <div class="col-12   d-flex    ">
               <p class="Amt  ms-1 me-3" id="p1">500</p>
               <p class="Amt  me-3" id="p2">1000</p>
+              <p class="Amt  me-3" id="p3">2000</p>
               {% comment %} <p class="Amt  me-3 "id="p3">5000</p> {% endcomment %}
         
             </div>
@@ -223,20 +224,20 @@
 
   })
   
-  {% comment %} 
+  
   d.addEventListener("click",function(){
-
-  if (selectedAmount.value=d.innerText) {
-    show.innerHTML='<button type="button" class="btn btn-danger mb-3 text-uppercase  fw-normal" data-bs-toggle="modal" data-bs-target="#exampleModal" >Click me To Show QR CODE</button>'
-    modalbody.prepend(img)
-    modaltitle.innerText="Please pay the money by Scaning the QR Code ."
-    allert.style.display = "none"
-  } 
+    selectedAmount.value=d.innerText;
+    /* if (selectedAmount.value=d.innerText) {
+      show.innerHTML='<button type="button" class="btn btn-danger mb-3 text-uppercase  fw-normal" data-bs-toggle="modal" data-bs-target="#exampleModal" >Click me To Show QR CODE</button>'
+      modalbody.prepend(img)
+      modaltitle.innerText="Please pay the money by Scaning the QR Code ."
+      allert.style.display = "none"
+    }  */
 
   })
 
 
-  function validateUTR(utr) {
+  {% comment %} function validateUTR(utr) {
     // Regular expression to match UTR number pattern
     var utrRegex = /^[0-9]{12}$/; // Example pattern, adjust as per actual UTR format
     
