@@ -129,6 +129,7 @@ CONSTANCE_CONFIG_FIELDSETS = {
     ('General Options'): {
         'ABOUT_US',
         'TRADING_IMAGE',
+        'REFERRAL_BONUS_ON',
         'UPI',
         'QR',
         'WITHDRAWAL_FEES_PERCENTAGE',
