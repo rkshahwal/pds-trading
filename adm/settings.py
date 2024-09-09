@@ -28,6 +28,7 @@ SECRET_KEY = 'django-insecure-1%_0vi!m#9905+yqbqfq^+9e0s7&l_&0nx6=hglwx*k545bhl6
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ['https://1a3f-103-108-5-205.ngrok-free.app', 'https://www.your-domain.com']
 
 
 # Application definition
@@ -204,6 +205,7 @@ DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 
 RAZORPAY_KAY_ID = os.environ.get("RAZORPAY_KAY_ID")
 RAZORPAY_SECRETE_KEY = os.environ.get("RAZORPAY_SECRETE_KEY")
+RAZORPAY_APP_NAME = os.environ.get("RAZORPAY_APP_NAME")
 
 
 # Default Logger Configuration

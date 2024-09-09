@@ -7,156 +7,131 @@
     <title>ADM | ABOUT-US</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-
-      /* is css code ko style.css me laga dena  pura css ek jagha rhe ga tho sahi rhe ga jaisa isme vaise he css file me laga dena . */
-        .banner-img{
-          width: 40%;
+      /* Move this CSS to style.css for better organization */
+      .banner-img {
+        width: 40%;
+      }
+      
+      /* Move this to the media query section in style.css */
+      @media screen and (min-width: 321px) and (max-width: 480px) {
+        .About-head {
+          font-size: 25px;
         }
-        /* ye pura style.css ke media query 321 se 480 wale me laga dena last me media query 321 se 480 me  */
-            @media screen and (min-width:321px) and (max-width:480px)  {
-          .About-head{
-              font-size: 25px;
-          }
-          th{
-              font-size: 12px;
-          }
-          tr{
-              font-size: 12px;
-          }
-          .Ab-card-title{
-              font-size: 12px;
-          }
-          .Ab-card-text {
-              font-size: 12px;
-          }
-          .banner-img{
-              width: 100%;
-          }
-          .alert{
-            font-size: 12px;
-          }
-          
+        th, tr, .Ab-card-title, .Ab-card-text, .alert {
+          font-size: 12px;
+        }
+        .banner-img {
+          width: 100%;
+        }
       }
     </style>
 
-    <link rel="stylesheet" href="{% static "frontend/css/styles.css" %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/styles.css' %}">
   </head>
   <body>
-    <div class="container-fluid ">
-    
-      <div class="row py-2 py-sm-3 py-md-3 py-lg-3 py-xl-3 py-xl-3 py-xxl-3 ">
-        <div class="col-12 ">
-          <a href="/"> <i class="fa-solid fa-arrow-left text-dark"></i></a>
+    <div class="container-fluid">
+      <div class="row py-2 mt-1">
+        <div class="col-2">
+          <a href="javascript:void(0);" onclick="history.back()"><i class="fa-solid fa-arrow-left text-white"></i></a>
         </div>
-  
+        <div class="col-10">
+          <h3 class="fw-medium"><i class="fas fa-address-card"></i> ABOUT-US </h3>
+        </div>
       </div>
 
-
-        <div class="row  ">
-            <div class="col ">
-              <h3 class="h3  fw-medium   mt-2 About-head ">ABOUT-US <i class="fa-regular fa-address-card"></i></h3>
+      <div class="row mt-2">
+        <div class="col">
+          <div class="card">
+            <div class="card-header h4 fw-medium text-center">
+              ADM TEAM
             </div>
+
+            {% comment %}
+            <div class="card-body mt-3">
+              <h5 class="card-title Ab-card-title">1. Description of broker grades and promotion conditions.</h5>
+              <p class="card-text Ab-card-text mt-3">
+                Each broker will be divided into 6 levels according to the total number of deposituser members of L1.L2.L3. They are 
+                <strong>1-Level Broker, 2-Level Broker, 3-Level Broker, 4-Level Broker, 5-Level Broker, 6-Level Broker.</strong>
+              </p>
+              <h5 class="card-title Ab-card-title mt-4">2. The Reward For Each Teir will also be different .</h5>
+              <div class="table-responsive">
+                <table class="table bg-dark mt-3 table-striped table-hover text-center table-bordered table-sm table align-middle">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="text-muted">Broker Class</th>
+                      <th scope="col" class="text-muted">Level-1 User</th>
+                      <th scope="col" class="text-muted">Total Deposite User (Level-1+Level-2+Level-3)</th>
+                      <th scope="col" class="text-muted">Daliy Salary or Daliy Wages</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Level-1</td>
+                      <td>6</td>
+                      <td>24</td>
+                      <td>₹ 500 / 3</td>
+                    </tr>
+                    <tr>
+                      <td>Level-2</td>
+                      <td>12</td>
+                      <td>50</td>
+                      <td>₹ 1000 / 4</td>
+                    </tr>
+                    <tr>
+                      <td>Level-3</td>
+                      <td>30</td>
+                      <td>170</td>
+                      <td>₹ 2000 / 5</td>
+                    </tr>
+                    <tr>
+                      <td>Level-4</td>
+                      <td>50</td>
+                      <td>440</td>
+                      <td>₹ 3000 / 8</td>
+                    </tr>
+                    <tr>
+                      <td>Level-5</td>
+                      <td>90</td>
+                      <td>310</td>
+                      <td>₹ 5000 / 10</td>
+                    </tr>
+                    <tr>
+                      <td>Level-6</td>
+                      <td>200</td>
+                      <td>1800</td>
+                      <td>₹ 7000 / 30</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+              <div class="alert alert-danger p-2" role="alert">
+                When you reach the appropriate level, contact customer service for promotion!
+              </div>
+              
+              <h5 class="card-title Ab-card-title mt-3">3. Work Requirements and notes for Brokers.</h5>
+              <p class="card-text Ab-card-text mb-1 mt-3">1. Actively promote the platform activities, and specify the content, time and participation methods of the activities.</p>
+              <p class="card-text Ab-card-text">2. Actively assist users to use the App, and clarify trading rules, top-up methods, minimum top-up rules, and withdrawal rules.</p>
+              
+              <h5 class="card-title Ab-card-title">4. What is <mark class="border rounded bg-success text-white">Level-1</mark> <mark class="bg-primary text-white border rounded">Level-2</mark> <mark class="border rounded bg-danger text-white">Level-3</mark>?</h5>
+              <p class="card-text Ab-card-text mb-1 mt-3">1. L1 is a member who is registered directly using your invitation code.</p>
+              <p class="card-text Ab-card-text mb-1">2. L2 is a registered member using the L1 member's invitation code.</p>
+              <p class="card-text Ab-card-text">3. L3 is a registered member using the L2 member's invitation code.</p>
+            </div>
+            {% endcomment %}
+
+            <div class="card-footer text-body-secondary">
+              <img src="/media/{{image}}" alt="ADM-LEVELS" class="mx-auto d-block banner-img">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-
-        <div class="row mt-2">
-            <div class="col ">
-              <div class="card">
-                    <div class="card-header h4 fw-medium  text-center" style="color: #9d1d1e;">
-                   ADM TEAM
-                    </div>
-                    
-                    {% comment %} <div class="card-body mt-3">
-                      <h5 class="card-title Ab-card-title">1. Description of broker grades and promotion conditions.</h5>
-                      <p class="card-text Ab-card-text  mt-3">Each broker will be divided into 6 levels according to the total number of deposituser members of L1.L2.L3. They are 
-                      <strong> 1-Level Broker,2-Level Broker,3-Level Broker,4-Level Broker,5-Level Broker,6-Level Broker.</strong></p>
-                      <h5 class="card-title Ab-card-title mt-4">2. The Reward For Each Teir will also be different .</h5>
-                      <div class="table-responsive">
-  
-                        <table class="table bg-dark mt-3  table table-striped table-hover text-center table-bordered  table-sm table align-middle" >
-                            <thead>
-                              <tr>
-                                
-                                <th scope="col" class="text-muted">Broker Class</th>
-                                <th scope="col" class="text-muted">Level-1 User</th>
-                                <th scope="col "class="text-muted">  Total Deposite User (Level-1+Level-2+Level-3)</th>
-                                <th scope="col"class="text-muted">Daliy Salary or Daliy Wages</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                            
-                                <td>Level-1</td>
-                                <td>6</td>
-                                <td>24</td>
-                                <td>₹ 500 / 3</td>
-                              </tr>
-                              <tr>
-                                <td>Level-2</td>
-                                <td>12</td>
-                                <td>50</td>
-                                <td>₹ 1000 / 4</td>
-                              </tr>
-                              <tr>
-                                <td>Level-3</td>
-                                <td>30</td>
-                                <td>170</td>
-                                <td>₹ 2000 / 5</td>
-                              </tr>
-                              <tr>
-                                <td>Level-4</td>
-                                <td>50</td>
-                                <td>440</td>
-                                <td>₹ 3000 / 8</td>
-                              </tr>
-                              <tr>
-                                <td>Level- 5</td>
-                                <td>90</td>
-                                <td>310</td>
-                                <td>₹ 5000 / 10</td>
-                              </tr>
-                              <tr>
-                                <td>Level-6</td>
-                                <td>200</td>
-                                <td>1800</td>
-                                <td>₹ 7000 / 30</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                        
-                          <div class="alert alert-danger p-2 " role="alert" >
-                           When you reach the apporopriat level contact customer service for promotion !
-                          </div>
-                        <h5 class="card-title Ab-card-title mt-3">3. Work Requirements and notes for Brokers.</h5>
-                        <p class="card-text Ab-card-text  mb-1 mt-3">  1. Actively promote the platform activities, and specify the content, time a nd participation methods of the activities.</p>
-                            <p class="card-text Ab-card-text  " >2. Actively assist users to use the App, and clarify trading rules, top-up methods, minimum top-up rules, and withdrawal rules. </p>
-                            <h5 class="card-title  Ab-card-title">4.  What is <mark class="border rounded bg-success text-white">Level-1</mark> <mark class="bg-primary text-white border rounded">Level-2</mark> <mark class="border rounded bg-danger text-white">Level-3</mark> ?</h5>
-
-                            <p class="card-text Ab-card-text  mb-1 mt-3">  1. L1 is a member who is registered directly using your invitation code.</p>
-                            <p class="card-text Ab-card-text  mb-1 " >2. L2 is a registered member using the L1 member invitation code. </p> 
-                            <p class="card-text Ab-card-text  " >3. L3 is a registered member using the L2 member invitation code. </p> 
-
-
-                           
-
-                    </div> {% endcomment %}
-
-                    <div class="card-footer text-body-secondary  ">
-               
-                      <img src="/media/{{image}}" alt="ADM-LEVELS"class="mx-auto d-block  banner-img">
-                    </div>
-                  </div>
-            </div>
-        
-        </div>
-        </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>

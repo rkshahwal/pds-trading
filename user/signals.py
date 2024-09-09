@@ -17,34 +17,27 @@ def send_bonus(to_user, recharge_amount, level):
         recharge_amount = int(recharge_amount)
         bonus_amount = 0
 
+        if is_weekend():
         # Level 1 referal user
-        if level == 0:
-            if recharge_amount == 500:
-                bonus_amount = 50 # 10%
-            elif recharge_amount == 1000:
-                if is_weekend():
-                    bonus_amount = 150 # 15%
-                else:
-                    bonus_amount = 100 # 10%
+            if level == 0:
+                bonus_amount = recharge_amount * 0.1 # 10%
+            
+            # Level 2 referal user
+            # elif level == 1:
+            #     bonus_amount = recharge_amount * 0.05  # 5%
+            
+            # Level 1 referal user
+            # elif level == 2:
+            #     bonus_amount = recharge_amount * 0.05 # 5% of recharged amount
         
-        # Level 2 referal user
-        elif level == 1:
-            # 10% of recharged amount
-            bonus_amount = recharge_amount * 0.1
-        
-        # Level 1 referal user
-        elif level == 2:
-            # 5% of recharged amount
-            bonus_amount = recharge_amount * 0.05
-        
-        if bonus_amount > 0:
-            Wallet.objects.create(
-                user=to_user,
-                status = "Success",
-                pay_type = "Bonus",
-                amount = float(bonus_amount), # 10% Comision  for Referral User
-                remark = f"Bonus earn for on recharge."
-            )
+            if bonus_amount > 0:
+                Wallet.objects.create(
+                    user=to_user,
+                    status = "Success",
+                    pay_type = "Bonus",
+                    amount = float(bonus_amount), # 10% Comision  for Referral User
+                    remark = f"Bonus earn for on recharge."
+                )
     else:
         pass
 
@@ -81,6 +74,13 @@ def wallete_save(sender, instance, created, **kwargs):
             try:
                 referral_by_1 = user.referral.filter(level=1).first()
                 if referral_by_1:
+                    Wallet.objects.create(
+                        user = referral_by_0.referred_by,
+                        status = "Success",
+                        pay_type = "Commission",
+                        amount = float(instance.amount * 0.05), # 5% Comision  for Referral User
+                        remark = f"Referal user {user.mobile_number} 5% of {instance.amount} recharge commission"
+                    )
                     send_bonus(
                         to_user=referral_by_1.referred_by,
                         recharge_amount=instance.amount,

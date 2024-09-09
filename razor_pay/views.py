@@ -6,6 +6,7 @@ from user.models import Wallet
 
 KAY_ID = settings.RAZORPAY_KAY_ID
 SECRETE_KEY = settings.RAZORPAY_SECRETE_KEY
+APP_NAME = settings.RAZORPAY_APP_NAME
 
 rzp_client = razorpay.Client(auth=(KAY_ID, SECRETE_KEY))
 

@@ -63,7 +63,7 @@ class CustomUser(AbstractUser):
         null=True, blank=True
     )
     referral_code = models.CharField(
-        _("User Referral Code"),
+        _("Invitation Code"),
         max_length=8,
         unique = True,
         null=True, blank=True)
@@ -272,7 +272,7 @@ class Referral(BaseModel):
         help_text = "User that has created by referrals")
     referred_by = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name='referred_by_me',
-        verbose_name = "Referral By")
+        verbose_name = "Referral By") #Invited by
     level = models.PositiveIntegerField(default=0)
 
     def __str__(self):

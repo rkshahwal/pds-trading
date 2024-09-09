@@ -3,8 +3,7 @@ from django.db.models import Sum
 from ..models import Market, MarketBid
 from user.models import CustomUser as User, Wallet
 from django.utils import timezone
-import json
-from razor_pay.views import rzp_client
+from razor_pay.views import rzp_client, APP_NAME
 
 
 
@@ -110,7 +109,11 @@ def recharge(request):
                 rzp_data = rzp_client.order.create(data=DATA)
                 wallet.razorpay_order_id = rzp_data['id']
                 wallet.save()
-                return JsonResponse({'success': True, 'rzp': rzp_data})
+                return JsonResponse({
+                    'success': True,
+                    'app_name': f"{APP_NAME}",
+                    'rzp': rzp_data
+                })
             
         except Exception as e:
             print(e)

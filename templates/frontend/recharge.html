@@ -1,248 +1,127 @@
-<!doctype html>
-<html lang="en">
-  {% load static %}
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ADM | Recharge</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="{% static "frontend/css/styles.css" %}">
-  </head>
-  <body>
-    <form class="Login-Form w-100 " method="post" >
-      {% csrf_token %}
-      <div class="container-fluid">
-    
-        <div class="row py-2 py-sm-3 py-md-3 py-lg-3 py-xl-3 py-xl-3 py-xxl-3 ">
-          <div class="col-12 ">
-            <a href="/">  <i class="fa-solid fa-arrow-left text-dark"></i></a>
-          </div>
-          
-        </div>
-        <div class="row  mb-2  mb-md-3 mb-sm-3 mb-lg-3 ">
-            <div class="col-12  ">
-            <p class="recharge-head mt-2  mt-md-0 mt-sm-0 mt-lg-0 ms-1"> Recharge</p>
-            </div>
-            
-          </div>
-          <div class="row   ">
-            <div class="col-9     col-md-10 col-sm-9 col-lg-11">
-            <p class="recharge-Currency ms-1 "> Currency</p>
-            </div>
-            <div class="col-3   col-md-2 col-sm-3 col-lg-1 ">
-                <p class="recharge-INR float-end ">INR <i class="fa-solid fa-arrow-right Recharge-left-icon  ms-2  "></i>
-                </p>
-                </div>
-          </div>
-
-
-          <div class="row   mt-2 mt-sm-3 mt-md-3 mt-lg-3  ">
-            <div class="col-9 col-md-10 col-sm-9 col-lg-11  ">
-            <p class="recharge-Currency  ms-1"> Payments</p>
-            </div>
-            <div class="col-3  col-md-2 col-sm-3 col-lg-1 ">
-                <p class="recharge-INR float-end ">INR <i class="fa-solid fa-arrow-right Recharge-left-icon  ms-2  "></i>
-                </p>
-                </div>
-          </div>
-                
-          <div class="row    mt-3   ">
-            <div class="col-12  d-flex justify-content-start   ">
-
-            <input type="radio" class="btn-check me-md-3 me-sm-3 me-lg-3 " name="options" id="option1" autocomplete="off" value="HEXPAY" checked>
-            <label class="btn btn-danger  btn-none fw-normal" for="option1">HEXPAY</label>
-            
-            <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" value="SUNPAY">
-            <label class="btn btn-danger  btn-none fw-normal" for="option2">SUNPAY</label>
-            
-            <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off"  value="SUNPAY">
-            <label class="btn btn-danger  btn-none fw-normal" for="option3">SUNPAY</label>
-            
-            <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" value="QEEPAY">
-            <label class="btn btn-danger btn-none fw-normal " for="option4">QEEPAY</label>
-            </div>
-            
-          </div>
-
-
-          <div class="row    mt-4  mt-md-5 mt-sm-5 mt-lg-5 ">
-            <div class="col-12     ">
-        <p class="Recharge-Amt ms-1">Recharge Amount</p>
-          
-            </div>
-            <div class="col-12    ">
-              <input class="form-control form-control " type="number" name="amount" placeholder="Please Enter Your Amount" aria-label=".form-control-lg example" id="input" required readonly >
-          
-            </div>
-            <div class="col-12   mt-3  mt-md-4 mt-sm-4 mt-lg-4 ">
-          <p class="Recharge-Amt ms-1  ">Single recharge limit 500-1000</p>
-            </div>
-            <div class="col-12   d-flex    ">
-              <p class="Amt  ms-1 me-3" id="p1">500</p>
-              <p class="Amt  me-3" id="p2">1000</p>
-              <p class="Amt  me-3" id="p3">2000</p>
-              {% comment %} <p class="Amt  me-3 "id="p3">5000</p> {% endcomment %}
-        
-            </div>
-             
-             
-              <div class='col-12 'id='show-btn'>
-               
-              </div>        
-
-              {% comment %} <div class="col-12    ">
-                <p class="Recharge-Amt ms-1  ">UTR Number</p>
-                <input class="form-control form-control  " type="text" name="utr" placeholder="Enter Your UTR Number" aria-label=".form-control-lg example" id="UTR-input" required   >
-              
-              </div> {% endcomment %}
-                 
-            <div class="d-grid gap-2 mt-0 mt-4">
-              <button class="btn btn-danger" type="button" id="submit">Submit</button>
-            
-            </div>
-            
-      </div>
-          
-    </form>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-        
-            <h6 class="modal-title  text-muted " id="exampleModalLabel"  style="font-size: 15px;"></h6>
-          
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" id="body">
-      
-            <div class="alert alert-success alert-dismissible fade show mt-3 " role="alert" id="alert">
-              <h5 class="alert-heading">UPI ID</h5><h6 class="alert-heading  upi-id ">{{upi}}  <i class="fa-regular fa-copy " style="color: #0a3622; cursor: pointer;" id="copy"></i></h6></div>
-          </div>
-          <div class="modal-footer">
-          
-            <button type="button" class="btn btn-primary bg-primary" data-bs-dismiss="modal" >Close</button>
-          </div>
-        </div>
-      </div>
+{% extends "frontend/base.html" %}
+{% block content %}
+<form class="Login-Form w-100 " method="post" >
+  {% csrf_token %}
+  <div class="container-fluid">
+  <div class="row py-2 mt-1">
+    <div class="col-2">
+      <a href="javascript:void(0);" onclick="history.back()">  <i class="fa-solid fa-arrow-left text-white"></i></a>
     </div>
-    <!-- Modal -->
-    <div class="row  ">
-      <table class="table text-secondary">
-        <thead>
-          <tr>
-            <th scope="col">Quantity</th>
-            <th scope="col">Status</th>
-            <th scope="col">Purpose</th>
-            <th scope="col">Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for w in wallets %}
-          <tr>
-            <td><p class="w-bal">{{w.amount}} </p> </td>
-            <td><p class="w-bal">{{w.status}} </p> </td>
-            <td><p class="w-bal">{{w.pay_type}} </p> </td>
-            <td><p class="w-bal">{{w.created_at}} </p> </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <div class="col-10">
+      <h3 class="fw-medium"> Recharge</h3>
     </div>
+  </div>
+  <div class="row   ">
+    <div class="col-9     col-md-10 col-sm-9 col-lg-11">
+      <p class="recharge-Currency ms-1 "> Currency</p>
+    </div>
+    <div class="col-3   col-md-2 col-sm-3 col-lg-1 ">
+      <p class="recharge-INR float-end ">INR <i class="fa-solid fa-arrow-right Recharge-left-icon  ms-2  "></i>
+      </p>
+    </div>
+  </div>
+  <div class="row   mt-2 mt-sm-3 mt-md-3 mt-lg-3  ">
+    <div class="col-9 col-md-10 col-sm-9 col-lg-11  ">
+      <p class="recharge-Currency  ms-1"> Payments</p>
+    </div>
+    <div class="col-3  col-md-2 col-sm-3 col-lg-1 ">
+      <p class="recharge-INR float-end ">INR <i class="fa-solid fa-arrow-right Recharge-left-icon  ms-2  "></i>
+      </p>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <label class="btn text-info bg-gradient mx-1">
+        <input type="radio" name="options" id="option1" autocomplete="off" checked> HEXPAY
+      </label>
+      <label class="btn text-info bg-gradient mx-1">
+        <input type="radio" name="options" id="option2" autocomplete="off"> SUNPAY
+      </label>
+      <label class="btn text-info bg-gradient mx-1">
+        <input type="radio" name="options" id="option3" autocomplete="off"> SUNPAY
+      </label>
+      <label class="btn text-info bg-gradient mx-1">
+        <input type="radio" name="options" id="option4" autocomplete="off"> QEEPAY
+      </label>
+    </div>
+  </div>
+  <div class="row mt-4  mt-md-5 mt-sm-5 mt-lg-5 ">
+    <div class="col-12     ">
+      <p class="small ms-1">Recharge Amount</p>
+    </div>
+    <div class="col-12    ">
+      <input class="form-control form-control " type="number" name="amount" placeholder="Please Enter Your Amount" aria-label=".form-control-lg example" id="input" required readonly >
+    </div>
+    <div class="col-12 d-flex mt-3">
+      <p class="bg-black bg-gradient-black shadow p-1 rounded px-2 mx-2" id="amt-500">500</p>
+      <p class="bg-black bg-gradient-black shadow p-1 rounded px-2 mx-2" id="amt-1000">1000</p>
+      {% comment %} <p class="bg-black bg-gradient-black shadow p-1 rounded px-2 mx-2" id="amt-2000">2000</p> {% endcomment %}
+      {% comment %} 
+      <p class="bg-black bg-gradient-black shadow p-1 rounded px-2 mx-2"id="p3">5000</p>
+      {% endcomment %}
+    </div>
+    <div class="d-grid gap-2 mt-0 mb-3 justify-content-around">
+      <button class="btn btn-lg bg-gradient-success" type="button" id="submit">Recharge</button>
+    </div>
+    <div class="col-12 mt-1">
+      <p class="small ms-1 text-center">Single recharge limit 500-1000</p>
+    </div>
+    <div class='col-12 'id='show-btn'>
+    </div>
+    {% comment %} 
+    <div class="col-12    ">
+      <p class="small ms-1  ">UTR Number</p>
+      <input class="form-control form-control  " type="text" name="utr" placeholder="Enter Your UTR Number" aria-label=".form-control-lg example" id="UTR-input" required   >
+    </div>
+    {% endcomment %}
+  </div>
+</form>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<!-- History -->
+<div class="px-2 mt-4 mb-2 text-center">
+  <div class="row rounded text-capitalize">
+    <div class="col">Quantity</div>
+    <div class="col">Status</div>
+    <div class="col">Time</div>
+ </div>
+
+  {% for w in wallets %}
+  <div class="row mt-3 rounded-4 py-1 {% if w.status == 'Success' %} bg-gradient-success {% elif w.status == 'Rejected' %} bg-gradient-danger {% else %} bg-gradient {% endif %}">
+    <div class="col align-content-around">
+      <p class="mb-1 h4">{{w.amount}} </p>
+      <span class="small" >{{w.pay_type}} </span>
+    </div>
+    <div class="col align-content-around">
+      <p class="mb-1">{{w.status}} </p>
+    </div>
+    <div class="col align-content-around">
+      <p class="mb-1 small">{{w.created_at}} </p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+
 <script>
   selectedAmount=document.querySelector('#input')
-  b=document.querySelector('#p1')
-  c=document.querySelector('#p2')
-  d=document.querySelector('#p3')
-  copyText=document.querySelector("#copy")
-  txt=document.querySelector('.upi-id')
-  show=document.querySelector("#show-btn")
-  modalbody=document.querySelector(".modal-body")
-  img=document.createElement('img')
-  img.setAttribute('src','{{qr}}')
-  img.setAttribute('class','rounded mx-auto d-block  img-fluid mb-2')
-  img.setAttribute('alt','QR-IMG')
-  modaltitle=document.querySelector('.modal-title')
-  allert=document.querySelector("#alert")
-  allert.style.display = "none"
-  subbtn=document.querySelector("#submit")
-  // subbtn.disabled=true;
-  // utr=document.querySelector("#UTR-input")
-  /*utr.addEventListener('input', function(){
-
-    if (validateUTR(utr.value)) {
-      subbtn.disabled=false;
-    }
-    else{
-      subbtn.disabled=true;
-    }
-    
-  })*/
-
-  copyText.addEventListener('click',function(){
-  text= txt.innerText
-        navigator.clipboard.writeText(text);
-        alert( `Copied the UPI ID Successfully ${text}!`);
+  amt_500=document.querySelector('#amt-500')
+  amt_1000=document.querySelector('#amt-1000')
+  amt_2000=document.querySelector('#amt-2000')
   
-    
+  amt_500.addEventListener("click",function(){
+    selectedAmount.value=amt_500.innerText;
   })
 
-  b.addEventListener("click",function(){
-
-    selectedAmount.value=b.innerText;
-    
- /* if (selectedAmount.value=b.innerText) {
-  show.innerHTML='<button type="button" class="btn btn-danger mb-3 text-uppercase  fw-normal" data-bs-toggle="modal" data-bs-target="#exampleModal" >Click me To Show UPI ID</button>'
-  img.remove()
-  modaltitle.innerText='Please pay the money by copying the upi id .'
-  allert.style.display = "block"
-
-
-  } 
-*/
+  amt_1000.addEventListener("click",function(){
+    selectedAmount.value=amt_1000.innerText;
   })
 
-
-  c.addEventListener("click",function(){
-
-    selectedAmount.value=c.innerText;
-    /*
-  if (selectedAmount.value=c.innerText) {
-    show.innerHTML='<button type="button" class="btn btn-danger mb-3 text-uppercase  fw-normal" data-bs-toggle="modal" data-bs-target="#exampleModal" >Click me To Show UPI ID</button>'
-    modaltitle.innerText='Please pay the money by copying the upi id .'
-    img.remove()
-
-    allert.style.display = "block"
-    
-  } */
-
-  })
-  
-  
-  d.addEventListener("click",function(){
-    selectedAmount.value=d.innerText;
-    /* if (selectedAmount.value=d.innerText) {
-      show.innerHTML='<button type="button" class="btn btn-danger mb-3 text-uppercase  fw-normal" data-bs-toggle="modal" data-bs-target="#exampleModal" >Click me To Show QR CODE</button>'
-      modalbody.prepend(img)
-      modaltitle.innerText="Please pay the money by Scaning the QR Code ."
-      allert.style.display = "none"
-    }  */
-
+  amt_2000.addEventListener("click",function(){
+    selectedAmount.value=amt_2000.innerText;
   })
 
-
-  {% comment %} function validateUTR(utr) {
-    // Regular expression to match UTR number pattern
-    var utrRegex = /^[0-9]{12}$/; // Example pattern, adjust as per actual UTR format
-    
-    return utrRegex.test(utr);
-  } {% endcomment %}
 </script>
 
 {% comment %} Razor Pay Integration {% endcomment %}
@@ -251,6 +130,18 @@
   
   // ajax post request
   $(document).ready(function() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+
     $('#submit').on('click', function(e) {
       const amount = $('#input').val();
       console.log("Submit button clicked !");
@@ -271,7 +162,7 @@
               "key": data.key, // Enter the Key ID generated from the Dashboard
               "amount": data.rzp.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
               "currency": "INR",
-              "name": "ADM TRADING ENTERPRISES", //your business name
+              "name": data.app_name, //your business name
               "description": "",
               // "image": "https://example.com/your_logo",
               "order_id": data.rzp.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
@@ -295,14 +186,20 @@
           error: function(jqXHR, textStatus, errorThrown) {
             // Handle error response
             console.log("Error:", textStatus, errorThrown);
-            alert("Error sending data!");
+            Toast.fire({
+              icon: "error",
+              title: errorThrown
+            });
           }
+        });
+      } else {
+        Toast.fire({
+          icon: "error",
+          title: "Select amount"
         });
       }
     });
   });
-  
 
 </script>
-</body>
-</html>
+{% endblock scripts %}

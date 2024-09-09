@@ -19,6 +19,7 @@ from .models import (
 def home(request):
     markets = Market.objects.filter(status=True).order_by('-latest_price')
     context = {
+        "title": "Home",
         "service": config.SERVICE,
         "service2": config.SERVICE2,
         "group_signal": config.GROUP_SIGNAL_LINK,
@@ -121,6 +122,7 @@ def user_logout(request):
 @login_required
 def mine(request):
     context = {
+        "title": "Profile",
         "config": config,
     }
     return render(request, 'frontend/mine.html', context)
@@ -148,6 +150,7 @@ def recharge(request):
         except Exception as e:
             print(e)
     context = {
+        "title": "Recharge",
         "qr": config.QR,
         "upi": config.UPI,
         "wallets": request.user.wallets.filter(
@@ -161,6 +164,7 @@ def recharge(request):
 def wallet(request):
     user = request.user
     context = {
+        "title": "Wallet",
         "user": user,
         "available": user.available_amount,
         "total_commission": user.total_commission,
@@ -216,6 +220,7 @@ def withdrowal(request):
         messages.warning(request, "Please add your bank details first.")
     
     context = {
+        "title": "Withdrawal",
         "tax": _tax,
         "amount":user.available_amount,
         "total_withdrawal": user.total_withdrawal_amount,
@@ -263,19 +268,22 @@ def save_bankdetails(request):
         ac = request.POST.get('account_number')
         
         bank, _created = UserBankDetail.objects.get_or_create(user=request.user)
-        bank.name = name
-        bank.bank = bank_name
-        bank.ifsc = ifsc
-        bank.ac = ac
-        bank.save()
+        if _created:
+            bank.name = name
+            bank.bank = bank_name
+            bank.ifsc = ifsc
+            bank.ac = ac
+            bank.save()
+        else:
+            messages.warning(request, "Please contact to custumer care.")
     return render(request, 'frontend/withdrawal-bank-setting.html')
-    # return render(request, 'frontend/bank-details.html')
 
 
 @login_required
 def call_put(request, market_id):
     market = get_object_or_404(Market, id=market_id)
     context = {
+        "title": "Call Put Option",
         "market": market,
         "image": config.TRADING_IMAGE
     }
@@ -292,6 +300,7 @@ def tc(request):
 
 def about_us(request):
     context = {
+        "title": "About Us",
         "image": config.ABOUT_US
     }
     return render(request, "frontend/about-us.html", context)
@@ -299,6 +308,7 @@ def about_us(request):
 
 def option_order(request):
     context = {
+        "title": "Option Order",
         "orders": Wallet.objects.filter(
             user = request.user,
             has_bid = True
@@ -308,12 +318,12 @@ def option_order(request):
 
 
 def my_team(request):
-    referred_by_me = request.user.referred_by_me.prefetch_related('referral_to').all()
+    referred_by_me = request.user.referred_by_me.prefetch_related('referral_to').select_related()
     referred_by_me_users = referred_by_me.values('referral_to')
     users_wallet_list = Wallet.objects.filter(
         user__in=referred_by_me_users, 
         status="Success").order_by('-created_at')
-    users_list = User.objects.filter(
+    recharged_users = User.objects.filter(
         id__in = users_wallet_list.values_list('user', flat=True)
     ).distinct()
     total_salary = Wallet.objects.filter(
@@ -321,18 +331,39 @@ def my_team(request):
         user = request.user
     ).aggregate(Sum('amount'))['amount__sum'] or 0.0
     
+    rech_u_l1 = referred_by_me.filter(
+        level=0, referral_to__in = recharged_users).distinct().count()
+    rech_u_l2 = referred_by_me.filter(
+        level=1, referral_to__in = recharged_users).distinct().count()
+    rech_u_l3 = referred_by_me.filter(
+        level=2, referral_to__in = recharged_users).distinct().count()
+        
+    total_u_l1 = referred_by_me.filter(level=0).distinct().count()
+    total_u_l2 = referred_by_me.filter(level=1).distinct().count()
+    total_u_l3 = referred_by_me.filter(level=2).distinct().count()
+    
+    total_referal_users = total_u_l1 + total_u_l2 + total_u_l3
+    total_recharged_users = rech_u_l1 + rech_u_l2 + rech_u_l3
+
     context = {
+        "title": "My Team & Share",
         'total_salary': total_salary,
         'l1_list': referred_by_me.filter(level=0),
         'l2_list': referred_by_me.filter(level=1),
         'l3_list': referred_by_me.filter(level=2),
-        
-        'l1': referred_by_me.filter(
-            level=0, referral_to__in=users_list).distinct().count(),
-        'l2': referred_by_me.filter(
-            level=1, referral_to__in=users_list).distinct().count(),
-        'l3': referred_by_me.filter(
-            level=2, referral_to__in=users_list).distinct().count(),
+
+        'recharged': {
+            'l1': rech_u_l1,
+            'l2': rech_u_l2,
+            'l3': rech_u_l3,
+            'total': total_recharged_users
+        },
+        'total': {
+            'l1': total_u_l1,
+            'l2': total_u_l2,
+            'l3': total_u_l3,
+            'total': total_referal_users
+        },
     }
     return render(request, "frontend/team.html", context)
 
