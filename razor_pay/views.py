@@ -14,15 +14,19 @@ rzp_client = razorpay.Client(auth=(KAY_ID, SECRETE_KEY))
 @csrf_exempt
 def verify_payment(request):
     razorpay_order_id = request.POST.get('razorpay_order_id')
-    razorpay_payment_id = request.POST.get('razorpay_payment_id')
-    razorpay_signature = request.POST.get('razorpay_signature')
+    razorpay_payment_id = request.POST.get('razorpay_payment_id', '')
+    razorpay_signature = request.POST.get('razorpay_signature', '')
 
-    rzp_sign = rzp_client.utility.verify_payment_signature({
-        'razorpay_order_id': razorpay_order_id,
-        'razorpay_payment_id': razorpay_payment_id,
-        'razorpay_signature': razorpay_signature
-    })
     wallat = Wallet.objects.get(razorpay_order_id=razorpay_order_id)
+    try:
+        rzp_sign = rzp_client.utility.verify_payment_signature({
+            'razorpay_order_id': razorpay_order_id,
+            'razorpay_payment_id': razorpay_payment_id,
+            'razorpay_signature': razorpay_signature
+        })
+    except:
+        wallat.status = 'Rejected'
+        wallat.save()
     wallat.razorpay_payment_id = razorpay_payment_id
     wallat.razorpay_signature = razorpay_signature
     if rzp_sign:

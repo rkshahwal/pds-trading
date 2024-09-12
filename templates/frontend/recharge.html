@@ -53,8 +53,9 @@
       <input class="form-control form-control " type="number" name="amount" placeholder="Please Enter Your Amount" aria-label=".form-control-lg example" id="input" required readonly >
     </div>
     <div class="col-12 d-flex mt-3">
-      <p class="bg-black bg-gradient-black shadow p-1 rounded px-2 mx-2" id="amt-500">500</p>
+      <p class="bg-black bg-gradient-black shadow p-1 rounded px-2 mx-2" id="amt-700">700</p>
       <p class="bg-black bg-gradient-black shadow p-1 rounded px-2 mx-2" id="amt-1000">1000</p>
+      <p class="bg-black bg-gradient-black shadow p-1 rounded px-2 mx-2" id="amt-1500">1500</p>
       {% comment %} <p class="bg-black bg-gradient-black shadow p-1 rounded px-2 mx-2" id="amt-2000">2000</p> {% endcomment %}
       {% comment %} 
       <p class="bg-black bg-gradient-black shadow p-1 rounded px-2 mx-2"id="p3">5000</p>
@@ -106,20 +107,20 @@
 
 <script>
   selectedAmount=document.querySelector('#input')
-  amt_500=document.querySelector('#amt-500')
+  amt_700=document.querySelector('#amt-700')
   amt_1000=document.querySelector('#amt-1000')
-  amt_2000=document.querySelector('#amt-2000')
+  amt_1500=document.querySelector('#amt-1500')
   
-  amt_500.addEventListener("click",function(){
-    selectedAmount.value=amt_500.innerText;
+  amt_700.addEventListener("click",function(){
+    selectedAmount.value=amt_700.innerText;
   })
 
   amt_1000.addEventListener("click",function(){
     selectedAmount.value=amt_1000.innerText;
   })
 
-  amt_2000.addEventListener("click",function(){
-    selectedAmount.value=amt_2000.innerText;
+  amt_1500.addEventListener("click",function(){
+    selectedAmount.value=amt_1500.innerText;
   })
 
 </script>

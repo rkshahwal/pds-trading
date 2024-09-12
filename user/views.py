@@ -20,6 +20,8 @@ from .forms import (
     UserUpdateForm, WalletForm,
 )
 
+from razor_pay.views import rzp_client
+
 
 
 @for_admin
@@ -280,7 +282,13 @@ Wallet Views
 @for_admin
 def wallet_list(request):
     """  wallets listing page. """
-    wallets = Wallet.objects.select_related().all() #.filter(updated_at__gte=timezone.now()-timedelta(weeks=2))
+    wallets = Wallet.objects.select_related().all()
+
+    # rzp_orders = rzp_client.order.all()
+    # print(rzp_orders)
+
+    wallets = wallets.exclude(status="Pending", pay_type="Add Money", pay_method="razorpay")
+
     mobile_number = request.GET.get('mobile', None)
     if mobile_number:
         wallets = wallets.filter(user__mobile_number__icontains=mobile_number)
