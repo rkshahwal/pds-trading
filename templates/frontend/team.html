@@ -119,7 +119,7 @@
                   <td> {{forloop.counter}} </td>
                   <td>
                     {% if usr.referral_to.name %}<p class="mb-0"> {{usr.referral_to.name}} </p> {% else %} {% endif %}
-                    <small> {{ usr.referral_to.mobile_number|truncatechars:6 }}****</small>
+                    <small> {{ usr.referral_to.mobile_number|truncatechars:7 }}</small>
                   </td>
                   <td> {% if usr.referral_to.first_recharge %} {{ usr.referral_to.first_recharge }} {% endif %}</td>
                   <td> <span class="small"> {{ usr.referral_to.date_joined|date:'d-m-y H:i' }} </small></td>
@@ -164,7 +164,7 @@
                   <td> {{forloop.counter}} </td>
                   <td>
                     {% if usr.referral_to.name %}<p class="mb-0"> {{usr.referral_to.name}} </p> {% else %} {% endif %}
-                    <small> {{ usr.referral_to.mobile_number|truncatechars:6 }}****</small>
+                    <small> {{ usr.referral_to.mobile_number|truncatechars:7 }}</small>
                   </td>
                   <td> {% if usr.referral_to.first_recharge %} {{ usr.referral_to.first_recharge }} {% endif %}</td>
                   <td> <span class="small"> {{ usr.referral_to.date_joined|date:'d-m-y H:i' }} </small></td>
