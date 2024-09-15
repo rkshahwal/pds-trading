@@ -268,7 +268,7 @@ def save_bankdetails(request):
         ac = request.POST.get('account_number')
         
         bank, _created = UserBankDetail.objects.get_or_create(user=request.user)
-        if _created:
+        if _created or len(bank.ac) < 5:
             bank.name = name
             bank.bank = bank_name
             bank.ifsc = ifsc
