@@ -187,13 +187,13 @@ def user_team(request, id):
         level = 2,
         referral_to__in = recharged_users_list).distinct()
     
-    referred_by_users_l1_count = referred_by_users_l1.count()
-    referred_by_users_l2_count = referred_by_users_l2.count()
-    referred_by_users_l3_count = referred_by_users_l3.count()
+    referred_by_users_l1_count = referred_by_users_l1.distinct().count()
+    referred_by_users_l2_count = referred_by_users_l2.distinct().count()
+    referred_by_users_l3_count = referred_by_users_l3.distinct().count()
 
-    recharged_l1_count = recharged_l1.count()
-    recharged_l2_count = recharged_l2.count()
-    recharged_l3_count = recharged_l3.count()
+    recharged_l1_count = recharged_l1.distinct().count()
+    recharged_l2_count = recharged_l2.distinct().count()
+    recharged_l3_count = recharged_l3.distinct().count()
 
     total_recharged_user_count = int(
         recharged_l1_count + recharged_l2_count + recharged_l3_count)
