@@ -116,7 +116,7 @@ def user_list(request):
             ).order_by('user').distinct('user').values_list('user', flat=True)
             users = users.filter(id__in=wallets)
 
-    paginator = Paginator(users, 2)  # Show 25 contacts per page.
+    paginator = Paginator(users, 25)  # Show 25 contacts per page.
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     context = {
