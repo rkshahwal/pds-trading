@@ -78,19 +78,21 @@ def user_logout(request):
 def user_list(request):
     """ All Customers Listing. """
     users = User.objects.filter(is_staff=False)
-    rs = request.GET.get('rs', None)
+    rs = request.GET.get('rs', None) #recharge status
     name = request.GET.get('name', None)
     mobile = request.GET.get('mobile', None)
     salaried = request.GET.get('salaried', None)
 
     if name:
         users = users.filter(
-            Q(name__icontains=name) or
-            Q(email__icontains=name))
+            Q(name__icontains=name.strip()) or
+            Q(email__icontains=name.strip()))
     
     if mobile:
         users = users.filter(
-            mobile_number__icontains=mobile)
+            Q(mobile_number__icontains=mobile.strip()) |
+            Q(referral_code__icontains=mobile.strip())
+        )
     
     if salaried == 'true':
         vip_levels = ['1', '2', '3', '4', '5', '6', '7']
@@ -114,7 +116,7 @@ def user_list(request):
             ).order_by('user').distinct('user').values_list('user', flat=True)
             users = users.filter(id__in=wallets)
 
-    paginator = Paginator(users, 25)  # Show 25 contacts per page.
+    paginator = Paginator(users, 2)  # Show 25 contacts per page.
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     context = {
@@ -162,6 +164,7 @@ def user_team(request, id):
     referred_by_users = referred_by_user.values('referral_to').distinct()
     users_wallet_list = Wallet.objects.filter(
         user__in=referred_by_users, 
+        pay_type = "Add Money",
         status="Success").order_by('-created_at')
     recharged_users_list = User.objects.filter(
         id__in = users_wallet_list.values_list('user', flat=True)

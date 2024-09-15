@@ -322,6 +322,7 @@ def my_team(request):
     referred_by_me_users = referred_by_me.values('referral_to')
     users_wallet_list = Wallet.objects.filter(
         user__in=referred_by_me_users, 
+        pay_type = "Add Money",
         status="Success").order_by('-created_at')
     recharged_users = User.objects.filter(
         id__in = users_wallet_list.values_list('user', flat=True)
