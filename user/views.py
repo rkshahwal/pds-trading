@@ -169,23 +169,23 @@ def user_team(request, id):
 
     referred_by_users_l1 = referred_by_user.filter(
         level = 0, 
-        referral_to__in = referred_by_users)
+        referral_to__in = referred_by_users).distinct()
     referred_by_users_l2 = referred_by_user.filter(
         level = 1, 
-        referral_to__in = referred_by_users)
+        referral_to__in = referred_by_users).distinct()
     referred_by_users_l3 = referred_by_user.filter(
         level = 2, 
-        referral_to__in = referred_by_users)
+        referral_to__in = referred_by_users).distinct()
 
     recharged_l1 = referred_by_user.filter(
         level = 0, 
-        referral_to__in = recharged_users_list)
+        referral_to__in = recharged_users_list).distinct()
     recharged_l2 = referred_by_user.filter(
         level = 1, 
-        referral_to__in = recharged_users_list)
+        referral_to__in = recharged_users_list).distinct()
     recharged_l3 = referred_by_user.filter(
         level = 2,
-        referral_to__in = recharged_users_list)
+        referral_to__in = recharged_users_list).distinct()
     
     referred_by_users_l1_count = referred_by_users_l1.count()
     referred_by_users_l2_count = referred_by_users_l2.count()

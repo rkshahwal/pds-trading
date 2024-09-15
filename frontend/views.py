@@ -348,9 +348,9 @@ def my_team(request):
     context = {
         "title": "My Team & Share",
         'total_salary': total_salary,
-        'l1_list': referred_by_me.filter(level=0),
-        'l2_list': referred_by_me.filter(level=1),
-        'l3_list': referred_by_me.filter(level=2),
+        'l1_list': referred_by_me.filter(level=0).distinct(),
+        'l2_list': referred_by_me.filter(level=1).distinct(),
+        'l3_list': referred_by_me.filter(level=2).distinct(),
 
         'recharged': {
             'l1': rech_u_l1,
