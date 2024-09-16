@@ -75,7 +75,7 @@ def wallete_save(sender, instance, created, **kwargs):
                 referral_by_1 = user.referral.filter(level=1).first()
                 if referral_by_1:
                     Wallet.objects.create(
-                        user = referral_by_0.referred_by,
+                        user = referral_by_1.referred_by,
                         status = "Success",
                         pay_type = "Commission",
                         amount = float(instance.amount * 0.05), # 5% Comision  for Referral User
@@ -90,12 +90,12 @@ def wallete_save(sender, instance, created, **kwargs):
                 print(e)
 
             # Sending Bonus to referred user level 3
-            try:
-                referral_by_2 = user.referral.filter(level=2).first()
-                send_bonus(
-                    to_user=referral_by_2.referred_by,
-                    recharge_amount=instance.amount,
-                    level=2
-                )
-            except Exception as e:
-                print(e)
+            # try:
+            #     referral_by_2 = user.referral.filter(level=2).first()
+            #     send_bonus(
+            #         to_user=referral_by_2.referred_by,
+            #         recharge_amount=instance.amount,
+            #         level=2
+            #     )
+            # except Exception as e:
+            #     print(e)

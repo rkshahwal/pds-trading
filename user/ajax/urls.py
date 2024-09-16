@@ -10,4 +10,5 @@ urlpatterns = [
     
     # update wallete status
     path('update-wallete-status/', update_wallet_status, name='update-wallet-status-ajax'),
+    path('get-name-by-invitaion-code/', get_name_by_invitation_code, name="get_name_referral_code"),
 ]

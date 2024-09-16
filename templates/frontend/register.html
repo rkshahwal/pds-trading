@@ -28,7 +28,8 @@
       <input type="email" name="email" placeholder="Please enter your email" required>
       <input type="password" name="password" id="password" placeholder="Please enter a password" required>
       <input type="password" name="confirm_password" id="confirm_password" placeholder="Please enter a confirm password" required>
-      <input type="number" name="code" value="{{request.GET.code}}" placeholder="Please enter a valid invitation code" required>
+      <input type="number" id="id_code" name="code" value="{{request.GET.code}}" placeholder="Please enter a valid invitation code" required>
+      <p id="id_referral_name" class="d-flex m-auto"> </p> </br>
       <label>
           <input type="checkbox" required> Terms & Conditions <a href="{% url "tc" %}" target="_blank">Read</a>
       </label>
@@ -39,9 +40,11 @@
     </form>
   </div>
   <script>
-    let password = document.getElementById("password");
-    let confirm_password = document.getElementById("confirm_password");
-    let mobile = document.getElementById("mobile");
+    const password = document.getElementById("password");
+    const confirm_password = document.getElementById("confirm_password");
+    const mobile = document.getElementById("mobile");
+    const id_code = document.getElementById("id_code");
+    const referral_name = document.getElementById("id_referral_name");
     
     function validateConfirmPassword(){
       if(password.value != confirm_password.value) {
@@ -60,10 +63,37 @@
       }
     };
 
+    function getReferralName() {
+      let code = document.getElementById("id_code").value;
+      if (code.length == 6){
+        let url = "{% url 'get_name_referral_code' %}?code=" + code;
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            if (referral_name.classList.contains('text-danger')) {
+              referral_name.classList.remove('text-danger');
+            }
+            referral_name.classList.add('text-success');
+            referral_name.innerHTML = data.name;
+          } else  {
+            if (referral_name.classList.contains('text-success')) {
+              referral_name.classList.remove('text-success');
+            }
+            referral_name.classList.add('text-danger');
+            referral_name.innerHTML = "Invalid code";
+          }
+        })
+      } else {
+        referral_name.innerHTML = "";
+      }
+    };
+
     mobile.onchange = validateMobile;
     mobile.onkeyup = validateMobile;
     password.onchange = validateConfirmPassword;
     confirm_password.onkeyup = validateConfirmPassword;
+    id_code.onkeyup = getReferralName;
 
   </script>
 </body>

@@ -39,3 +39,12 @@ def update_wallet_status(request):
         return JsonResponse({'success': True})
     except Wallet.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Wallet not found'})
+
+
+def get_name_by_invitation_code(request):
+    code = request.GET.get('code')
+    try:
+        user = User.objects.get(referral_code=code)
+        return JsonResponse({'success': True, 'name': user.name})
+    except User.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Invalid code'})
