@@ -9,6 +9,8 @@ urlpatterns = [
     path('logout/', user_logout, name='logout'),
     path('users/', user_list, name='users'),
     path('edit-user/<int:id>/', user_update, name='edit-user'),
+    path('edit-user-password/<int:id>/', user_update_password, name='edit-user-password'),
+    path('edit-user-bank/<int:id>/', user_update_bank, name='edit-user-bank'),
     path('delete-user/<int:id>/', user_delete, name='delete-user'),
     path('user-teams/<int:id>/', user_team, name='user-team'),
     

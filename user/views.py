@@ -17,8 +17,9 @@ from frontend.forms import (
 )
 
 from .forms import (
-    UserUpdateForm, WalletForm,
+    UserUpdateForm, WalletForm, UserUpdatePasswordForm,
 )
+from frontend.forms import UserBankDetailsForm
 
 from razor_pay.views import rzp_client
 
@@ -141,6 +142,46 @@ def user_update(request, id):
     context = {
         'form': form,  
         'title': 'Edit Profile'
+    }
+    return render(request, 'forms/form.html', context)
+
+
+
+@for_admin
+def user_update_password(request, id):
+    """ Single Customer Update View. """
+    user = get_object_or_404(User, id=id)
+    form = UserUpdatePasswordForm(instance=user)
+    if request.method == "POST":
+        form = UserUpdatePasswordForm(data=request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Password updated successfully!')
+            return redirect('users')
+    
+    context = {
+        'form': form,  
+        'title': 'Change Password'
+    }
+    return render(request, 'forms/form.html', context)
+
+
+@for_admin
+def user_update_bank(request, id):
+    """ Customer Bank Update View. """
+    user = get_object_or_404(User, id=id)
+    form = UserBankDetailsForm(instance=user.get_bank())
+    if request.method == "POST":
+        form = UserBankDetailsForm(data=request.POST, instance=user.get_bank())
+        if form.is_valid():
+            form.instance.user = user
+            form.save()
+            messages.success(request, f'Bank updated successfully!')
+            return redirect('users')
+    
+    context = {
+        'form': form,  
+        'title': f'{user.mobile_number} Bank Details'
     }
     return render(request, 'forms/form.html', context)
 

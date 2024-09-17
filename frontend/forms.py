@@ -1,6 +1,6 @@
 from django import forms
 from .models import (
-    Banner, Market, MarketBid,
+    Banner, Market, MarketBid, UserBankDetail,
 )
 
 
@@ -42,4 +42,19 @@ class MarketBidForm(forms.ModelForm):
             'bid': forms.Select(attrs={'class': 'form-control'}),
             'start_time': forms.DateTimeInput(attrs={'class': 'form-control'}),
             'end_time': forms.DateTimeInput(attrs={'class': 'form-control'}),
+        }
+
+
+
+""" User Bank Details Form """
+class UserBankDetailsForm(forms.ModelForm):
+    class Meta:
+        model = UserBankDetail
+        fields = ('name', 'bank', 'ifsc', 'ac', )
+    
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'bank': forms.TextInput(attrs={'class': 'form-control'}),
+            'ifsc': forms.TextInput(attrs={'class': 'form-control'}),
+            'ac': forms.TextInput(attrs={'class': 'form-control'}),
         }

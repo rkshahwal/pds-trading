@@ -7,6 +7,21 @@ from .models import (
 
 
 class UserUpdateForm(forms.ModelForm):
+    
+    class Meta:
+        model = User
+        fields = ('name', 'email', 'mobile_number', 'vip_level', 'is_active',)
+        
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class':'form-control'}),
+            'vip_level': forms.Select(attrs={'class': 'form-control'}),
+            'mobile_number': forms.NumberInput(attrs={'class': 'form-control', 'readonly':''}),
+        }
+
+
+
+class UserUpdatePasswordForm(forms.ModelForm):
     password = forms.CharField(
         required = False,
         widget = forms.PasswordInput(attrs={'class':'form-control'})
@@ -14,14 +29,11 @@ class UserUpdateForm(forms.ModelForm):
     
     class Meta:
         model = User
-        fields = ('name', 'email', 'mobile_number', 'vip_level', 'is_active', 'password')
+        fields = ('name', 'password',)
         
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class':'form-control'}),
-            'vip_level': forms.Select(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'readonly':''}),
             'password': forms.PasswordInput(attrs={'class':'form-control'}),
-            'mobile_number': forms.NumberInput(attrs={'class': 'form-control', 'readonly':''}),
         }
 
 
