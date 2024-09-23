@@ -147,7 +147,7 @@ def recharge(request):
                     pay_method = pay_method,
                     utr = utr
                 )
-            return redirect("user_wallet")
+            return redirect("user_recharge")
         except Exception as e:
             print(e)
     context = {
