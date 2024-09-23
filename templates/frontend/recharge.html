@@ -46,10 +46,10 @@
     </div>
   </div>
   <div class="row mt-4  mt-md-5 mt-sm-5 mt-lg-5 ">
-    <div class="col-12     ">
+    <div class="col-12 ">
       <p class="small ms-1">Recharge Amount</p>
     </div>
-    <div class="col-12    ">
+    <div class="col-12">
       <input class="form-control form-control " type="number" name="amount" placeholder="Please Enter Your Amount" aria-label=".form-control-lg example" id="input" required readonly >
     </div>
     <div class="col-12 d-flex mt-3">
@@ -61,8 +61,16 @@
       <p class="bg-black bg-gradient-black shadow p-1 rounded px-2 mx-2"id="p3">5000</p>
       {% endcomment %}
     </div>
+
+    <div class="">
+      <h5 id="copy-qr" class="text-gradient pt-2 mb-3"> {{upi}}  <i class="fa-solid fa-copy text-info"></i></h5>
+    </div>
+
+    <div class="gap-2 mt-0 mb-3 justify-content-around">
+      <input class="form-control form-control" type="text" name="utr" placeholder="UTR or Transaction Number" aria-label=".form-control-lg example" id="input" required >
+    </div>
     <div class="d-grid gap-2 mt-0 mb-3 justify-content-around">
-      <button class="btn btn-lg bg-gradient-success" type="button" id="submit">Recharge</button>
+      <button class="btn btn-lg bg-gradient-success d-none" type="submit" id="id_submit">Recharge</button>
     </div>
     <div class="col-12 mt-1">
       <p class="small ms-1 text-center">Single recharge limit 600-1500</p>
@@ -70,7 +78,7 @@
     <div class='col-12 'id='show-btn'>
     </div>
     {% comment %} 
-    <div class="col-12    ">
+    <div class="col-12">
       <p class="small ms-1  ">UTR Number</p>
       <input class="form-control form-control  " type="text" name="utr" placeholder="Enter Your UTR Number" aria-label=".form-control-lg example" id="UTR-input" required   >
     </div>
@@ -106,27 +114,67 @@
 {% block scripts %}
 
 <script>
-  selectedAmount=document.querySelector('#input')
-  amt_700=document.querySelector('#amt-600')
-  amt_1000=document.querySelector('#amt-1000')
-  amt_1500=document.querySelector('#amt-1500')
+  selectedAmount = document.querySelector('#input');
+  amt_600 = document.querySelector('#amt-600');
+  amt_1000 = document.querySelector('#amt-1000');
+  amt_1500 = document.querySelector('#amt-1500');
+  id_submit = document.querySelector('#id_submit');
   
-  amt_700.addEventListener("click",function(){
-    selectedAmount.value=amt_700.innerText;
+  amt_600.addEventListener("click",function(){
+    selectedAmount.value=amt_600.innerText;
+    $(id_submit).removeClass('d-none');
   })
 
   amt_1000.addEventListener("click",function(){
     selectedAmount.value=amt_1000.innerText;
+    $(id_submit).removeClass('d-none');
   })
 
   amt_1500.addEventListener("click",function(){
     selectedAmount.value=amt_1500.innerText;
+    $(id_submit).removeClass('d-none');
   })
+
+  // Share the invitation link
+  function copyReferralCode() {
+    var copyText = `{{upi}}`;
+    
+    if (navigator.clipboard && window.isSecureContext) {
+      // Use Clipboard API
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      navigator.clipboard.writeText(copyText).then(() => {
+        Toast.fire({
+          icon: "success",
+          title: "UPI copied successfully"
+        });
+      }).catch(err => {
+        Toast.fire({
+          icon: "error",
+          title: "Failed to copy upi id"
+        });
+      });
+    } else {
+      // Fallback method for older browsers
+      fallbackCopyTextToClipboard(copyText);
+    }
+  }
+  
+  document.getElementById('copy-qr').addEventListener('click', copyReferralCode);
 
 </script>
 
 {% comment %} Razor Pay Integration {% endcomment %}
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+{% comment %} <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
   
   // ajax post request
@@ -200,7 +248,8 @@
         });
       }
     });
+
   });
 
-</script>
+</script> {% endcomment %}
 {% endblock scripts %}

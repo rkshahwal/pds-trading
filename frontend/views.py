@@ -139,13 +139,14 @@ def recharge(request):
                 pay_method = "QR"
             else:
                 pay_method = "UPI"
-            wallet = Wallet.objects.create(
-                user = user,
-                amount = amount,
-                pay_type = "Add Money",
-                pay_method = pay_method,
-                utr = utr
-            )
+            if not Wallet.objects.filter(utr=utr).exists():
+                wallet = Wallet.objects.create(
+                    user = user,
+                    amount = amount,
+                    pay_type = "Add Money",
+                    pay_method = pay_method,
+                    utr = utr
+                )
             return redirect("user_wallet")
         except Exception as e:
             print(e)
