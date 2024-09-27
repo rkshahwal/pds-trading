@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from user.utils import page_not_found
 from .constance_config_view import update_confi_setting
-
+from .cronjob import send_salary
 
 admin.site.site_header = "ADM Treding Administration"
 admin.site.site_title = "ADM"
@@ -30,6 +30,7 @@ urlpatterns = [
     path('admin/setting/', update_confi_setting, name="update-setting"),
     path('admin/', include('user.urls')),
     path('super-admin/', admin.site.urls),
+    path('send-salary/', send_salary),
 ] 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

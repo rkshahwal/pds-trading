@@ -1,3 +1,5 @@
+import hashlib
+import requests
 from django.http.response import JsonResponse
 from django.db.models import Sum
 from ..models import Market, MarketBid
@@ -81,7 +83,50 @@ def call_put_bid(request):
         return JsonResponse({'success': False, 'error': f'{e}'})
 
 
-def recharge(request):
+# Razorpay Recharge
+# def recharge(request):
+#     if request.method == 'POST':
+#         try:
+#             data = request.POST
+#             user = request.user
+#             amount = float(data['amount'])
+#             if amount < 100:
+#                 return JsonResponse({'success': False, 'error': 'Minimum recharge amount is 100.'})
+#             else:
+#                 wallet = Wallet.objects.create(
+#                     user = user,
+#                     amount = amount,
+#                     pay_type = "Add Money",
+#                     pay_method = "razorpay",
+#                 )
+                
+#                 # Razorpay integrations
+#                 DATA = {
+#                     "amount": float(amount) * 100,
+#                     "currency": "INR",
+#                     "receipt": f"{wallet.id}",
+#                     "notes": {
+#                         "mobile": f"{user.mobile_number}",
+#                     }
+#                 }
+#                 rzp_data = rzp_client.order.create(data=DATA)
+#                 wallet.razorpay_order_id = rzp_data['id']
+#                 wallet.save()
+#                 return JsonResponse({
+#                     'success': True,
+#                     'app_name': f"{APP_NAME}",
+#                     'rzp': rzp_data
+#                 })
+            
+#         except Exception as e:
+#             print(e)
+#             return JsonResponse({'success': False, 'error': f'{e}'})
+        
+#     return JsonResponse(405)
+
+
+# Wepay Recharge
+def recharge_wepay(request):
     if request.method == 'POST':
         try:
             data = request.POST
@@ -90,29 +135,49 @@ def recharge(request):
             if amount < 100:
                 return JsonResponse({'success': False, 'error': 'Minimum recharge amount is 100.'})
             else:
+                        
+                # Create Wallet
                 wallet = Wallet.objects.create(
                     user = user,
                     amount = amount,
                     pay_type = "Add Money",
-                    pay_method = "razorpay",
+                    pay_method = "wepay",
                 )
-                
-                # Razorpay integrations
-                DATA = {
-                    "amount": float(amount) * 100,
-                    "currency": "INR",
-                    "receipt": f"{wallet.id}",
-                    "notes": {
-                        "mobile": f"{user.mobile_number}",
-                    }
+                passageId = "17701"
+                mchId = "3a614346"
+                key= "2b5e7622cfcf42f8877f5e73198120d2"
+                callBackUrl = "https://fastwins.pro/payment/verify.php"
+
+                server_name = f'{APP_NAME}'
+                # callback_url = 'https://fastwins.pro/trova/src/api/verify.php'
+                # notify_url = callback_url
+                params = f"amount={amount}&callBackUrl={callBackUrl}&mchId={mchId}&notifyUrl={callBackUrl}&orderNo={wallet.id}&passageId={passageId}&key={key}"
+
+                md5_sign = hashlib.md5(params.encode()).hexdigest()
+
+                payload = {
+                    "amount": amount,
+                    "callBackUrl": f"{callBackUrl}",
+                    "mchId": "3a614346",
+                    "notifyUrl": f"{callBackUrl}",
+                    "orderNo": wallet.id,
+                    "passageId": f"{passageId}",
+                    "sign": md5_sign
                 }
-                rzp_data = rzp_client.order.create(data=DATA)
-                wallet.razorpay_order_id = rzp_data['id']
-                wallet.save()
+                response = requests.post('https://apis.wepayplus.com/client/collect/create', json=payload)
+
+                response_data = response.json()
+
+                if response_data.get('success') and 'payUrl' in response_data['data']:
+                    sql1 = "INSERT INTO recharge (username, recharge, status, upi, utr, rand) VALUES (%s, %s, %s, %s, %s, %s)"
+                    values = (user, amount, 'unpaid', '0', '0', wallet.id)
+
+                    print(f"Location: {response_data['data']}")
+
                 return JsonResponse({
                     'success': True,
                     'app_name': f"{APP_NAME}",
-                    'rzp': rzp_data
+                    'wepay': response['data']
                 })
             
         except Exception as e:
