@@ -1,5 +1,5 @@
 from django.utils import timezone
-from django.http.response import JsonResponse
+from django.http.response import JsonResponse, HttpResponse
 from user.models import CustomUser as User, Wallet
 
 
@@ -12,6 +12,7 @@ def send_salary(request=None):
     today = timezone.datetime.now()
 
     if not Wallet.objects.filter(
+        pay_type = "Salary",
         created_at__date=today.date()).exists() and vip_users.exists():
         wallete_create = []
         for user in vip_users:
@@ -47,5 +48,5 @@ def send_salary(request=None):
 
     else:
         print("Today salary has been alredy sent.")
-        return JsonResponse("Today salary has been alredy sent.")
-    return JsonResponse("Executed..")
+        return HttpResponse("Today salary has been alredy sent.")
+    return HttpResponse("Executed..")
