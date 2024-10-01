@@ -3,7 +3,7 @@ from django.http.response import HttpResponse
 from user.models import CustomUser as User, Wallet
 
 
-def send_salary(request=None):
+def send_salary():
     """
     This is a method to send the user salary.
     this function will call from the cron jab on the perticular time

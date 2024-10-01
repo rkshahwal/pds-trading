@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from user.utils import page_not_found
 from .constance_config_view import update_confi_setting
-from .cronjob import send_salary
+from ..frontend.cronjob import send_salary
 
 admin.site.site_header = "ADM Treding Administration"
 admin.site.site_title = "ADM"
