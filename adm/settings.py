@@ -58,7 +58,7 @@ MIDDLEWARE = [
 ]
 
 CRONJOBS = [
-    ('0 12 * * *', 'frontend.cronjob.send_salary', '>> /tmp/scheduled_job.log')
+    ('0 12 * * *', 'frontend.cronjob.send_salary', '>> /home/ubuntu/pds/pds-trading/tmp/scheduled_job.log')
 
 ]
 

@@ -1,5 +1,5 @@
 from django.utils import timezone
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, JsonResponse
 from user.models import CustomUser as User, Wallet
 
 
@@ -50,4 +50,4 @@ def send_salary():
         print("Today salary has been alredy sent.")
         msg = "Today salary has been alredy sent."
     msg = "Executed.."
-    # return HttpResponse(msg)
+    return JsonResponse(msg)
