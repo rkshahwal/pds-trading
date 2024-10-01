@@ -50,4 +50,4 @@ def send_salary():
         print("Today salary has been alredy sent.")
         msg = "Today salary has been alredy sent."
     msg = "Executed.."
-    return JsonResponse(msg)
+    return JsonResponse({"msg": msg})
