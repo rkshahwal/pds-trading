@@ -1,5 +1,5 @@
 from django.utils import timezone
-from django.http.response import JsonResponse, HttpResponse
+from django.http.response import HttpResponse
 from user.models import CustomUser as User, Wallet
 
 
@@ -44,9 +44,10 @@ def send_salary(request=None):
         if wallete_create:
             Wallet.objects.bulk_create(objs=wallete_create, batch_size=10)
             print("Salary sent successfuly.")
-            return JsonResponse("Salary sent successfuly.")
+            msg = "Salary sent successfuly."
 
     else:
         print("Today salary has been alredy sent.")
-        return HttpResponse("Today salary has been alredy sent.")
-    return HttpResponse("Executed..")
+        msg = "Today salary has been alredy sent."
+    msg = "Executed.."
+    # return HttpResponse(msg)

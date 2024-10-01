@@ -252,4 +252,58 @@
   });
 
 </script> {% endcomment %}
+
+{% comment %} Weepay {% endcomment %}
+{% comment %} <script>
+  // Add event listener to the button
+  // ajax post request
+  $(document).ready(function() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+
+    $('#id_submit').on('click', function(e) {
+      const amount = $('#input').val();
+      console.log("Submit button clicked !");
+      if (amount) {
+        console.log("Initiating recharge of: " +  amount);
+        $.ajax({
+          type: "POST",
+          url: "{% url 'recharge_wepay' %}",
+          data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            amount: amount,
+          },
+          success: function(response, textStatus, jqXHR) {
+            // Handle success response
+            console.log("Success:", response);
+
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            // Handle error response
+            console.log("Error:", textStatus, errorThrown);
+            Toast.fire({
+              icon: "error",
+              title: errorThrown
+            });
+          }
+        });
+      } else {
+        Toast.fire({
+          icon: "error",
+          title: "Select amount"
+        });
+      }
+    });
+
+  });
+</script> {% endcomment %}
 {% endblock scripts %}

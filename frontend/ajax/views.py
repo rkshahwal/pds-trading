@@ -143,42 +143,51 @@ def recharge_wepay(request):
                     pay_type = "Add Money",
                     pay_method = "wepay",
                 )
-                passageId = "17701"
-                mchId = "3a614346"
-                key= "2b5e7622cfcf42f8877f5e73198120d2"
-                callBackUrl = "https://fastwins.pro/payment/verify.php"
+                passageId = "101"
+                mchId = "3a572508"
+                key= "37811608e16d47c6aa7933170105e95e" # Payment Key
+                callBackUrl = f"{request.scheme}://{request.META['HTTP_HOST']}/ajax/verify-wepay-pay/"
+                notifyUrl = f"{request.scheme}://{request.META['HTTP_HOST']}/ajax/notiify-wepay-pay/"
 
-                server_name = f'{APP_NAME}'
                 # callback_url = 'https://fastwins.pro/trova/src/api/verify.php'
-                # notify_url = callback_url
-                params = f"amount={amount}&callBackUrl={callBackUrl}&mchId={mchId}&notifyUrl={callBackUrl}&orderNo={wallet.id}&passageId={passageId}&key={key}"
+                
+                # params = (f"amount={amount}&callBackUrl=https://fastwins.pro/payment/verify.php"
+                #     f"&mchId=3a614346&notifyUrl=https://fastwins.pro/payment/verify.php"
+                #     f"&orderNo={order_id}&passageId=17701&key=2b5e7622cfcf42f8877f5e73198120d2")
+                params = f"amount={amount}&callBackUrl={callBackUrl}&mchId={mchId}&notifyUrl={notifyUrl}&orderNo={wallet.id}&passageId={passageId}&key={key}"
 
                 md5_sign = hashlib.md5(params.encode()).hexdigest()
+                print(md5_sign)
 
                 payload = {
                     "amount": amount,
                     "callBackUrl": f"{callBackUrl}",
-                    "mchId": "3a614346",
-                    "notifyUrl": f"{callBackUrl}",
+                    "mchId": f"{mchId}",
+                    "notifyUrl": f"{notifyUrl}",
                     "orderNo": wallet.id,
                     "passageId": f"{passageId}",
                     "sign": md5_sign
                 }
-                response = requests.post('https://apis.wepayplus.com/client/collect/create', json=payload)
+
+                url = 'https://apis.wepayplus.com/client/collect/create'
+                headers = {'Content-Type': 'application/json'}
+                response = requests.post(url=url, json=payload, headers=headers)
 
                 response_data = response.json()
+                print(response_data)
 
                 if response_data.get('success') and 'payUrl' in response_data['data']:
-                    sql1 = "INSERT INTO recharge (username, recharge, status, upi, utr, rand) VALUES (%s, %s, %s, %s, %s, %s)"
-                    values = (user, amount, 'unpaid', '0', '0', wallet.id)
-
+                    
                     print(f"Location: {response_data['data']}")
 
-                return JsonResponse({
-                    'success': True,
-                    'app_name': f"{APP_NAME}",
-                    'wepay': response['data']
-                })
+                    return JsonResponse({
+                        'success': True,
+                        'app_name': f"{APP_NAME}",
+                        'wepay': response_data['data']
+                    })
+                return JsonResponse(
+                    {'success': False, 'error': 'Failed to create payment.', 'wepay':response_data}
+                )
             
         except Exception as e:
             print(e)

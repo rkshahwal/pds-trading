@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-1%_0vi!m#9905+yqbqfq^+9e0s7&l_&0nx6=hglwx*k545bhl6
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-# CSRF_TRUSTED_ORIGINS = ['https://pdstrade.com', 'https://dev.pdstrade.com']
+CSRF_TRUSTED_ORIGINS = ['https://pdstrade.com', 'https://dev.pdstrade.com', 'https://bd8a-103-108-5-86.ngrok-free.app', 'http://localhost:8000']
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_crontab',
     'user.apps.UserConfig',
     'frontend.apps.FrontendConfig',
     'constance',
@@ -54,6 +55,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'adm.middleware.RoutePermissions',
+]
+
+CRONJOBS = [
+    ('0 12 * * *', 'adm.cronjob.send_salary', '>> /tmp/scheduled_job.log'),
+
 ]
 
 ROOT_URLCONF = 'adm.urls'
