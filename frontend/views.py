@@ -1,3 +1,4 @@
+from datetime import timedelta
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import login, logout
@@ -206,7 +207,6 @@ def withdrowal(request):
         end_time = now.replace(hour=9, minute=0, second=0, microsecond=0)
     
         if start_time <= now <= end_time:
-        
             if _withdrawable_amount >= 300.0: # 300 minimum withdrawal
                 can_withdrawal = True
             else:
@@ -220,6 +220,17 @@ def withdrowal(request):
         can_withdrawal = False
         messages.warning(request, "Please add your bank details first.")
     
+    if can_withdrawal:
+        # check user has refered atleast 3 users within 24 hrs
+        if user.referred_by_me.filter(
+            level = 0,
+            updated_at__gte = timezone.now() - timedelta(hours=24)
+            ).count() >= 3:
+            pass
+        else:
+            can_withdrawal = False
+            messages.warning(request, "You need to refer 3 users within 24 hours to withdraw money")
+    
     context = {
         "title": "Withdrawal",
         "tax": _tax,
@@ -230,13 +241,12 @@ def withdrowal(request):
             pay_type__in=[
                 "Widrawal", "Widrawal Charge",
             ]
-        )[:50]
+        )[:100]
     }
-        
-    if request.method == "POST":
-        if can_withdrawal:
-            amount = abs(float(request.POST["amount"]))
-            if amount <= _withdrawable_amount:
+    
+    if request.method == "POST" and can_withdrawal:
+        amount = abs(float(request.POST["amount"]))
+        if amount <= _withdrawable_amount:
                 withdrawal_charge = float(amount) * _tax / 100
                 withdrawal_amt = amount - withdrawal_charge
                 wallet = Wallet.objects.create(
