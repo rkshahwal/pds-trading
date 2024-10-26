@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
+
 {% block content %}
 {% csrf_token %}
 <div class="row">
@@ -62,6 +63,18 @@
                         </div>
                     </div>
 
+                    <div class="col-md-6 col-lg-3">
+                        <div class="form-floating">
+                            <select class="form-select" id="searchStatus" name="status">
+                                <option value>All</option>
+                                <option {% if request.GET.status == 'Success' %}selected{% endif %} >Success</option>
+                                <option {% if request.GET.status == 'Pending' %}selected{% endif %} >Pending</option>
+                                <option {% if request.GET.status == 'Rejected' %}selected{% endif %} >Rejected</option>
+				<option {% if request.GET.status == 'Hold' %}selected{% endif %} >Hold</option>
+                            </select>
+                            <label for="searchStatus">Status</label>
+                        </div>
+                    </div>
                     <div class="col-md-6 col-lg-3">
                         <input type="submit" value="Filter">
                     </div>
@@ -170,8 +183,10 @@
             <div class="pagination">
                 <span class="step-links">
                     {% if wallets.has_previous %}
-                        <a class="" href="?page=1">&laquo; first</a>
-                        <a class="mx-2" href="?page={{ wallets.previous_page_number }}">previous</a>
+			{% with existing_params as params %}
+                        <a class="" href="?{% for key, value in params.items %}{{ key }}={{ value }}&{% endfor %}page=1">&laquo; first</a>
+                        <a class="mx-2" href="?{% for key, value in params.items %}{{ key }}={{ value }}&{% endfor %}page={{ wallets.previous_page_number }}">previous</a>
+			{% endwith %}
                     {% endif %}
             
                     <span class="current mx-4">
@@ -179,8 +194,10 @@
                     </span>
             
                     {% if wallets.has_next %}
-                        <a class="mx-2" href="?page={{ wallets.next_page_number }}">next</a>
-                        <a class="" href="?page={{ wallets.paginator.num_pages }}">last &raquo;</a>
+			{% with existing_params as params %}
+                        <a class="mx-2" href="?{% for key, value in params.items %}{{ key }}={{ value }}&{% endfor %}page={{ wallets.next_page_number }}">next</a>
+                        <a class="" href="?{% for key, value in params.items %}{{ key }}={{ value }}&{% endfor %}page={{ wallets.paginator.num_pages }}">last &raquo;</a>
+			{% endwith %}
                     {% endif %}
                 </span>
             </div>

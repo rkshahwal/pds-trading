@@ -345,14 +345,23 @@ def wallet_list(request):
     utr = request.GET.get('utr', None)
     if utr:
         wallets = wallets.filter(utr__icontains=utr)
+    status = request.GET.get('status', None)
+    if status:
+        wallets = wallets.filter(status=status)
 
-    paginator = Paginator(wallets, 100)  # Show 25 contacts per page.
+    paginator = Paginator(wallets, 100)  # Show 100 contacts per page.
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
+    # Get existing parameters
+    existing_params = request.GET.copy()  # Make a copy of the GET parameters
+    if 'page' in existing_params.keys(): 
+        existing_params.pop('page')
+
     context = {
         "title": "Wallets",
-        "wallets": page_obj
+        "wallets": page_obj,
+	"existing_params": existing_params
     }
     return  render(request, 'wallet/list.html', context)
 

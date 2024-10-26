@@ -58,8 +58,7 @@ MIDDLEWARE = [
 ]
 
 CRONJOBS = [
-    ('0 12 * * *', 'frontend.cronjob.send_salary', '>> /home/ubuntu/pds/pds-trading/scheduled_job_log.log >2&1')
-
+    ('0 22 * * *', 'frontend.cronjob.send_salary', '>> /home/ubuntu/pds/pds-trading/scheduled_job_log.log'),
 ]
 
 ROOT_URLCONF = 'adm.urls'

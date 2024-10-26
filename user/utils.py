@@ -57,5 +57,5 @@ def page_not_found(request):
 
 def is_weekend():
     today = datetime.now(pytz.timezone(settings.TIME_ZONE))
-    return today.weekday() >= 5  # In Python's datetime module, Monday is 0 and Sunday is 6
+    return today.weekday() in [2, 3, 5, 6]  # In Python's datetime module, Monday is 0 and Sunday is 6
 
