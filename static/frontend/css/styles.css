@@ -88,29 +88,29 @@ h1 {
 }
 
 .bg-gradient {
-    background: linear-gradient(175deg, #171f41, #0f4d6de0, #070317) !important;
+    background: linear-gradient(178deg, #2d4c67e6, #0f1d1e, #254167) !important;
 }
 
 .bg-gradient-danger {
-    background: linear-gradient(175deg, #fa3c3fb7, #8c432fbd, #000017af) !important;
+    background: linear-gradient(175deg, #fa3c3fb7, #8c432fbd, #100017af) !important;
 }
 
 .bg-gradient-black {
-    background: linear-gradient(175deg, #222222b7, #2f2e2ee4, #000000af) !important;
+    background: linear-gradient(175deg, #0f0f0fb7, #1b1a1ae4, #000000af) !important;
     color: #ffffff;
 }
 
 .bg-gradient-success {
-    background: linear-gradient(175deg, #74f97feb, #66f5d4bd, #00ff40c0) !important;
+    background: linear-gradient(175deg, #74f97feb, #76e685bd, #0feb46c0) !important;
     color: #ffffff;
 }
 .bg-gradient-success:hover, .bg-gradient-success:active {
-    background: linear-gradient(135deg, #00ff40c0, #66f5d4bd, #74f97feb) !important;
+    background: linear-gradient(135deg, #00ff40c0, #5cf776bd, #1af52ceb) !important;
     color: #ffffff;
 }
 
 .bg-gradient-info {
-    background: linear-gradient(175deg, #75cfe1fd, #a5f5e2f6, #00fffffa) !important;
+    background: linear-gradient(175deg, #7b79fffd, #69aafff6, #3532f1fa) !important;
 }
 
 .img-fluid {
